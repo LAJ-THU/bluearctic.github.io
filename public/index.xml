@@ -9,18 +9,18 @@
     <lastBuildDate>Wed, 07 Jan 2026 20:25:49 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About Me</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Wed, 07 Jan 2026 20:25:49 +0800</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;-你好-hello&#34;&gt;👋 你好 (Hello)&lt;/h2&gt;&#xA;&lt;p&gt;我是 &lt;strong&gt;刘安吉&lt;/strong&gt;，一名专注于 &lt;strong&gt;结构生物学&lt;/strong&gt; 与 &lt;strong&gt;AI4S (AI for Science)&lt;/strong&gt; 交叉领域的博士研究生。&#xA;我对利用深度学习（如 AlphaFold, RFdiffusion）解决蛋白质设计与结构预测问题充满热情。目前，我正在维护一个关于蛋白质设计的公众号，并致力于开发本地化的 AI 预测流程。&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/files/my_cv.pdf&#34;&gt;📥 下载我的完整简历 (PDF)&lt;/a&gt; &amp;mdash;&lt;/p&gt;&#xA;&lt;h2 id=&#34;教育背景-education&#34;&gt;教育背景 (Education)&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;清华大学 (Tsinghua University)&lt;/strong&gt; | 博士生在读 (Ph.D. Candidate)&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;生物学 (Biological Science)* | &lt;em&gt;2022 - 至今&lt;/em&gt;&lt;/li&gt;&#xA;&lt;li&gt;研究方向：基于深度学习的蛋白从头设计 / 多肽设计&lt;/li&gt;&#xA;&lt;li&gt;核心技能：针对蛋白质设计任务，熟练掌握 RFdiffusion, ProteinMPNN, AlphaFold3 等工具。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;上海科技大学 (ShanghaiTech University)&lt;/strong&gt; | 本科 (B.S.)&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;生物医学工程 (Biomedical Engineering)* | &lt;em&gt;2018 - 2022&lt;/em&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-研究兴趣-research-interests&#34;&gt;🔬 研究兴趣 (Research Interests)&lt;/h2&gt;&#xA;&lt;p&gt;我关注 &lt;strong&gt;结构生物学 × 人工智能（AI4S, AI for Science）&lt;/strong&gt; 的交叉问题，核心目标是：&lt;br&gt;&#xA;&lt;strong&gt;利用深度学习模型理解并“设计”蛋白质结构与功能，而不仅仅是预测。&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>My First Post</title>
       <link>http://localhost:1313/posts/my-first-post/</link>
       <pubDate>Wed, 07 Jan 2026 20:25:49 +0800</pubDate>
       <guid>http://localhost:1313/posts/my-first-post/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;This is &lt;strong&gt;bold&lt;/strong&gt; text, and this is &lt;em&gt;emphasized&lt;/em&gt; text.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>About Me</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>
