@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>蓝极：看到极地的那抹蓝 on 蓝极 BlueArctic</title>
+    <link>http://localhost:1313/zh/</link>
+    <description>Recent content in 蓝极：看到极地的那抹蓝 on 蓝极 BlueArctic</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 07 Jan 2026 20:25:49 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我是谁</title>
+      <link>http://localhost:1313/zh/about/</link>
+      <pubDate>Wed, 07 Jan 2026 20:25:49 +0800</pubDate>
+      <guid>http://localhost:1313/zh/about/</guid>
+      <description>&lt;div style=&#34;display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 40px; background: #f9f9f9; padding: 20px; border-radius: 10px;&#34;&gt;&#xA;    &lt;div style=&#34;flex: 0 0 160px;&#34;&gt;&#xA;        &lt;img src=&#34;images/me_at_Busan.JPG&#34; style=&#34;width: 100%; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);&#34;&gt;&#xA;        &lt;div style=&#34;margin-top: 15px; text-align: center;&#34;&gt;&#xA;             &lt;a href=&#34;https://github.com/LAJ-THU&#34; target=&#34;_blank&#34; style=&#34;text-decoration: none; margin-right: 10px;&#34;&gt;&#xA;                &lt;img src=&#34;https://img.shields.io/badge/GitHub-LAJ--THU-181717?style=flat&amp;logo=github&#34; alt=&#34;GitHub&#34;&gt;&#xA;            &lt;/a&gt;&#xA;            &lt;a href=&#34;mailto:andyliu0121@qq.com&#34; style=&#34;text-decoration: none;&#34;&gt;&#xA;                &lt;img src=&#34;https://img.shields.io/badge/Email-Contact-blue?style=flat&amp;logo=gmail&#34; alt=&#34;Email&#34;&gt;&#xA;            &lt;/a&gt;&#xA;        &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div style=&#34;flex: 1;&#34;&gt;&#xA;        &lt;h2 style=&#34;margin-top: 0; margin-bottom: 10px; border-bottom: none;&#34;&gt;刘安吉 (Andy Liu)&lt;/h2&gt;&#xA;        &lt;p style=&#34;color: #666; font-weight: bold; margin-bottom: 15px;&#34;&gt;&#xA;            清华大学 结构生物学博士生 | AI4S 开发者&#xA;        &lt;/p&gt;&#xA;        &lt;p style=&#34;font-size: 15px; line-height: 1.6;&#34;&gt;&#xA;            你好！我是一名游走在 &lt;b&gt;“湿实验”&lt;/b&gt; 与 &lt;b&gt;“干实验”&lt;/b&gt; 边缘的探索者。&#xA;            &lt;br&gt;&#xA;            我的核心目标是利用深度学习模型（AlphaFold, RFdiffusion）理解并“设计”蛋白质结构与功能。&#xA;        &lt;/p&gt;&#xA;        &lt;p style=&#34;margin-top: 20px;&#34;&gt;&#xA;            &lt;a href=&#34;files/my_cv.pdf&#34; style=&#34;background-color: #24292e; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; font-size: 14px; display: inline-block;&#34;&gt;&#xA;                📥 下载完整简历 (PDF)&#xA;            &lt;/a&gt;&#xA;        &lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

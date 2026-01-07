@@ -1,23 +1,75 @@
 baseURL = 'https://bluearctic.top/'
 languageCode = 'en-us'
-title = 'BlueArctic Home'
+title = 'BlueArctic'
 theme = 'ananke'
+defaultContentLanguage = 'en'
 
-[menu]
-  [[menu.main]]
-    identifier = "about"
-    name = "About / CV"  
-    url = "/about/"
+# 2. 社交链接 (会显示在每个页面底部)
+[params]
+  github = "https://github.com/LAJ-THU"
+
+# 2. 关键配置：允许 HTML 渲染（必须放在这里）
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# 3. 双语与菜单配置核心区
+[languages]
+  # --- 英文版设置 ---
+  [languages.en]
+    languageName = "English"
+    title = "BlueArctic"  # 左上角显示的网站名(建议短一点)
     weight = 1
+    contentDir = "content"
 
-  [[menu.main]]
-    identifier = "posts"
-    name = "AI4S Tutorials" 
-    url = "/post/"
+    # 英文菜单 (5个栏目)
+    [[languages.en.menu.main]]
+      name = "About Me"
+      url = "/about/"
+      weight = 10
+    [[languages.en.menu.main]]
+      name = "Projects"
+      url = "/projects/"
+      weight = 20
+    [[languages.en.menu.main]]
+      name = "AI4S Literature"
+      url = "/literature/"
+      weight = 30
+    [[languages.en.menu.main]]
+      name = "AI4S Tutorial"
+      url = "/tutorial/"
+      weight = 40
+    [[languages.en.menu.main]]
+      name = "My Whisper"
+      url = "/whisper/"
+      weight = 50
+
+  # --- 中文版设置 ---
+  [languages.zh]
+    languageName = "中文"
+    title = "蓝极 BlueArctic" # 左上角显示的网站名
     weight = 2
+    languageCode = "zh-cn"
 
-  [[menu.main]]
-    identifier = "github"
-    name = "GitHub"      
-    url = "https://github.com/LAJ-THU"
-    weight = 3
+    # 中文菜单 (对应上面的5个，但显示中文)
+    [[languages.zh.menu.main]]
+      name = "我是谁"
+      url = "/zh/about/"
+      weight = 10
+    [[languages.zh.menu.main]]
+      name = "我做过什么"
+      url = "/zh/projects/"
+      weight = 20
+    [[languages.zh.menu.main]]
+      name = "文献解读"
+      url = "/zh/literature/"
+      weight = 30
+    [[languages.zh.menu.main]]
+      name = "AI4S 教程"
+      url = "/zh/tutorial/"
+      weight = 40
+    [[languages.zh.menu.main]]
+      name = "蓝极呢喃"
+      url = "/zh/whisper/"
+      weight = 50
