@@ -1,0 +1,23 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'BlueArctic Home'
+theme = 'ananke'
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About / CV"  
+    url = "/about/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "AI4S Tutorials" 
+    url = "/post/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"      
+    url = "https://github.com/LAJ-THU"
+    weight = 3
