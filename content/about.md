@@ -2,7 +2,7 @@
 title: "About Me"
 date: '2026-01-07T20:25:49+08:00'
 draft: false
-featured_image: "/images/me_at_Busan.JPG" 
+featured_image: "../static/images/me_at_Busan.JPG" 
 description: "Ph.D. Student in Structural Biology & AI4S Enthusiast"
 ---
 
@@ -11,7 +11,7 @@ description: "Ph.D. Student in Structural Biology & AI4S Enthusiast"
 我是 **刘安吉**，一名专注于 **结构生物学** 与 **AI4S (AI for Science)** 交叉领域的博士研究生。
 我对利用深度学习（如 AlphaFold, RFdiffusion）解决蛋白质设计与结构预测问题充满热情。目前，我正在维护一个关于蛋白质设计的公众号，并致力于开发本地化的 AI 预测流程。
 
-[📥 下载我的完整简历 (PDF)](/files/my_cv.pdf) ---
+[📥 下载我的完整简历 (PDF)](/Users/liuanji/Desktop/website/ananke_web/content/static/files/my_cv.pdf) ---
 
 ## 教育背景 (Education)
 
