@@ -2,13 +2,13 @@
 title: "我是谁"
 date: '2026-01-07T20:25:49+08:00'
 draft: false
-featured_image: "images/me_at_Busan.JPG" 
+featured_image: "/images/me_at_Busan.JPG" 
 description: "清华大学结构生物学博士生 | AI4S 爱好者"
 ---
 
 <div style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 40px; background: #f9f9f9; padding: 20px; border-radius: 10px;">
     <div style="flex: 0 0 160px;">
-        <img src="images/me_at_Busan.JPG" style="width: 100%; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <img src="/images/me_at_Hangzhou.JPG" style="width: 100%; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
         <div style="margin-top: 15px; text-align: center;">
              <a href="https://github.com/LAJ-THU" target="_blank" style="text-decoration: none; margin-right: 10px;">
                 <img src="https://img.shields.io/badge/GitHub-LAJ--THU-181717?style=flat&logo=github" alt="GitHub">

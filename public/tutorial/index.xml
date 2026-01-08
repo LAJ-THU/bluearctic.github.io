@@ -6,6 +6,14 @@
     <description>Recent content in AI4S Tutorials on BlueArctic</description>
     <generator>Hugo</generator>
     <language>en</language>
+    <lastBuildDate>Fri, 09 Jan 2026 00:00:00 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI for Proteins: 工具那么多，我究竟该用哪个？蓝极的完整清单</title>
+      <link>http://localhost:1313/tutorial/tamarind/</link>
+      <pubDate>Fri, 09 Jan 2026 00:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/tutorial/tamarind/</guid>
+      <description>一份系统梳理 AI4S 工具的实用指南。</description>
+    </item>
   </channel>
 </rss>
