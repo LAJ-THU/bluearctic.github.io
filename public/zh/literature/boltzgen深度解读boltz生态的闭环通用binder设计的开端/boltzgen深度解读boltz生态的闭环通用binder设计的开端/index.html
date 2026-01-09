@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？ | 蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta property="og:description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+    <meta property="article:published_time" content="2025-01-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-01-09T00:00:00+00:00">
+
+  <meta itemprop="name" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta itemprop="description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+  <meta itemprop="datePublished" content="2025-01-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-01-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="682">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta name="twitter:description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  
+  
+  
+  <header class="cover bg-center" style="background-image: url('http://localhost:1313/cover.jpg');">
+    <div class="bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <div class="f2 f1-l fw2 white-90 mb0 lh-title">BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？</div>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？
+      </h1>
+
+      
+
+      
+      <time class="f6 mv4 dib tracked"
+            datetime="2025-01-09T00:00:00Z">
+        一月 9, 2025
+      </time>
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <blockquote>
+<p>蓝极说：</p>
+<p>在生成式生物设计领域，<strong>Boltz 系列</strong>始终是最值得关注的技术谱系。</p>
+<p>从 Boltz-1 的多模态预测，到 Boltz-2 的能量推理，再到如今的 <strong>BoltzGen</strong> ——</p>
+<p>这一系列模型正一步步把结构生物学从“理解自然”推进到“创造自然”。</p>
+<p>今天介绍的，也是刚刚发表的BoltzGen这篇论文是整个生态体系的关键一环，它不再仅仅预测结构，而是<strong>生成符合物理规律、可在实验中成立的分子</strong>。</p>
+<p>在本文中，我们将沿着论文的脉络，结合架构图与实验结果，系统梳理 BoltzGen 的技术逻辑与科学意义。</p>
+</blockquote>
+<p><img src="images/image-14.png" alt=""></p>
+<hr>
+<h2 id="一引言从-boltz-系列到通用生成模型"><strong>一、引言：从 Boltz 系列到通用生成模型</strong></h2>
+<p>过去三年中，Boltz 系列工作一直是结构生物学与生成式建模领域的技术焦点。自 2024 年发布的 <strong>Boltz-1</strong> 起，这一系列模型不断拓展人工智能在原子尺度下理解和生成生物分子的能力，其发展脉络几乎完整地勾勒了“从结构预测到结构创造”的演化路线。</p>
+<p>《BoltzGen: Toward Universal Binder Design》正是在这些限制上给出了系统性回答。该研究由 MIT、Boltz、NVIDIA 等团队联合完成，提出了一个<strong>统一的全原子生成模型（all-atom generative model）</strong>，能在同一个框架下完成蛋白质、肽、小分子、核酸等多模态靶标的<strong>结合体设计（binder design）</strong>。</p>
+<p><img src="images/image-13.png" alt=""></p>
+<p>在过去两年里，Boltz 系列工作几乎贯穿了生成式蛋白质建模的主线。这一系列模型并非简单的迭代，而是在不断回答同一个核心问题：</p>
+<blockquote>
+<p>“如何让深度学习模型在全原子尺度上理解、预测并创造生物分子结构？”</p>
+</blockquote>
+<p><strong>Boltz-1</strong> 是这一系列的起点。Boltz-1 使用扩散模型（diffusion model）在全原子尺度上预测蛋白质、RNA、DNA 及小分子复合体的三维结构，其准确性在多个基准任务上接近甚至超越 AlphaFold3。它的最大贡献在于——<strong>统一建模多种分子模态</strong>，让不同类型的生物复合物在同一网络中被共同建模。</p>
+<p><img src="images/image-10.png" alt=""></p>
+<p><img src="images/image-12.png" alt=""></p>
+<p><img src="images/image-6.png" alt=""></p>
+<p><strong>Boltz-2</strong> 则在此基础上进一步扩展模型能力，引入能量相关输出模块（energy head），使网络不仅能预测复合体的空间结构，还能直接估计<strong>结合亲和力（binding affinity）</strong>。这一改进使 Boltz 系列首次具备“结构–能量双通道”的联合推理能力，让模型在结构预测之外，也能评估分子相互作用的强弱。</p>
+<p><img src="images/image-7.png" alt=""></p>
+<p><img src="images/image-5.png" alt=""></p>
+<p>然而，可以看到，无论是 Boltz-1 还是 Boltz-2，它们都仍然属于<strong>预测范式（predictive paradigm）</strong>：给定输入序列或结构，模型计算其最可能的三维排布。这类模型能够解释自然结构，却无法主动生成新的结合体。</p>
+<p><strong>BoltzGen</strong> 的出现正是在这一背景下完成的范式跃迁。作者将其定义为一个<strong>通用的全原子生成模型（all-atom generative model）</strong>，能够在同一框架下完成多模态的 binder 设计任务。不同于前代模型只做“推断”，BoltzGen 直接在扩散采样过程中<strong>生成目标分子与其结合体的全原子结构</strong>，并通过可控约束机制确保生成结果物理一致、功能可实现。</p>
+<p>论文提出了三个核心目标：</p>
+<ol>
+<li>
+<p><strong>统一建模</strong>：在一个体系中同时执行结构预测与生成任务；</p>
+</li>
+<li>
+<p><strong>全模态覆盖</strong>：支持蛋白质、核酸、小分子、环肽等多种设计场景；</p>
+</li>
+<li>
+<p><strong>实验闭环验证</strong>：通过 8 个方向、26 个靶标的湿实验，验证生成结果的可行性。</p>
+</li>
+</ol>
+<p>原文链接：https://hannes-stark.com/assets/boltzgen.pdf</p>
+<hr>
+<h2 id="二实验结果概览wetlab-results-summary"><strong>二、实验结果概览（Wetlab Results Summary）</strong></h2>
+<p>BoltzGen 的一个突出特点，是它并非停留在计算层面的生成验证，而是进行了系统的湿实验评估。</p>
+<p>作者在论文第二章中总结了十类实验任务，涵盖 <strong>蛋白质、肽类、环肽、小分子结合体及抗菌肽设计</strong> 等多种体系，</p>
+<p>几乎囊括了现有结构设计模型所能覆盖的全部生物模态。</p>
+<p>这些实验的共同目标，是检验模型能否在“<strong>无同源模板、真实实验条件</strong>”下生成可表达、可结合的结构。</p>
+<p>不同于以往只验证折叠精度的预测模型，BoltzGen 的验证标准是<strong>功能实现</strong>——</p>
+<p>即所生成分子是否能在实验中稳定结合目标。</p>
+<hr>
+<h3 id="21-设计任务总览"><strong>2.1 设计任务总览</strong></h3>
+<p>论文共展示了 <strong>10 个主要实验方向</strong>（Section 2.1–2.10），其中包括：</p>
+<p><img src="images/image-9.png" alt=""></p>
+<p><img src="images/image-11.png" alt=""></p>
+<p>这些任务覆盖了从高序列复杂度的抗体到短肽与小分子的全范围设计空间。其中相当一部分目标（例如 RagC GTPase、Penguinpox 表面蛋白）此前并无可用结构模板，属于真正意义上的<strong>de novo</strong> 设计。</p>
+<hr>
+<h3 id="22-实验验证方式"><strong>2.2 实验验证方式</strong></h3>
+<p>每类任务都通过两类实验结果进行评估：</p>
+<ol>
+<li>
+<p><strong>结合实验（binding assays）</strong>：检测生成结构是否能与目标结合；</p>
+</li>
+<li>
+<p><strong>表达与稳定性检测（expression &amp; stability）</strong>：验证生成蛋白的可表达性和可溶性。</p>
+</li>
+</ol>
+<p>部分任务进一步通过表面等离子体共振（SPR）和免疫印迹实验（Western blot）确认了结合特性，</p>
+<p>并在论文中提供了测得的亲和常数（KD）与结合能分布。</p>
+<hr>
+<h3 id="23-关键结果与成功率"><strong>2.3 关键结果与成功率</strong></h3>
+<p>BoltzGen 的实验结果显示出较高的一致性与通用性：</p>
+<ul>
+<li>
+<p>在 26 个实验靶标中，有超过 <strong>60% 的生成候选在实验中表现出结合活性</strong>；</p>
+</li>
+<li>
+<p>模型生成的肽类与蛋白 binder 均表现出良好的可表达性（多数 &gt;80% 可溶性）；</p>
+</li>
+<li>
+<p>环肽和抗菌肽任务中，多个样本在无模板条件下仍能正确形成环化结构；</p>
+</li>
+<li>
+<p>小分子结合蛋白任务中，生成结果的结合构象与已知复合物 RMSD &lt; 2.5 Å。</p>
+</li>
+</ul>
+<hr>
+<h3 id="24-通用性与外推性"><strong>2.4 通用性与外推性</strong></h3>
+<p>论文作者特别强调 BoltzGen 的<strong>泛化性（generalization）</strong>。</p>
+<p>所有任务均在训练集未覆盖的目标上进行，即模型<strong>未见过这些序列或结构</strong>。即便如此，它仍能生成稳定的结合体，这说明模型并非简单的记忆系统，而是学会了在物理一致空间中进行合理的结构采样。</p>
+<p>此外，BoltzGen 的输入可跨模态组合：</p>
+<p>蛋白–RNA、蛋白–小分子、蛋白–肽等任务使用相同的推理管线，这在以往的生成框架中尚属首次。</p>
+<hr>
+<h3 id="25-小结"><strong>2.5 小结</strong></h3>
+<p>这一部分的实验结果验证了 BoltzGen 的两项核心主张：</p>
+<ol>
+<li>
+<p><strong>统一性</strong>：单一模型可在多模态任务中执行生成；</p>
+</li>
+<li>
+<p><strong>物理可行性</strong>：生成结果在真实实验中表现出高结合率与可表达性。</p>
+</li>
+</ol>
+<p>它标志着生成式生物设计首次跨越“计算验证”与“实验验证”的边界。</p>
+<hr>
+<h2 id="三方法method"><strong>三、方法（Method）</strong></h2>
+<p>BoltzGen 的方法设计承接了 Boltz 系列一贯的目标——在统一的几何表示与能量空间中，学习多模态分子的物理规律。与以往的预测模型不同，BoltzGen 并不输出单一结构预测，而是通过扩散建模（diffusion modeling）<strong>直接生成</strong>分子的全原子坐标。</p>
+<p><img src="images/image-2.png" alt=""></p>
+<p>论文的方法部分由五个部分组成：</p>
+<p><strong>3.1 全原子生成建模 → 3.2 模型架构 → 3.3 训练 → 3.4 生成过程 → 3.5 BoltzGen Pipeline</strong>。</p>
+<p>它们共同构成了一个端到端的物理一致生成体系。</p>
+<hr>
+<h3 id="31-全原子生成建模all-atom-generative-model-formulation"><strong>3.1 全原子生成建模（All-atom Generative Model Formulation）</strong></h3>
+<p>BoltzGen 采用扩散模型（diffusion model）框架，在<strong>全原子坐标空间</strong>中学习分子结构的分布。模型通过在每个采样步骤中向原子坐标加入高斯噪声，再逐步去噪恢复，从而近似真实的势能面分布。</p>
+<p>与传统的分子生成模型（如仅在残基层面建模）不同，BoltzGen 的每个采样变量都是具体原子的位置向量。模型通过能量一致性约束（energy consistency）学习键长、键角、二面角等局部几何关系，从而在生成时自动保持化学合理性。这里对于全原子建模采用了Atom14的方法，也是之前讲过的文章Pallatom中提到的。</p>
+<p><img src="images/image-4.png" alt=""></p>
+<p>这一设计使生成结构不仅在形状上接近真实蛋白，在能量上也符合分子物理规律——即 <strong>Boltzmann-like sampling</strong> 的思想。</p>
+<hr>
+<h3 id="32-模型架构architecture"><strong>3.2 模型架构（Architecture）</strong></h3>
+<p>BoltzGen 的架构如图所示，由三大模块组成：</p>
+<p><strong>输入层（Input Representation）</strong>、<strong>条件编码器（Condition Encoder）</strong>、<strong>扩散模型（Diffusion Model）</strong>，输出为三维坐标的全原子结构。</p>
+<p><img src="images/image-3.png" alt=""></p>
+<hr>
+<h4 id="1输入层input-representation"><strong>（1）输入层（Input Representation）</strong></h4>
+<p>输入由两部分构成(<span style="color: inherit; background-color: rgba(255,246,122,0.8)">左侧黄色方框</span>）：</p>
+<ul>
+<li>
+<p><strong><span style="color: inherit; background-color: rgba(186,206,253,0.7)">Target Representation（目标分子）</span></strong>：目标结构的原子特征（元素、电荷、位点约束等）；</p>
+</li>
+<li>
+<p><strong><span style="color: inherit; background-color: rgba(254,212,164,0.8)">Design Representation（待生成分子）</span></strong>：输入为空或部分遮蔽结构，代表设计目标。</p>
+</li>
+</ul>
+<p>此外，模型可接收多种<strong>可选输入条件（Optional Inputs，</strong><span style="color: inherit; background-color: rgba(255,246,122,0.8)">上侧黄色方框</span>）包括：</p>
+<ul>
+<li>
+<p>结合位点约束（binding site mask）</p>
+</li>
+<li>
+<p>二级结构模板（helix/sheet/loop）</p>
+</li>
+<li>
+<p>共价键与环化约束（disulfide/cyclization bonds）</p>
+</li>
+<li>
+<p>小分子或核酸配体的化学键约束</p>
+</li>
+</ul>
+<p>这些条件共同定义生成任务的上下文，</p>
+<p>使模型能在同一架构下完成 folding、binding、scaffolding 等任务。</p>
+<hr>
+<h4 id="2条件编码器condition-encoder"><strong>（2）条件编码器（Condition Encoder）</strong></h4>
+<p><img src="images/image.png" alt=""></p>
+<p>Condition Encoder 是 BoltzGen 的核心。它将目标与设计的原子特征映射为统一的几何表征，通过 <strong>token-level</strong> 与 <strong>pair-level</strong> transformer 捕捉分子间空间关系。</p>
+<p>这一过程建立了目标–设计之间的几何联系，使模型能够理解“谁与谁结合、在何处结合”。</p>
+<p>这种结构让预测与生成共享同一编码机制：</p>
+<p>同样的架构既可解释现有结构，也能生成新结构。</p>
+<hr>
+<h4 id="3扩散模型diffusion-model"><strong>（3）扩散模型（Diffusion Model）</strong></h4>
+<p><img src="images/image-8.png" alt=""></p>
+<p>Diffusion Model 在全原子坐标上执行迭代去噪。</p>
+<p>每一轮采样包括：</p>
+<ul>
+<li>
+<p>将设计分子的原子坐标加入噪声；</p>
+</li>
+<li>
+<p>通过 Transformer 模块预测噪声并修正坐标；</p>
+</li>
+<li>
+<p>与条件编码器的上下文交互，确保几何一致性；</p>
+</li>
+<li>
+<p>重复采样 N 次直到收敛。</p>
+</li>
+</ul>
+<p>最终输出的原子坐标通过 Atom14 模式映射为残基结构(Output模块）。</p>
+<hr>
+<h3 id="33-训练training"><strong>3.3 训练（Training）</strong></h3>
+<p>BoltzGen 使用联合任务采样（Joint Task Sampling）训练策略。</p>
+<p>训练时，模型随机抽取不同任务模式，并对部分输入区域施加遮蔽：</p>
+<ul>
+<li>
+<p><strong>Folding</strong>：从序列还原结构；</p>
+</li>
+<li>
+<p><strong>Binding design</strong>：生成结合体；</p>
+</li>
+<li>
+<p><strong>Motif scaffolding</strong>：在模板中补全结构；</p>
+</li>
+<li>
+<p><strong>Unconditional design</strong>：无条件生成。</p>
+</li>
+</ul>
+<p>所有任务共享模型参数与损失函数，通过统一的扩散目标学习通用的几何与物理规律。这种多任务联合训练使模型在推理阶段能够自然地切换任务，不需要专门的 fine-tuning。</p>
+<hr>
+<h3 id="34-生成过程generation"><strong>3.4 生成过程（Generation）</strong></h3>
+<p>推理阶段与训练过程相同，但不反向传播。</p>
+<p>用户可以自由组合输入条件：</p>
+<ul>
+<li>
+<p>若输入提供完整序列 → 模型执行 <strong>folding</strong>；</p>
+</li>
+<li>
+<p>若输入提供结合位点与目标结构 → 执行 <strong>binder design</strong>；</p>
+</li>
+<li>
+<p>若输入包含结构模板 → 执行 <strong>scaffolding</strong>。</p>
+</li>
+</ul>
+<p>模型通过迭代采样（reinject noise）逐步收敛至平衡结构，并输出符合约束的全原子坐标。</p>
+<p>最终的结构可直接进入下游流程（BoltzIF 重设计、Boltz-2 亲和力预测等）。</p>
+<hr>
+<h3 id="35-boltzgen-pipeline"><strong>3.5 BoltzGen Pipeline</strong></h3>
+<p><img src="images/image-1.png" alt=""></p>
+<p>BoltzGen 在论文中被定义为“Boltz生态的生成引擎”。</p>
+<p>整个流程包括：</p>
+<ol>
+<li>
+<p><strong>BoltzGen</strong>：从任意输入生成全原子结构；</p>
+</li>
+<li>
+<p><strong>BoltzIF</strong>：在生成骨架上进行序列重设计（inverse folding）；</p>
+</li>
+<li>
+<p><strong>Boltz-2</strong>：预测结合能与稳定性；</p>
+</li>
+<li>
+<p><strong>分析与筛选（Analyze &amp; Filter）</strong>：根据亲和力、溶解性等指标筛选最佳候选。</p>
+</li>
+</ol>
+<p>这一流程构成了完整的 <strong>生成–重设计–验证</strong> 一体化闭环。BoltzGen 是其中的起点，也是最核心的部分。</p>
+<hr>
+<h3 id="36-小结"><strong>3.6 小结</strong></h3>
+<p>BoltzGen 的方法设计以“统一性”为核心：</p>
+<ul>
+<li>
+<p>同一扩散框架可处理不同模态与任务；</p>
+</li>
+<li>
+<p>同一条件编码器支撑预测与生成；</p>
+</li>
+<li>
+<p>同一物理能量空间保证输出结构的合理性。</p>
+</li>
+</ul>
+<hr>
+<h2 id="四实验细节与代表性案例detailed-wetlab-results"><strong>四、实验细节与代表性案例（Detailed Wetlab Results）</strong></h2>
+<p>BoltzGen 的核心价值，不仅在于提出了统一的生成框架，更在于它实现了<strong>从算法到实验的真实闭环</strong>。</p>
+<p>作者在论文第 4 章展示了 9 大类湿实验验证，覆盖了从蛋白–蛋白结合、环肽设计到小分子和抗菌肽设计等多种类型。</p>
+<p>这些实验均在<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">未见过的目标结构</span></strong>上进行，验证了模型的外推性与生物可行性。</p>
+<hr>
+<h3 id="41-nanobody-与蛋白设计designing-nanobodies-and-proteins-against-novel-targets"><strong>4.1 Nanobody 与蛋白设计（Designing Nanobodies and Proteins Against Novel Targets）</strong></h3>
+<p>BoltzGen 的第一个实验系列聚焦于蛋白质与纳米抗体（nanobody）的结合设计。</p>
+<p>研究者选择了 9 个未在训练集中出现的新靶标，包括多种膜蛋白、受体复合物与病毒相关抗原。</p>
+<ul>
+<li>
+<p><strong>设计策略</strong>：</p>
+<ul>
+<li>
+<p>模型输入为目标蛋白结构（target），并在其表面定义潜在结合位点（binding site mask）。</p>
+</li>
+<li>
+<p>BoltzGen 在该约束下直接生成 binder 的全原子结构。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>验证方式</strong>：</p>
+<ul>
+<li>
+<p>所有生成的 binder 均进行了细胞表达与纯化检测。结合活性通过 SPR 实验测量亲和常数（KD），</p>
+</li>
+<li>
+<p>部分样本进一步通过冷冻电镜验证结合构象。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>实验结果</strong>：</p>
+<ul>
+<li>
+<p>超过一半的设计体显示出明确结合信号，其中部分 KD 达到纳摩尔级（nM range）。</p>
+</li>
+<li>
+<p>这表明模型在无模板条件下能够设计出具有实际结合能力的蛋白分子。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-25.png" alt=""></p>
+<p><img src="images/image-24.png" alt=""></p>
+<p><img src="images/image-26.png" alt=""></p>
+<p><img src="images/image-20.png" alt=""></p>
+<p>作者特别强调，这些任务中约有三分之二的靶标<strong>在训练集中无同源结构</strong>，说明 BoltzGen 并非模板记忆，而是具备泛化生成能力。</p>
+<hr>
+<h3 id="42-肽与无序区结合设计designing-peptides-for-disordered-or-specific-sites"><strong>4.2 肽与无序区结合设计（Designing Peptides for Disordered or Specific Sites）</strong></h3>
+<p>第二类实验任务聚焦于短肽（linear peptide）与无序结构区（disordered region）的结合体设计。</p>
+<p>这类任务长期被视为结构生成的难点，因为结合界面通常缺乏稳定模板。</p>
+<ul>
+<li>
+<p><strong>任务目标</strong>：</p>
+<ul>
+<li>
+<p>设计能够结合 NPM1 无序区、RagC GTPase 特定位点的多肽。</p>
+</li>
+<li>
+<p>模型输入目标结构及关键结合位点约束。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>模型表现</strong>：</p>
+<ul>
+<li>
+<p>生成的肽段在合成与体外测试中均显示出特异性结合；</p>
+</li>
+<li>
+<p>实验中确认多个样本能稳定结合目标蛋白，并诱导构象变化。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>意义</strong>：</p>
+<ul>
+<li>这一结果表明，BoltzGen 不仅能处理刚性结合界面，也能在<strong>柔性结合体系</strong>中保持生成的几何合理性。</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-21.png" alt=""></p>
+<p><img src="images/image-28.png" alt=""></p>
+<hr>
+<h3 id="43-环肽与二硫键约束设计designing-disulfide-bonded-or-cyclized-peptides"><strong>4.3 环肽与二硫键约束设计（Designing Disulfide Bonded or Cyclized Peptides）</strong></h3>
+<p>BoltzGen 支持在输入阶段添加化学键约束（disulfide bond / cyclization bond），</p>
+<p>这使模型能直接生成闭合的肽环或具有二硫桥的结构。</p>
+<ul>
+<li>
+<p><strong>实验任务</strong>：</p>
+<ul>
+<li>
+<p>设计能结合 RagA:RagC 复合物的环肽。</p>
+</li>
+<li>
+<p>输入中明确指定了两个半胱氨酸的配对关系。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>结果</strong>：</p>
+<ul>
+<li>
+<p>模型在采样过程中自动生成符合环化几何的肽段。</p>
+</li>
+<li>
+<p>合成实验确认部分设计样本形成稳定的环肽结构，</p>
+</li>
+<li>
+<p>且在 SPR 测试中表现出高于线性肽的结合亲和力。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>亮点</strong>：</p>
+<ul>
+<li>
+<p>这是首个在扩散模型框架下实现“结构环化控制”的工作，</p>
+</li>
+<li>
+<p>验证了 BoltzGen 的 <strong>可编程约束生成能力</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-27.png" alt=""></p>
+<p><img src="images/image-23.png" alt=""></p>
+<hr>
+<h3 id="44-小分子结合蛋白设计designing-proteins-that-bind-small-molecules"><strong>4.4 小分子结合蛋白设计（Designing Proteins That Bind Small Molecules）</strong></h3>
+<p>小分子结合蛋白设计（protein–small molecule binding）是评估模型物理准确性的关键。</p>
+<p>BoltzGen 的生成能力在此类任务中表现尤为突出。</p>
+<ul>
+<li>
+<p><strong>设计方式</strong>：</p>
+<ul>
+<li>
+<p>模型输入为小分子结构及结合位点信息（通过 DSL 描述共价键或相互作用约束）。</p>
+</li>
+<li>
+<p>生成的蛋白结合口袋在几何上完全由模型推断，无模板参与。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>结果</strong>：</p>
+<ul>
+<li>
+<p>在多个小分子任务中，BoltzGen 生成的结合口袋与参考复合物结构的 RMSD 低于 2.5 Å。</p>
+</li>
+<li>
+<p>其中部分生成结果在体外实验中确实能与目标小分子结合。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-22.png" alt=""></p>
+<p><img src="images/image-19.png" alt=""></p>
+<p>这说明 BoltzGen 已具备跨模态建模能力，能够在同一网络中处理蛋白–小分子、蛋白–肽等不同层次的相互作用。</p>
+<hr>
+<h3 id="45-抗菌肽设计designing-antimicrobial-peptides-that-inhibit-gyragyra-interaction"><strong>4.5 抗菌肽设计（Designing Antimicrobial Peptides That Inhibit GyrA–GyrA Interaction）</strong></h3>
+<p>在最后一类实验中，作者验证了 BoltzGen 在抗菌肽设计任务中的表现。</p>
+<p>模型目标是生成可抑制细菌 DNA 拓扑异构酶 GyrA–GyrA 相互作用的短肽。</p>
+<ul>
+<li>
+<p><strong>任务描述</strong>：</p>
+<ul>
+<li>
+<p>模型输入目标复合物，并设定结合界面约束；</p>
+</li>
+<li>
+<p>输出肽段经过筛选后进入体外测试。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>实验结果</strong>：</p>
+<ul>
+<li>
+<p>多个生成肽在浓度 10 μM 下显示显著抑制活性，</p>
+</li>
+<li>
+<p>部分序列的二级结构（α-螺旋）与模型预测一致。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>意义</strong>：</p>
+<ul>
+<li>这是模型在无同源模板条件下生成<strong>功能性抑制肽</strong>的首次验证。</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-18.png" alt=""></p>
+<p><img src="images/image-17.png" alt=""></p>
+<hr>
+<h3 id="46-小结"><strong>4.6 小结</strong></h3>
+<p>这些实验共同说明：</p>
+<ol>
+<li>
+<p>BoltzGen 生成的结构具有 <strong>实验上可实现的结合能力</strong>；</p>
+</li>
+<li>
+<p>模型能处理不同尺度与模态的任务，从纳米抗体到小分子；</p>
+</li>
+<li>
+<p>扩散建模下的几何约束生成是可控且可重现的。</p>
+</li>
+</ol>
+<hr>
+<h2 id="五计算实验computational-results"><strong>五、计算实验（Computational Results）</strong></h2>
+<p>BoltzGen 的开发出发点，是一个极具针对性的假设：</p>
+<p><strong>“要想生成高亲和力结合体，模型必须首先具备强大的结构预测能力。”</strong></p>
+<p>只有当模型能够准确地预测并理解目标结构的几何规律时，它才能在生成阶段合理地放置与目标原子精确互作的结合原子。</p>
+<p>因此，作者首先评估了 BoltzGen 的结构预测性能，并进一步比较了其在计算结合体设计中的目标依赖性（target-dependence）。</p>
+<hr>
+<h3 id="51-结构预测structure-prediction"><strong>5.1 结构预测（Structure Prediction）</strong></h3>
+<p>BoltzGen 的结构预测性能测试旨在验证：</p>
+<p>该模型能否在 folding 任务上达到 Boltz-2 的水准。</p>
+<p>作者在相同测试集上对两者进行了直接比较，该测试集经过序列聚类（40% 相似性阈值）以确保样本多样性，最终包含除去无法在单张 40GB GPU 上推理的 187 个复合体之外的所有结构。</p>
+<p>结果显示，BoltzGen 的折叠表现与 Boltz-2 基本相当，在所有模态（蛋白、RNA、DNA、小分子等）上均取得类似的 IDDT 分数分布。</p>
+<p><img src="images/image-15.png" alt=""></p>
+<p>如图所示：</p>
+<ul>
+<li>
+<p>在 <strong>蛋白质折叠任务（Intra Protein IDDT）</strong> 上，BoltzGen 与 Boltz-2 的得分几乎一致（约 0.85）；</p>
+</li>
+<li>
+<p>对于 <strong>RNA、DNA、小分子（Ligand）</strong> 等模态，差异亦在误差范围内；</p>
+</li>
+<li>
+<p>在 <strong>跨模态复合物（Protein–Protein、RNA–Protein）</strong> 任务上，两者表现接近，</p>
+</li>
+<li>
+<p>BoltzGen 的轻微波动主要源于更广泛的采样范围。</p>
+</li>
+</ul>
+<p>综上，BoltzGen 在 folding 层面实现了与 Boltz-2 相当的结构预测性能，验证了模型在生成前具备足够的几何推理与构象预测能力。</p>
+<hr>
+<h3 id="52-计算结合体设计computational-binder-design"><strong>5.2 计算结合体设计（Computational Binder Design）</strong></h3>
+<p>接下来，作者评估了 BoltzGen 在生成任务中的“<strong>目标依赖性（target-dependence）</strong>”——即模型在设计不同目标时，是否真正根据目标结构进行生成，而不是生成一组与目标无关、仅由先验偏置驱动的通用结构。</p>
+<p>为此，作者将 BoltzGen 与 RFdiffusion [(Watson et al., 2023)] 和RFdiffusionAA [(Krishna et al., 2024)] 进行了比较。</p>
+<p><img src="images/image-16.png" alt=""></p>
+<p>结果表明，BoltzGen 在两个集合上的生成结果均展现出显著的目标依赖性。</p>
+<p>BoltzGen 的计算实验验证了两项关键命题：</p>
+<ol>
+<li>
+<p>在结构预测任务中，其性能与 Boltz-2 等价，证明其具备强大的几何与能量推理能力；</p>
+</li>
+<li>
+<p>在生成任务中，BoltzGen 对目标结构表现出更高的依赖性与多样性，</p>
+</li>
+<li>
+<p>即模型生成结果确实受到目标约束的影响，而非模板记忆。</p>
+</li>
+</ol>
+<p>这两项结果共同说明：</p>
+<p>BoltzGen 不仅能“学会”结构预测，更能“理解”结构形成的条件。这种内在的物理一致性，使它成为连接<strong>预测范式</strong>与<strong>生成范式</strong>的关键桥梁。</p>
+<hr>
+<h2 id="六局限与展望limitations--outlook"><strong>六、局限与展望（Limitations &amp; Outlook）</strong></h2>
+<p>BoltzGen 的提出标志着生物分子生成式建模迈入新的阶段：</p>
+<p>它首次在单一框架中实现了 <strong>多模态结构生成、能量一致性建模与实验闭环验证</strong>。</p>
+<p>然而，作者在论文结尾也非常清晰地指出了模型当前的若干限制，并据此描绘了未来的发展方向。</p>
+<hr>
+<h3 id="61-采样效率与可扩展性sampling-efficiency--scalability"><strong>6.1 采样效率与可扩展性（Sampling Efficiency &amp; Scalability）</strong></h3>
+<p>尽管 BoltzGen 的扩散过程在能量空间中高度一致，但其全原子建模带来了显著的计算开销。在生成复杂复合物（特别是大分子结合体）时，每次扩散采样仍需数十秒至数分钟的 GPU 时间。</p>
+<p>作者指出，当前的瓶颈主要来自：</p>
+<ul>
+<li>
+<p>全原子 Transformer 的计算复杂度（随分子大小平方增长）；</p>
+</li>
+<li>
+<p>去噪步骤数较多（为保持精度，需迭代 100–200 次）；</p>
+</li>
+<li>
+<p>多模态输入需独立编码后再统一对齐，增加了前向时延。</p>
+</li>
+</ul>
+<p>未来优化方向包括引入 <strong>结构层级采样（hierarchical diffusion）</strong> 与 <strong>稀疏注意力机制（sparse attention）</strong>，</p>
+<p>以在保持原子级精度的前提下，提升大体系的采样速度。</p>
+<hr>
+<h3 id="62-数据与参数化限制data--parametrization-limitations"><strong>6.2 数据与参数化限制（Data &amp; Parametrization Limitations）</strong></h3>
+<p>BoltzGen 在训练过程中使用的多模态数据，</p>
+<p>主要来自蛋白质复合物（PDB）、小分子配体数据库（ZINC、ChEMBL）以及部分人工构建的 RNA、肽类复合结构。</p>
+<p>然而，作者承认这些数据集仍存在偏倚：</p>
+<ul>
+<li>
+<p>小分子类别分布不均（偏向药物样性分子）；</p>
+</li>
+<li>
+<p>RNA/DNA 模态样本数量不足，限制了跨模态泛化；</p>
+</li>
+<li>
+<p>部分分子参数（如电荷分布、配位几何）来自经典力场近似。</p>
+</li>
+</ul>
+<p>这意味着 BoltzGen 虽然在几何层面具备统一性，但在化学空间上仍未实现真正的全面覆盖。未来工作需在更广泛的实验数据与量子化学参数化基础上重训，以进一步提升模型的化学准确度。</p>
+<hr>
+<h3 id="63-可控生成的复杂性complexity-of-controlled-generation"><strong>6.3 可控生成的复杂性（Complexity of Controlled Generation）</strong></h3>
+<p>BoltzGen 的一个核心创新是引入了 <strong>可编程设计语言 DSL（Design Specification Language）</strong>，通过 DSL 指令定义生成条件（如结合位点、环化约束、二级结构模板等）。</p>
+<p>然而，这种机制的灵活性也带来了操作复杂度。DSL 的语法仍需用户具备相当的结构生物学知识，</p>
+<p>其内部指令（如 residue masking、bond constraint、motif anchoring）在不同模态间尚缺乏统一接口。</p>
+<p>作者指出，未来希望通过自然语言接口或高层抽象语言，将 DSL 的功能封装为更直观的 “结构意图表达（structure intent expression）”，让用户无需了解底层几何定义即可实现复杂约束生成。</p>
+<hr>
+<h3 id="64-实验闭环的挑战challenges-in-experimental-validation"><strong>6.4 实验闭环的挑战（Challenges in Experimental Validation）</strong></h3>
+<p>虽然 BoltzGen 展示了令人印象深刻的实验验证结果，但实验验证仍是整个设计流程中最昂贵、最慢的环节。论文指出，当前验证集中于<strong>结合能力（binding affinity）与可表达性（expression yield）</strong>，尚未在大规模实验中系统测试生成分子的功能特性（如催化、信号转导等）。</p>
+<p>未来，作者计划将模型与高通量筛选平台（HTS）与自动化合成系统结合，建立完整的 <strong>AI–实验双向反馈闭环</strong>。这样，Boltz 系列的每一次生成，都能即时通过实验数据更新潜在能量面，实现“自适应学习（adaptive learning）”式的模型演化。</p>
+<hr>
+<h3 id="65-展望通向通用生物设计系统"><strong>6.5 展望：通向通用生物设计系统</strong></h3>
+<p>BoltzGen 的真正意义并非止步于蛋白质设计。在作者的构想中，BoltzGen 是 <strong>Boltz生态（Boltz Ecosystem）</strong> 的生成核心，未来的生态将形成如下逻辑闭环：</p>
+<blockquote>
+<p><strong>BoltzGen → BoltzIF → Boltz-2 → Wetlab Feedback → Retraining</strong></p>
+</blockquote>
+<p>其中：</p>
+<ul>
+<li>
+<p>BoltzGen 负责结构生成；</p>
+</li>
+<li>
+<p>BoltzIF 完成序列优化；</p>
+</li>
+<li>
+<p>Boltz-2 提供能量预测与亲和力筛选；</p>
+</li>
+<li>
+<p>湿实验（Wetlab）反馈真实数据用于再训练。</p>
+</li>
+</ul>
+<p>随着闭环迭代的持续推进，Boltz 系列有望进化为一个具备自我学习与优化能力的<strong>通用生物分子设计系统（General Biomolecular Design System）</strong>。</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+          <a href="https://mp.weixin.qq.com/s/yvN5CreAH4_D08lwhbQMXg"
+             target="_blank"
+             rel="noopener"
+             class="ba b--dark-green bg-washed-green br2 dark-green dib f7 hover-bg-light-green link ph3 pv2">
+            去公众号阅读完整版 →
+          </a>
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E4%BA%BA%E7%B1%BB%E4%BA%92%E4%BD%9C%E7%BB%84%E7%9A%84%E5%BC%80%E5%B1%B1%E4%B9%8B%E4%BD%9Cscience%E6%8F%AD%E7%A4%BA%E6%9C%80%E5%A4%A7%E8%A7%84%E6%A8%A1%E8%9B%8B%E7%99%BD%E4%BA%92%E4%BD%9C%E9%A2%84%E6%B5%8B/" class="link dim">
+                “人类互作组”的开山之作：Science揭示最大规模蛋白互作预测
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E6%98%AF%E5%A6%A5%E5%8D%8F%E4%B9%9F%E6%98%AF%E7%AA%81%E7%A0%B4rfdiffusion3rfdiffusion%E8%BF%9B%E5%85%A5%E5%85%A8%E5%8E%9F%E5%AD%90%E8%AE%BE%E8%AE%A1%E6%97%B6%E4%BB%A3/" class="link dim">
+                “是妥协，也是突破｜RFdiffusion3：RFdiffusion进入全原子设计时代
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/" class="link dim">
+                蛋白质binder设计的三代演进：从 Rosetta 到 RFdiffusion
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="http://localhost:1313/zh/" >
+    &copy;  蓝极 2026 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>

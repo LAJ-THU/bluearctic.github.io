@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？ | 蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/boltzgen/boltzgen/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/boltzgen/boltzgen/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta property="og:description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+    <meta property="article:published_time" content="2025-01-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-01-09T00:00:00+00:00">
+
+  <meta itemprop="name" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta itemprop="description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+  <meta itemprop="datePublished" content="2025-01-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-01-09T00:00:00+00:00">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？">
+  <meta name="twitter:description" content="BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端">
+
+	
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  
+  
+  
+  <header class="cover bg-center" style="background-image: url('http://localhost:1313/images/boltzgen.jpg');">
+    <div class="bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <div class="f2 f1-l fw2 white-90 mb0 lh-title">BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？</div>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？
+      </h1>
+
+      
+
+      
+      <time class="f6 mv4 dib tracked"
+            datetime="2025-01-09T00:00:00Z">
+        一月 9, 2025
+      </time>
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+          <a href="https://mp.weixin.qq.com/s/yvN5CreAH4_D08lwhbQMXg"
+             target="_blank"
+             rel="noopener"
+             class="ba b--dark-green bg-washed-green br2 dark-green dib f7 hover-bg-light-green link ph3 pv2">
+            去公众号阅读完整版 →
+          </a>
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E4%BA%BA%E7%B1%BB%E4%BA%92%E4%BD%9C%E7%BB%84%E7%9A%84%E5%BC%80%E5%B1%B1%E4%B9%8B%E4%BD%9Cscience%E6%8F%AD%E7%A4%BA%E6%9C%80%E5%A4%A7%E8%A7%84%E6%A8%A1%E8%9B%8B%E7%99%BD%E4%BA%92%E4%BD%9C%E9%A2%84%E6%B5%8B/" class="link dim">
+                “人类互作组”的开山之作：Science揭示最大规模蛋白互作预测
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E6%98%AF%E5%A6%A5%E5%8D%8F%E4%B9%9F%E6%98%AF%E7%AA%81%E7%A0%B4rfdiffusion3rfdiffusion%E8%BF%9B%E5%85%A5%E5%85%A8%E5%8E%9F%E5%AD%90%E8%AE%BE%E8%AE%A1%E6%97%B6%E4%BB%A3/" class="link dim">
+                “是妥协，也是突破｜RFdiffusion3：RFdiffusion进入全原子设计时代
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/" class="link dim">
+                蛋白质binder设计的三代演进：从 Rosetta 到 RFdiffusion
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white white-70 dn dib-ns pv2 ph3 no-underline" href="http://localhost:1313/zh/" >
+    &copy;  蓝极 2026 
+  </a>
+    <div><div class="ananke-socials"></div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
