@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CAR-T on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/car-t/</link>
+    <description>Recent content in CAR-T on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 14 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/car-t/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Science三篇齐发：AI蛋白设计实现免疫识别，或将重塑免疫疗法？</title>
+      <link>http://localhost:1313/zh/literature/tcr-mhc/</link>
+      <pubDate>Thu, 14 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/tcr-mhc/</guid>
+      <description>Science 同期发表三项突破性研究，首次系统展示利用 AI 从头设计高特异性 pMHC 识别蛋白，并完成结构解析、功能验证与脱靶评估的完整闭环。这些超小型人工蛋白可嵌入 CAR-T / TCE 系统中，实现对肿瘤抗原与新抗原的精准识别与杀伤，标志着免疫治疗正式迈入“可编程识别”时代。</description>
+    </item>
+  </channel>
+</rss>

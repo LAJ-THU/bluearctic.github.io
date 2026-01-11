@@ -1,0 +1,330 @@
+[
+  {
+    "title": "Science｜DrugCLIP：走向基因组级别的小分子筛选",
+    "summary": "DrugCLIP 通过对比学习将虚拟筛选推进到基因组尺度，实现亿级分子规模的高效筛选，并构建了可直接使用的 GenomeScreenDB 资源。",
+    "url": "/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/",
+    "date": "2026-01-10",
+    "tags": ["AI4S","虚拟筛选","DrugCLIP","小分子设计","对比学习","药物发现","Science"]
+  },
+  {
+    "title": "Science｜从头设计可被小分子“遥控”的动态蛋白",
+    "summary": "西湖大学曹龙兴团队在 Science 报道一种从头设计的“动态蛋白系统”，可在两种构象状态间稳定切换，并通过口服小分子实现对蛋白组装与解体的精准遥控。该系统不仅在体外成立，还在细胞与小鼠体内实现稳定、可逆、低漏启动的功能调控。",
+    "url": "/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/",
+    "date": "2026-01-02",
+    "tags": ["AI4S","protein design","dynamic protein","conformational change","synthetic biology","small molecule control","optogenetics","Science"]
+  },
+  {
+    "title": "结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计",
+    "summary": "Baker 团队提出 RFdiffusion2 框架，从反应所需的关键原子几何出发，直接生成可折叠、可表达、且具备高催化活性的 de novo 金属水解酶。设计酶 ZETA 系列在无需定向进化的情况下即达到 10⁴–10⁵ M⁻¹ s⁻¹ 的催化效率，并通过晶体结构验证其与设计模型高度一致，标志着功能导向蛋白设计范式的成立。",
+    "url": "/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/",
+    "date": "2025-12-09",
+    "tags": ["AI4S","protein design","enzyme design","metalloprotein","RFdiffusion2","diffusion model","computational chemistry","DFT","David Baker"]
+  },
+  {
+    "title": "RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型",
+    "summary": "RFdiffusion3（RFD3）正式开源，首次实现原子级扩散建模的通用分子生成框架，可统一支持蛋白–蛋白、蛋白–DNA、蛋白–小分子与酶设计等多类任务，在速度上较 RFD2 提升约 10 倍，并在多个真实设计任务中取得实验验证结果。",
+    "url": "/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/",
+    "date": "2025-12-04",
+    "tags": ["AI4S","protein design","diffusion model","RFdiffusion","enzyme design","protein–DNA interaction","protein–ligand interaction","open source"]
+  },
+  {
+    "title": "ICML 2025｜UniMoMo：多肽、小分子与抗体设计的统一生成框架",
+    "summary": "UniMoMo 提出首个统一建模小分子、肽与抗体结合体的生成框架，通过 Graph of Blocks 表示与几何潜空间扩散模型，实现跨分子类型的高质量生成，在三类任务上全面超越现有专用模型，展示出“通用分子生成模型”的可行性。",
+    "url": "/zh/literature/icml2025unimomo%E5%A4%9A%E8%82%BD%E5%B0%8F%E5%88%86%E5%AD%90%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6/",
+    "date": "2025-11-30",
+    "tags": ["AI4S","protein design","de novo design","peptide","small molecule","antibody","generative model","ICML"]
+  },
+  {
+    "title": "Protein Hunter 深度解读：利用结构预测模型“幻觉”构建通用蛋白设计引擎",
+    "summary": "Protein Hunter 提出一种全新的蛋白设计范式：利用 AlphaFold3 / Boltz 等结构预测模型在信息不足输入下产生的“结构幻觉”，结合 ProteinMPNN 等序列设计器构建结构–序列闭环循环，在无需微调模型、无需梯度优化的前提下，实现稳定 backbone 生成，并在 binder、小分子、环肽、DNA/RNA 及 motif scaffold 等多任务中优于传统方法。",
+    "url": "/zh/literature/protein-hunter%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BB%E8%AE%A9%E5%B9%BB%E8%A7%89%E7%99%BB%E5%B3%B0%E9%80%A0%E6%9E%81%E7%9A%84%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%A1%86%E6%9E%B6/",
+    "date": "2025-11-29",
+    "tags": ["AI4S","protein design","binder","generative model","diffusion model","AlphaFold3","Boltz","ProteinMPNN","backbone generation"]
+  },
+  {
+    "title": "BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？",
+    "summary": "BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端",
+    "url": "/zh/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/",
+    "date": "2025-10-28",
+    "tags": ["AI4S","蛋白设计","BoltzGen","Binder"]
+  },
+  {
+    "title": "百奥几何发布 GeoFlow-V3：三周找到 nM 级抗体的 AI 蛋白设计系统",
+    "summary": "百奥几何发布 GeoFlow-V3，引入多步推理与 in silico 演化机制，使抗体设计模型具备“自我评估与自我优化”能力。在多个真实靶点（TSLP、IL-33、PD-1 等）任务中，仅测试约 50 条序列即可稳定获得 nM 级结合分子，平均湿实验命中率达 15.5%，将抗体发现流程压缩至三周。",
+    "url": "/zh/literature/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/",
+    "date": "2025-10-27",
+    "tags": ["AI4S","antibody design","protein design","diffusion model","reasoning model","multi-step inference","antibody discovery","GeoFlow"]
+  },
+  {
+    "title": "Cell｜西湖大学卢培龙团队从头设计出可“感电”的人工离子通道",
+    "summary": "西湖大学卢培龙团队在 Cell 报道首个完全从零设计、具备电压响应能力的人工离子通道蛋白，在结构、电生理与神经元系统中均获得功能验证，展示了“可感知、可响应”蛋白的可编程设计能力。",
+    "url": "/zh/literature/cell%E8%A5%BF%E6%B9%96%E5%8D%A2%E5%9F%B9%E9%BE%99%E5%9B%A2%E9%98%9F%E4%BB%8E%E9%9B%B6%E8%AE%BE%E8%AE%A1%E5%87%BA%E5%8F%AF%E6%84%9F%E7%94%B5%E7%9A%84%E4%BA%BA%E5%B7%A5%E7%A6%BB%E5%AD%90%E9%80%9A%E9%81%93/",
+    "date": "2025-10-23",
+    "tags": ["AI4S","de novo design","membrane protein","ion channel","voltage gating","protein design","Lu Peilong Lab","Cell"]
+  },
+  {
+    "title": "Nature Nanotechnology｜从头设计可对 pH 响应的自组装螺旋蛋白丝",
+    "summary": "Nature Nanotechnology 报道一种完全从头设计的螺旋蛋白丝，可在不同 pH 条件下实现可逆自组装与解聚，并通过 cryo-EM 精确解析其原子结构，展示了蛋白质作为“可编程纳米材料”的巨大潜力。",
+    "url": "/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/",
+    "date": "2025-10-10",
+    "tags": ["AI4S","de novo design","protein assembly","self-assembly","protein materials","nanotechnology","cryo-EM","Nature Nanotechnology"]
+  },
+  {
+    "title": "真的理解了蛋白“语言”：西湖大学原发杰团队推出三模态蛋白语言模型 ProTrek",
+    "summary": "西湖大学原发杰团队提出三模态蛋白语言模型 ProTrek，通过联合对齐序列、结构与功能文本三种模态，在统一语义空间中实现跨模态蛋白搜索。该模型在多项检索基准上相较现有方法提升一个数量级，并成功指导发现并改造新型 UDG 变体，实现高效碱基编辑的真实实验验证。",
+    "url": "/zh/literature/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/",
+    "date": "2025-10-05",
+    "tags": ["AI4S","protein language model","multimodal learning","foundation model","protein function prediction","contrastive learning","Westlake University","Nature Biotechnology"]
+  },
+  {
+    "title": "“人类互作组”的开山之作：Science揭示最大规模蛋白互作预测",
+    "summary": "我愿称这篇文章为“人类互作组”的开山之作！",
+    "url": "/zh/literature/%E4%BA%BA%E7%B1%BB%E4%BA%92%E4%BD%9C%E7%BB%84%E7%9A%84%E5%BC%80%E5%B1%B1%E4%B9%8B%E4%BD%9Cscience%E6%8F%AD%E7%A4%BA%E6%9C%80%E5%A4%A7%E8%A7%84%E6%A8%A1%E8%9B%8B%E7%99%BD%E4%BA%92%E4%BD%9C%E9%A2%84%E6%B5%8B/",
+    "date": "2025-09-29",
+    "tags": ["AI4S","蛋白互作","PPI","Science","结构生物学"]
+  },
+  {
+    "title": "够简单，也够强大：苹果发布蛋白结构预测工具 SimpleFold",
+    "summary": "苹果发布蛋白结构预测模型 SimpleFold，完全抛弃 MSA、pair 表示与 triangle updates，仅依赖通用 Transformer 与 flow-matching 生成式训练目标，在 CASP14 与 CAMEO 等基准上达到接近 AlphaFold2 的精度，同时具备多构象生成能力，并可在消费级硬件上运行。",
+    "url": "/zh/literature/%E5%A4%9F%E7%AE%80%E5%8D%95%E4%B9%9F%E5%A4%9F%E5%BC%BA%E5%A4%A7%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%B7%A5%E5%85%B7simplefold/",
+    "date": "2025-09-25",
+    "tags": ["AI4S","protein structure prediction","generative model","flow matching","transformer","Apple","foundation model","computational biology"]
+  },
+  {
+    "title": "从 AlphaFold 到 AlphaProteo：DeepMind 如何从“预测”跨越到“设计”？",
+    "summary": "DeepMind 推出 AlphaProteo，将能力从结构预测推进到高亲和力蛋白结合物设计，并在 SARS-CoV-2、VEGF-A 等真实体系中实现功能级验证，标志着蛋白设计迈入可直接应用阶段。",
+    "url": "/zh/literature/alphaproteo/",
+    "date": "2025-09-22",
+    "tags": ["AI4S","binder","protein design","DeepMind","AlphaFold","AlphaProteo"]
+  },
+  {
+    "title": "AI生成可复活噬菌体基因组：Evo模型开启生成式基因组学时代",
+    "summary": "Arc Institute 团队利用基因组语言模型 Evo 首次实现完整噬菌体基因组的生成、合成与复活，标志着 AI 从蛋白质设计迈入生命系统整体设计阶段。",
+    "url": "/zh/literature/ai-%E5%86%99%E5%87%BA%E8%83%BD%E6%B4%BB%E7%9A%84%E7%97%85%E6%AF%92arc-institute-%E5%BC%80%E5%90%AF%E7%94%9F%E6%88%90%E5%BC%8F%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%AD%A6/",
+    "date": "2025-09-21",
+    "tags": ["AI4S","generative genomics","genome language model","phage","bacteriophage","synthetic biology","evo","protein design"]
+  },
+  {
+    "title": "是妥协，也是突破｜RFdiffusion3：RFdiffusion进入全原子设计时代",
+    "summary": "RFdiffusion3 将扩散建模从残基级提升到原子级，标志着蛋白设计真正进入全原子分辨率时代。",
+    "url": "/zh/literature/%E6%98%AF%E5%A6%A5%E5%8D%8F%E4%B9%9F%E6%98%AF%E7%AA%81%E7%A0%B4rfdiffusion3rfdiffusion%E8%BF%9B%E5%85%A5%E5%85%A8%E5%8E%9F%E5%AD%90%E8%AE%BE%E8%AE%A1%E6%97%B6%E4%BB%A3/",
+    "date": "2025-09-20",
+    "tags": ["AI4S","蛋白设计","RFdiffusion","扩散模型","Baker Lab","结构生物学","bioRxiv"]
+  },
+  {
+    "title": "腾讯提出 IgGM：一站式解决抗体设计难题",
+    "summary": "腾讯 AI for Life Sciences Lab 提出生成式抗体基础模型 IgGM，首次将结构预测、逆向设计、亲和力成熟、人源化、框架区优化与 de novo 设计统一进单一模型框架。在 PD-L1、新冠 RBD、IL-33 等多个真实体系中完成体外实验验证，并成功设计出具备 nM–pM 级亲和力的全新抗体分子。",
+    "url": "/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/",
+    "date": "2025-09-19",
+    "tags": ["AI4S","antibody design","foundation model","generative model","protein design","de novo design","Tencent","immunotherapy"]
+  },
+  {
+    "title": "入门必读｜当我们在聊分子动力学模拟时，我们在聊什么？",
+    "summary": "分子动力学模拟（MD）提供了比对接更接近真实生物环境的“分子电影”，能够刻画蛋白与配体的动态行为、构象变化与热力学本质，是连接计算预测与湿实验之间最关键的桥梁之一。",
+    "url": "/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E6%A8%A1%E6%8B%9F%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98%E5%9F%BA%E4%BA%8E%E7%BB%93%E6%9E%84%E7%9A%84%E8%8D%AF%E7%89%A9%E5%8F%91%E7%8E%B0/",
+    "date": "2025-09-17",
+    "tags": ["AI4S","molecular dynamics","molecular modeling","free energy","docking","force field","computational chemistry","drug discovery"]
+  },
+  {
+    "title": "Nature 重磅综述｜合成生物学教父剖析 AI 如何重写蛋白质设计的逻辑",
+    "summary": "一篇来自 Cell 旗下 Structure 杂志的高质量综述，系统梳理了蛋白质设计从理性设计、能量优化到 AI 生成模型的完整演化路径，深入解析 hallucination、RFdiffusion、BindCraft 等关键技术，并展示 de novo binder 在免疫、抗毒、诊断等真实应用场景中的突破。",
+    "url": "/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/",
+    "date": "2025-09-12",
+    "tags": ["AI4S","protein design","binder","de novo design","RFdiffusion","BindCraft","synthetic biology","review"]
+  },
+  {
+    "title": "英伟达 La-Proteina 开源：首个可扩展到 800 残基的全原子蛋白生成模型",
+    "summary": "NVIDIA 提出并开源 La-Proteina，一种基于“部分潜变量 + 流匹配”的全原子蛋白生成模型，可同时生成 backbone、侧链与序列，并稳定扩展至 800 残基长链。模型在结构物理合理性、rotamer 分布与 motif scaffolding 等任务上显著优于现有方法，首次实现大尺度全原子蛋白生成的可扩展性。",
+    "url": "/zh/literature/%E8%8B%B1%E4%BC%9F%E8%BE%BEla-proteina-%E5%BC%80%E6%BA%90%E9%A6%96%E4%B8%AA%E5%8F%AF%E6%89%A9%E5%B1%95%E5%88%B0-800-%E6%AE%8B%E5%9F%BA%E7%9A%84%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/",
+    "date": "2025-09-11",
+    "tags": ["AI4S","protein design","all-atom generation","diffusion model","flow matching","generative model","NVIDIA","foundation model"]
+  },
+  {
+    "title": "PepCCD：用对比学习与扩散模型实现序列驱动的多肽设计",
+    "summary": "PepCCD 提出一种融合对比学习与条件扩散模型的端到端框架，仅凭蛋白序列即可生成靶点特异性多肽。该方法在结合能力、多样性、生物活性预测与推理效率上全面优于现有序列方法，并在多项任务中可与结构驱动模型媲美。",
+    "url": "/zh/literature/pepccd/",
+    "date": "2025-09-10",
+    "tags": ["AI4S","peptide","peptide drug","binder","protein design","diffusion model","contrastive learning","generative model"]
+  },
+  {
+    "title": "Nature｜DNA 分子构建的神经网络实现监督学习",
+    "summary": "Nature 报道研究团队首次在试管中构建出可进行监督学习的 DNA 分子神经网络，使分子系统能够自主形成记忆并完成复杂图案分类任务，标志着分子计算从“能算”迈向“能学”。",
+    "url": "/zh/literature/nature--dna-%E5%88%86%E5%AD%90%E6%9E%84%E5%BB%BA%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/",
+    "date": "2025-09-06",
+    "tags": ["AI4S","molecular computing","DNA computing","synthetic biology","neural network","supervised learning","bio-inspired computing","Nature"]
+  },
+  {
+    "title": "ICML 2025 Spotlight｜力文所 Pallatom 开启全原子蛋白设计新范式",
+    "summary": "ICML 2025 Spotlight 工作 Pallatom 提出直接建模 P(all-atom) 的蛋白生成框架，通过 atom14 表示与双轨道架构，实现序列与结构的端到端耦合生成，在设计性、多样性与新颖性上全面超越现有方法，开启全原子蛋白设计新范式。",
+    "url": "/zh/literature/icml-2025-spotlight%E5%8A%9B%E6%96%87%E6%89%80pallatom-%E5%BC%80%E5%90%AF%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%96%B0%E8%8C%83%E5%BC%8F/",
+    "date": "2025-09-05",
+    "tags": ["AI4S","protein design","de novo design","all-atom","diffusion model","generative model","ICML","computational biology"]
+  },
+  {
+    "title": "原来水分子才是关键！新方法 WIIGA 显著提升蛋白–糖分子预测准确率",
+    "summary": "针对糖分子柔性高、结合位点浅表亲水导致传统对接方法失效的问题，作者提出 WIIGA（水分子引导对接）策略，利用 apo 结构中的结晶水分布作为“相互作用线索”，引导糖分子构象搜索，并结合 3D-score 重新排序候选构象，在 30 个蛋白–寡糖体系中将正确预测率提升至 53%，显著优于现有方法。",
+    "url": "/zh/literature/%E5%8E%9F%E6%9D%A5%E6%B0%B4%E5%88%86%E5%AD%90%E6%89%8D%E6%98%AF%E5%85%B3%E9%94%AE%E6%96%B0%E6%96%B9%E6%B3%95%E6%98%BE%E8%91%97%E6%8F%90%E5%8D%87%E8%9B%8B%E7%99%BD%E7%B3%96%E5%88%86%E5%AD%90%E9%A2%84%E6%B5%8B%E5%87%86%E7%A1%AE%E7%8E%87/",
+    "date": "2025-09-04",
+    "tags": ["AI4S","molecular docking","glycoprotein","glycobiology","carbohydrate recognition","structure-based design","computational chemistry","drug discovery"]
+  },
+  {
+    "title": "Nature Chemistry｜从头设计光响应蛋白：实现可逆组装的分子“光开关”",
+    "summary": "研究团队在 Nature Chemistry 报道一种全新的从头设计光控蛋白策略：通过引入光响应非天然氨基酸 AzoF，在设计阶段即内置“分子开关”，实现蛋白复合体在不同波长光照下的可逆组装与解离，并完成结构解析与多场景功能验证。",
+    "url": "/zh/literature/nature-chemistry--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%85%89%E5%93%8D%E5%BA%94%E8%9B%8B%E7%99%BD%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%80%86%E7%BB%84%E8%A3%85%E7%9A%84%E5%88%86%E5%AD%90%E5%85%89%E5%BC%80%E5%85%B3/",
+    "date": "2025-09-02",
+    "tags": ["AI4S","de novo design","protein engineering","optogenetics","synthetic biology","protein assembly","protein materials","Nature Chemistry"]
+  },
+  {
+    "title": "蛋白质 Binder 设计的三代演进：从 Rosetta 到 RFdiffusion",
+    "summary": "系统梳理蛋白质 binder 设计从 Rosetta 到 ProteinMPNN / AlphaFold，再到 RFdiffusion 的三代方法学演进。",
+    "url": "/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/",
+    "date": "2025-09-01",
+    "tags": ["AI4S","蛋白设计","Binder","RFdiffusion","ProteinMPNN","AlphaFold","Rosetta","结构生物学","方法论"]
+  },
+  {
+    "title": "从静态到动态：AI 在蛋白质动力学建模中的新进展",
+    "summary": "围绕“如何用机器学习刻画蛋白质构象集合”，系统梳理了四条核心路径：多态结构生成、分子动力学加速、无序蛋白建模与实验约束融合，展现出从“结构预测”走向“动态建模”的清晰技术演化方向。",
+    "url": "/zh/literature/generation-of-protein-dynamics-by-machine-learning/",
+    "date": "2025-08-31",
+    "tags": ["AI4S","protein dynamics","molecular dynamics","cryo-EM","cryo-ET","structural biology","machine learning","review"]
+  },
+  {
+    "title": "Nature｜BindCraft 正式见刊：最适合新手的蛋白质设计工具？",
+    "summary": "BindCraft 正式发表于 Nature，展示出“one-shot”式蛋白 binder 设计能力：无需高通量筛选，仅通过计算设计即可在多类真实靶点上获得纳摩尔级高亲和力结合蛋白，并已被多家跨国药企实际采用。",
+    "url": "/zh/literature/nature-%E6%AD%A3%E5%BC%8F%E5%8F%91%E8%A1%A8bindcraft%E6%8A%8A%E4%B8%80%E6%AC%A1%E4%B8%80%E8%AE%BE%E8%AE%A1%E5%8F%98%E6%88%90%E5%8F%AF%E8%83%BD/",
+    "date": "2025-08-29",
+    "tags": ["AI4S","binder","protein design","de novo design","BindCraft","AlphaFold","computational biology","Nature"]
+  },
+  {
+    "title": "Nature｜西湖大学卢培龙团队首次 de novo 设计出跨膜荧光激活蛋白",
+    "summary": "西湖大学卢培龙团队在 Nature 报道首个完全从零设计、可稳定嵌入细胞膜并激活小分子荧光的人工跨膜蛋白。该蛋白不仅实现纳摩尔级亲和力结合，还通过晶体学与冷冻电镜验证其结构与设计高度一致，展示了跨膜功能蛋白可被精准设计的可能性。",
+    "url": "/zh/literature/nature--%E8%A5%BF%E6%B9%96%E5%8D%A2%E5%9F%B9%E9%BE%99%E8%80%81%E5%B8%88%E9%A6%96%E6%AC%A1-de-novo-%E8%AE%BE%E8%AE%A1%E5%87%BA%E8%B7%A8%E8%86%9C%E8%8D%A7%E5%85%89%E6%BF%80%E6%B4%BB%E8%9B%8B%E7%99%BD/",
+    "date": "2025-08-27",
+    "tags": ["AI4S","de novo design","membrane protein","transmembrane protein","protein design","fluorescence sensor","cryo-EM","Nature"]
+  },
+  {
+    "title": "通用 Binder 设计新工具：BoltzDesign1 的野心与突破",
+    "summary": "BoltzDesign1 利用 Boltz 全原子模型进行反向优化，在无需扩散模型的情况下实现高成功率与高多样性的结合物设计，并首次系统性展示其在小分子、金属、核酸及翻译后修饰靶标上的通用潜力。",
+    "url": "/zh/literature/boltzdesign1/",
+    "date": "2025-08-26",
+    "tags": ["AI4S","binder","protein design","Boltz","BoltzDesign1","hallucination","bioRxiv","computational biology"]
+  },
+  {
+    "title": "Cell｜de novo 设计多肽，实现对病态钠通道的特异性调控",
+    "summary": "Cell 报道一种从零设计的 21 aa 多肽 ELIXIR，可选择性修复病态钠通道的晚钠电流异常，在细胞、动物模型及患者来源细胞中实现功能级逆转，为通道病治疗提供全新范式。",
+    "url": "/zh/literature/cellde-novo-%E8%AE%BE%E8%AE%A1%E5%A4%9A%E8%82%BD%E5%AE%9E%E7%8E%B0%E5%AF%B9%E7%97%85%E6%80%81%E9%92%A0%E9%80%9A%E9%81%93%E7%9A%84%E7%89%B9%E5%BC%82%E6%80%A7%E8%B0%83%E6%8E%A7/",
+    "date": "2025-08-21",
+    "tags": ["AI4S","peptide","peptide drug","de novo design","ion channel","sodium channel","membrane protein","Cell"]
+  },
+  {
+    "title": "Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证",
+    "summary": "PepMLM 提出一种完全基于序列的结合肽设计框架，仅输入靶蛋白序列即可生成高特异性肽分子。在多项任务中命中率超过结构驱动方法，并通过 ELISA、细胞降解与病毒感染实验验证其真实功能。",
+    "url": "/zh/literature/pepmlm/",
+    "date": "2025-08-20",
+    "tags": ["AI4S","peptide","binder","peptide drug","protein design","de novo design","language model","Nature Biotechnology"]
+  },
+  {
+    "title": "从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？",
+    "summary": "字节跳动 Seed 团队提出 PXDesign 框架，将扩散生成与幻觉优化相结合，并配合 Protenix 与 AF2-IG 的多模型筛选策略，在多个真实靶标上实现 20–61% 的体外命中率（PD-L1、IL-7RA 等甚至超过 70%），显著高于现有方法，展示出高成功率蛋白设计的现实可行性。",
+    "url": "/zh/literature/pxdesign/",
+    "date": "2025-08-17",
+    "tags": ["AI4S","protein design","binder","generative model","diffusion model","hallucination","Protenix","PXDesign"]
+  },
+  {
+    "title": "3,766 个实验数据揭示 Binder 成功率的关键指标",
+    "summary": "基于 3,766 个实验验证的 binder 设计数据，这篇 bioRxiv 预印本系统比较了 AF2、AF3、Boltz-1 等预测指标，提出 AF3 的 ipSAE_min 是目前最稳健的筛选信号，并给出了可直接落地的筛选策略。",
+    "url": "/zh/literature/3766-%E4%B8%AA%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E6%8F%AD%E7%A4%BA%E7%AD%9B%E9%80%89%E8%9B%8B%E7%99%BD%E8%B4%A8-binder-%E6%9C%80%E9%9D%A0%E8%B0%B1%E7%9A%84%E6%8C%87%E6%A0%87%E6%98%AF%E4%BB%80%E4%B9%88/",
+    "date": "2025-08-16",
+    "tags": ["AI4S","binder","protein design","alphafold","bioRxiv"]
+  },
+  {
+    "title": "Nature Methods｜从“蛋白自言自语”到“蛋白对话”：SWING 框架如何重写互作预测规则",
+    "summary": "SWING 提出一种全新的“蛋白互作语言模型”框架：在建模前先将两条序列的局部配对关系编码为交互语法，再学习其统计规律。该方法在 pMHC 结合预测中实现跨等位基因、跨类别、跨物种的零样本泛化，并可扩展用于预测氨基酸变异导致的互作破坏。",
+    "url": "/zh/literature/nature-methods--%E4%BB%8E%E8%9B%8B%E7%99%BD%E8%87%AA%E8%A8%80%E8%87%AA%E8%AF%AD%E5%88%B0%E8%9B%8B%E7%99%BD%E5%AF%B9%E8%AF%9Dswing-%E6%A1%86%E6%9E%B6%E5%A6%82%E4%BD%95%E9%87%8D%E5%86%99%E4%BA%92%E4%BD%9C%E9%A2%84%E6%B5%8B%E8%A7%84%E5%88%99/",
+    "date": "2025-08-15",
+    "tags": ["AI4S","protein interaction","protein language model","immunology","pMHC","variant effect","machine learning","Nature Methods"]
+  },
+  {
+    "title": "Science三篇齐发：AI蛋白设计实现免疫识别，或将重塑免疫疗法？",
+    "summary": "Science 同期发表三项突破性研究，首次系统展示利用 AI 从头设计高特异性 pMHC 识别蛋白，并完成结构解析、功能验证与脱靶评估的完整闭环。这些超小型人工蛋白可嵌入 CAR-T / TCE 系统中，实现对肿瘤抗原与新抗原的精准识别与杀伤，标志着免疫治疗正式迈入“可编程识别”时代。",
+    "url": "/zh/literature/tcr-mhc/",
+    "date": "2025-08-14",
+    "tags": ["AI4S","protein design","immunotherapy","pMHC recognition","CAR-T","TCR mimic","RFdiffusion","Science"]
+  },
+  {
+    "title": "Click Fusion：基于人工设计融合蛋白的 GPCR 非活化态结构解析新策略",
+    "summary": "提出 Click Fusion 策略，通过 de novo 设计的刚性融合蛋白稳定 GPCR 的非活化构象，使原本难以解析的 inactive 态结构可被高分辨率 cryo-EM 成功解析，并在多个受体上验证其通用性与可迁移性。",
+    "url": "/zh/literature/click-fusion%E5%9F%BA%E4%BA%8E%E4%BA%BA%E5%B7%A5%E8%AE%BE%E8%AE%A1%E8%9E%8D%E5%90%88%E8%9B%8B%E7%99%BD%E7%9A%84-gpcr-%E9%9D%9E%E6%B4%BB%E5%8C%96%E6%80%81%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90%E6%96%B0%E7%AD%96%E7%95%A5/",
+    "date": "2025-08-12",
+    "tags": ["AI4S","GPCR","membrane protein","protein design","de novo design","structural biology","cryo-EM","PNAS"]
+  },
+  {
+    "title": "Nature｜“雇”一群 AI Agent 就能设计出抗新冠的抗体了？",
+    "summary": "Nature 提出“虚拟实验室（Virtual Lab）”概念，由多角色大模型 Agent 组成科研团队，自主完成课题规划、工具选择、代码编写与抗体设计流程，并最终设计出对新冠变异株具有真实结合能力的纳米抗体，展示出 AI 作为“科研主体”的初步形态。",
+    "url": "/zh/literature/llm-antibody-design/",
+    "date": "2025-08-06",
+    "tags": ["AI4S","antibody","nanobody","binder","protein design","AI agent","large language model","Nature"]
+  },
+  {
+    "title": "NCFlow：面向非天然氨基酸多肽设计的新策略",
+    "summary": "NCFlow 提出一个面向非天然氨基酸（ncAA）的原子级构象生成模型，能够在蛋白 pocket 环境中预测任意 ncAA 的合理三维构象，并结合深度打分与分子动力学模拟，构建出一套可系统性设计高亲和力 ncAA 多肽的端到端流程。",
+    "url": "/zh/literature/ncflow/",
+    "date": "2025-08-05",
+    "tags": ["AI4S","peptide","binder","peptide drug","non-canonical amino acid","protein design","generative model","molecular modeling"]
+  },
+  {
+    "title": "从结构出发设计肽药，BindCraft 可行吗？",
+    "summary": "系统评估 BindCraft 在肽类 binder 设计中的真实能力：在 MDM2 与 WDR5 位点上实现纳摩尔级命中，并通过结构指导完成 stapling 优化，展示了结构驱动肽药设计的可行路径。",
+    "url": "/zh/literature/bindcraft%E4%B9%9F%E8%83%BD%E8%AE%BE%E8%AE%A1%E8%82%BD%E7%B1%BB%E9%85%8D%E4%BD%93%E4%BA%86/",
+    "date": "2025-07-29",
+    "tags": ["AI4S","binder","peptide","peptide drug","protein design","BindCraft","AlphaFold","bioRxiv"]
+  },
+  {
+    "title": "David Baker 新作！针对柔性 IDP 设计高亲和力结合蛋白",
+    "summary": "Baker 团队提出一套通用的计算设计框架，可针对任意本质无序区域（IDR）序列设计高亲和力、高特异性的结合蛋白，在 43 个目标中获得 39 个成功命中，并通过晶体结构与 NMR 验证“诱导契合”机制。",
+    "url": "/zh/literature/design-of-intrinsically-disordered-region-binding-proteins/",
+    "date": "2025-07-19",
+    "tags": ["AI4S","binder","protein design","de novo design","IDP","IDR","RFdiffusion","Science"]
+  },
+  {
+    "title": "蛋白质设计必看！ProteinMPNN 的升级版 LigandMPNN",
+    "summary": "LigandMPNN 在 ProteinMPNN 基础上引入配体原子级上下文建模，可同时感知蛋白与小分子、核酸、金属离子的空间关系，在序列设计与侧链构象预测上全面超越 Rosetta 与传统方法，并通过多组结合实验验证其真实功能性。",
+    "url": "/zh/literature/ligandmpnn/",
+    "date": "2025-07-18",
+    "tags": ["AI4S","protein design","binder","enzyme design","ProteinMPNN","LigandMPNN","graph neural network","Nature Methods"]
+  },
+  {
+    "title": "EvoBind2：基于蛋白质序列信息设计不同长度的线性与环状肽结合物",
+    "summary": "EvoBind2 提出一种完全无需结构与位点信息的“盲设计”框架，仅基于靶蛋白序列即可设计出不同长度的线性与环状肽结合物，在 SPR 实验中获得最高 19 nM 亲和力，并通过对抗性过滤显著提升成功率。",
+    "url": "/zh/literature/evobind2-%E5%9F%BA%E4%BA%8E%E8%9B%8B%E7%99%BD%E8%B4%A8%E5%BA%8F%E5%88%97%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E4%B8%8D%E5%90%8C%E9%95%BF%E5%BA%A6%E7%9A%84%E7%BA%BF%E6%80%A7%E5%92%8C%E7%8E%AF%E7%8A%B6%E8%82%BD%E7%BB%93%E5%90%88%E7%89%A9/",
+    "date": "2025-07-09",
+    "tags": ["AI4S","binder","peptide","peptide drug","protein design","de novo design","AlphaFold","bioRxiv"]
+  },
+  {
+    "title": "AlphaGenome：基因组学的 AlphaFold 时刻？",
+    "summary": "DeepMind 推出 AlphaGenome：一个统一建模的基因组 AI 系统，可一次性预测 11 种调控模态，在变异效应预测任务上全面超越现有模型，标志着基因组学迈向“统一模型时代”。",
+    "url": "/zh/literature/alphaproteome%E7%BB%84%E5%AD%A6%E7%9A%84alphafold%E6%97%B6%E5%88%BB/",
+    "date": "2025-07-08",
+    "tags": ["AI4S","genomics","genome language model","DeepMind","AlphaGenome","variant effect prediction","regulatory genomics"]
+  },
+  {
+    "title": "BindCraft：一站式设计功能性蛋白 Binder 的自动化平台",
+    "summary": "BindCraft 提出一个全自动蛋白 binder 设计平台，通过反向优化 AlphaFold2 并结合 MPNN 与 Rosetta，在无需高通量筛选的情况下实现接近 50% 成功率的功能性结合剂设计。",
+    "url": "/zh/literature/bindcraft%E4%B8%80%E7%AB%99%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8A%9F%E8%83%BD%E6%80%A7%E8%9B%8B%E7%99%BDbinder/",
+    "date": "2025-07-08",
+    "tags": ["AI4S","binder","protein design","AlphaFold","ColabDesign","ProteinMPNN","Nature","computational biology"]
+  },
+  {
+    "title": "Cryo-ET 是结构生物学的未来吗？——前景与挑战",
+    "summary": "系统解读 Cryo-ET 的技术原理、样本制备、成像物理限制、图像分析与多模态融合路径，讨论其作为“原位结构组学平台”的潜力，同时直面其在通量、自动化与算法层面的核心瓶颈。",
+    "url": "/zh/literature/cryo-et-%E6%98%AF%E7%BB%93%E6%9E%84%E7%94%9F%E7%89%A9%E5%AD%A6%E7%9A%84%E6%9C%AA%E6%9D%A5%E5%90%97%E5%89%8D%E6%99%AF%E4%B8%8E%E6%8C%91%E6%88%98/",
+    "date": "2025-07-07",
+    "tags": ["AI4S","cryo-ET","cryo-EM","structural biology","in situ biology","microscopy","image analysis","review"]
+  },
+  {
+    "title": "RareFold：20种氨基酸不够用？让蛋白质设计进入“外挂模式”",
+    "summary": "RareFold 在 AlphaFold2 架构上引入“氨基酸 token 扩展”策略，使模型能够直接建模 29 种非天然氨基酸的结构特征，并在多项预测任务中优于 AlphaFold3；同时结合 EvoBindRare 框架，实现了含非天然氨基酸线性与环状多肽的从头设计，并通过 SPR 实验获得 μM 级真实结合活性。",
+    "url": "/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/",
+    "date": "2025-06-29",
+    "tags": ["AI4S","protein structure prediction","protein design","peptide","binder","non-canonical amino acid","AlphaFold","computational biology"]
+  }]

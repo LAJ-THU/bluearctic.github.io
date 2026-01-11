@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="在生物学的世界里，蛋白质是最重要的“分子机器”。它们像乐高积木一样由氨基酸拼装而成，却能完成几乎所有生命活动：从催化反应，到信号传导，再到结构支撑。没有蛋白质，就没有生命。
+长期以来，人类在“药物开发”上主要做的事情是 寻找 蛋白质，而不是 创造 蛋白质。我们要么依靠大自然里已经存在的分子（比如抗体、激素、毒素），要么通过大规模筛选找到有用的片段。但这种方式有两个根本性问题：
+
+
+效率低：像大海捞针一样，需要成千上万次实验，耗时耗力。
+
+
+局限大：我们往往只能找到“差不多能用”的分子，而不是“完全为我们量身定制”的分子。
+
+
+想象一下，如果你需要一把钥匙来打开某个复杂的锁（比如癌细胞上的受体蛋白），传统方式就是到处翻找已有的钥匙，试一把算一把。但如果可以 直接设计一把全新的钥匙，精确匹配这把锁呢？这就是 蛋白质设计（protein design） 的愿景。
+几十年来，这个愿景听上去更像科幻小说，因为蛋白质折叠与结合的规律极其复杂，远超人类直觉。直到最近几年，随着 计算方法与人工智能的飞跃，我们才真正走到可以“编程蛋白质”的时代。
+在这一领域，最具代表性的团队之一就是 David Baker 领导的华盛顿大学蛋白质设计研究所（IPD）。这支团队在过去十多年里不断突破，先后开发了 Rosetta、AlphaFold 相关工具，最近更是把深度学习和生成模型引入蛋白质设计。
+而我今天要和大家分享的，是基于 Baker 组博士生 黄博伟（Buwei Huang） 的博士论文的引入部分，做了一些我自己的理解，可以方便大家理解蛋白质设计发展的脉络。
+
+在接下来的文章里，我会带你一起走进这篇论文，总结两大核心内容：
+
+
+蛋白质结合物的概念与设计思路
+
+
+三代计算设计 pipeline 的演进
+
+
+
+1. 蛋白质结合物 Minibinders 的概念
+1.1 什么是 minibinders？
+简单来说，minibinders 是 人工设计的小型蛋白质，通常只有 50–70 个氨基酸，结构紧凑，功能单一。它们的主要任务是：
+
+高特异性、高亲和力地结合目标蛋白上的某个特定位点（epitope）。
+
+如果说传统的抗体像一把大雨伞，能牢牢罩住一个靶点；那么 minibinder 更像是一把小巧的折叠伞，精准地卡在你想要的位置上。
+
+1.2 为什么要做小蛋白？抗体不够好吗？
+抗体当然强大，它们是目前最重要的生物药物类别（占了全球生物药物市场的大头）。但抗体也有不少“短板”：
+
+
+体积太大：动辄上百千道尔顿，很多组织（比如脑部）难以进入。
+
+
+生产复杂：需要哺乳动物细胞培养，成本高。
+
+
+稳定性有限：抗体在高温或极端环境下容易变性。
+
+
+而 minibinders 的优势正好互补：
+
+
+小巧稳定：几十个氨基酸，热稳定性极佳（很多能耐受 95°C 加热！）。
+
+
+高特异性：计算机可以精确控制它们结合的氨基酸位点，避免副作用。
+
+
+生产便宜：像普通蛋白一样，大肠杆菌就能表达出来。
+
+
+模块化组合：可以像乐高积木一样拼接，做多价、多功能的“定制药物”。
+
+
+1.3 它们能做什么？
+在论文中，黄博伟主要展示了两大方向：
+
+
+作为拮抗剂：阻断关键蛋白信号通路，比如细胞因子风暴中的 IL-6、IL-1 通路。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="在生物学的世界里，蛋白质是最重要的“分子机器”。它们像乐高积木一样由氨基酸拼装而成，却能完成几乎所有生命活动：从催化反应，到信号传导，再到结构支撑。没有蛋白质，就没有生命。
+长期以来，人类在“药物开发”上主要做的事情是 寻找 蛋白质，而不是 创造 蛋白质。我们要么依靠大自然里已经存在的分子（比如抗体、激素、毒素），要么通过大规模筛选找到有用的片段。但这种方式有两个根本性问题：
+效率低：像大海捞针一样，需要成千上万次实验，耗时耗力。
+局限大：我们往往只能找到“差不多能用”的分子，而不是“完全为我们量身定制”的分子。
+想象一下，如果你需要一把钥匙来打开某个复杂的锁（比如癌细胞上的受体蛋白），传统方式就是到处翻找已有的钥匙，试一把算一把。但如果可以 直接设计一把全新的钥匙，精确匹配这把锁呢？这就是 蛋白质设计（protein design） 的愿景。
+几十年来，这个愿景听上去更像科幻小说，因为蛋白质折叠与结合的规律极其复杂，远超人类直觉。直到最近几年，随着 计算方法与人工智能的飞跃，我们才真正走到可以“编程蛋白质”的时代。
+在这一领域，最具代表性的团队之一就是 David Baker 领导的华盛顿大学蛋白质设计研究所（IPD）。这支团队在过去十多年里不断突破，先后开发了 Rosetta、AlphaFold 相关工具，最近更是把深度学习和生成模型引入蛋白质设计。
+而我今天要和大家分享的，是基于 Baker 组博士生 黄博伟（Buwei Huang） 的博士论文的引入部分，做了一些我自己的理解，可以方便大家理解蛋白质设计发展的脉络。
+在接下来的文章里，我会带你一起走进这篇论文，总结两大核心内容：
+蛋白质结合物的概念与设计思路
+三代计算设计 pipeline 的演进
+1. 蛋白质结合物 Minibinders 的概念 1.1 什么是 minibinders？ 简单来说，minibinders 是 人工设计的小型蛋白质，通常只有 50–70 个氨基酸，结构紧凑，功能单一。它们的主要任务是：
+高特异性、高亲和力地结合目标蛋白上的某个特定位点（epitope）。
+如果说传统的抗体像一把大雨伞，能牢牢罩住一个靶点；那么 minibinder 更像是一把小巧的折叠伞，精准地卡在你想要的位置上。
+1.2 为什么要做小蛋白？抗体不够好吗？ 抗体当然强大，它们是目前最重要的生物药物类别（占了全球生物药物市场的大头）。但抗体也有不少“短板”：
+体积太大：动辄上百千道尔顿，很多组织（比如脑部）难以进入。
+生产复杂：需要哺乳动物细胞培养，成本高。
+稳定性有限：抗体在高温或极端环境下容易变性。
+而 minibinders 的优势正好互补：
+小巧稳定：几十个氨基酸，热稳定性极佳（很多能耐受 95°C 加热！）。
+高特异性：计算机可以精确控制它们结合的氨基酸位点，避免副作用。
+生产便宜：像普通蛋白一样，大肠杆菌就能表达出来。
+模块化组合：可以像乐高积木一样拼接，做多价、多功能的“定制药物”。
+1.3 它们能做什么？ 在论文中，黄博伟主要展示了两大方向：
+作为拮抗剂：阻断关键蛋白信号通路，比如细胞因子风暴中的 IL-6、IL-1 通路。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="在生物学的世界里，蛋白质是最重要的“分子机器”。它们像乐高积木一样由氨基酸拼装而成，却能完成几乎所有生命活动：从催化反应，到信号传导，再到结构支撑。没有蛋白质，就没有生命。
+长期以来，人类在“药物开发”上主要做的事情是 寻找 蛋白质，而不是 创造 蛋白质。我们要么依靠大自然里已经存在的分子（比如抗体、激素、毒素），要么通过大规模筛选找到有用的片段。但这种方式有两个根本性问题：
+效率低：像大海捞针一样，需要成千上万次实验，耗时耗力。
+局限大：我们往往只能找到“差不多能用”的分子，而不是“完全为我们量身定制”的分子。
+想象一下，如果你需要一把钥匙来打开某个复杂的锁（比如癌细胞上的受体蛋白），传统方式就是到处翻找已有的钥匙，试一把算一把。但如果可以 直接设计一把全新的钥匙，精确匹配这把锁呢？这就是 蛋白质设计（protein design） 的愿景。
+几十年来，这个愿景听上去更像科幻小说，因为蛋白质折叠与结合的规律极其复杂，远超人类直觉。直到最近几年，随着 计算方法与人工智能的飞跃，我们才真正走到可以“编程蛋白质”的时代。
+在这一领域，最具代表性的团队之一就是 David Baker 领导的华盛顿大学蛋白质设计研究所（IPD）。这支团队在过去十多年里不断突破，先后开发了 Rosetta、AlphaFold 相关工具，最近更是把深度学习和生成模型引入蛋白质设计。
+而我今天要和大家分享的，是基于 Baker 组博士生 黄博伟（Buwei Huang） 的博士论文的引入部分，做了一些我自己的理解，可以方便大家理解蛋白质设计发展的脉络。
+在接下来的文章里，我会带你一起走进这篇论文，总结两大核心内容：
+蛋白质结合物的概念与设计思路
+三代计算设计 pipeline 的演进
+1. 蛋白质结合物 Minibinders 的概念 1.1 什么是 minibinders？ 简单来说，minibinders 是 人工设计的小型蛋白质，通常只有 50–70 个氨基酸，结构紧凑，功能单一。它们的主要任务是：
+高特异性、高亲和力地结合目标蛋白上的某个特定位点（epitope）。
+如果说传统的抗体像一把大雨伞，能牢牢罩住一个靶点；那么 minibinder 更像是一把小巧的折叠伞，精准地卡在你想要的位置上。
+1.2 为什么要做小蛋白？抗体不够好吗？ 抗体当然强大，它们是目前最重要的生物药物类别（占了全球生物药物市场的大头）。但抗体也有不少“短板”：
+体积太大：动辄上百千道尔顿，很多组织（比如脑部）难以进入。
+生产复杂：需要哺乳动物细胞培养，成本高。
+稳定性有限：抗体在高温或极端环境下容易变性。
+而 minibinders 的优势正好互补：
+小巧稳定：几十个氨基酸，热稳定性极佳（很多能耐受 95°C 加热！）。
+高特异性：计算机可以精确控制它们结合的氨基酸位点，避免副作用。
+生产便宜：像普通蛋白一样，大肠杆菌就能表达出来。
+模块化组合：可以像乐高积木一样拼接，做多价、多功能的“定制药物”。
+1.3 它们能做什么？ 在论文中，黄博伟主要展示了两大方向：
+作为拮抗剂：阻断关键蛋白信号通路，比如细胞因子风暴中的 IL-6、IL-1 通路。">
+  <meta itemprop="wordCount" content="449">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="在生物学的世界里，蛋白质是最重要的“分子机器”。它们像乐高积木一样由氨基酸拼装而成，却能完成几乎所有生命活动：从催化反应，到信号传导，再到结构支撑。没有蛋白质，就没有生命。
+长期以来，人类在“药物开发”上主要做的事情是 寻找 蛋白质，而不是 创造 蛋白质。我们要么依靠大自然里已经存在的分子（比如抗体、激素、毒素），要么通过大规模筛选找到有用的片段。但这种方式有两个根本性问题：
+效率低：像大海捞针一样，需要成千上万次实验，耗时耗力。
+局限大：我们往往只能找到“差不多能用”的分子，而不是“完全为我们量身定制”的分子。
+想象一下，如果你需要一把钥匙来打开某个复杂的锁（比如癌细胞上的受体蛋白），传统方式就是到处翻找已有的钥匙，试一把算一把。但如果可以 直接设计一把全新的钥匙，精确匹配这把锁呢？这就是 蛋白质设计（protein design） 的愿景。
+几十年来，这个愿景听上去更像科幻小说，因为蛋白质折叠与结合的规律极其复杂，远超人类直觉。直到最近几年，随着 计算方法与人工智能的飞跃，我们才真正走到可以“编程蛋白质”的时代。
+在这一领域，最具代表性的团队之一就是 David Baker 领导的华盛顿大学蛋白质设计研究所（IPD）。这支团队在过去十多年里不断突破，先后开发了 Rosetta、AlphaFold 相关工具，最近更是把深度学习和生成模型引入蛋白质设计。
+而我今天要和大家分享的，是基于 Baker 组博士生 黄博伟（Buwei Huang） 的博士论文的引入部分，做了一些我自己的理解，可以方便大家理解蛋白质设计发展的脉络。
+在接下来的文章里，我会带你一起走进这篇论文，总结两大核心内容：
+蛋白质结合物的概念与设计思路
+三代计算设计 pipeline 的演进
+1. 蛋白质结合物 Minibinders 的概念 1.1 什么是 minibinders？ 简单来说，minibinders 是 人工设计的小型蛋白质，通常只有 50–70 个氨基酸，结构紧凑，功能单一。它们的主要任务是：
+高特异性、高亲和力地结合目标蛋白上的某个特定位点（epitope）。
+如果说传统的抗体像一把大雨伞，能牢牢罩住一个靶点；那么 minibinder 更像是一把小巧的折叠伞，精准地卡在你想要的位置上。
+1.2 为什么要做小蛋白？抗体不够好吗？ 抗体当然强大，它们是目前最重要的生物药物类别（占了全球生物药物市场的大头）。但抗体也有不少“短板”：
+体积太大：动辄上百千道尔顿，很多组织（比如脑部）难以进入。
+生产复杂：需要哺乳动物细胞培养，成本高。
+稳定性有限：抗体在高温或极端环境下容易变性。
+而 minibinders 的优势正好互补：
+小巧稳定：几十个氨基酸，热稳定性极佳（很多能耐受 95°C 加热！）。
+高特异性：计算机可以精确控制它们结合的氨基酸位点，避免副作用。
+生产便宜：像普通蛋白一样，大肠杆菌就能表达出来。
+模块化组合：可以像乐高积木一样拼接，做多价、多功能的“定制药物”。
+1.3 它们能做什么？ 在论文中，黄博伟主要展示了两大方向：
+作为拮抗剂：阻断关键蛋白信号通路，比如细胞因子风暴中的 IL-6、IL-1 通路。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p>在生物学的世界里，蛋白质是最重要的“分子机器”。它们像乐高积木一样由氨基酸拼装而成，却能完成几乎所有生命活动：从催化反应，到信号传导，再到结构支撑。没有蛋白质，就没有生命。</p>
+<p>长期以来，人类在“药物开发”上主要做的事情是 <strong>寻找</strong> 蛋白质，而不是 <strong>创造</strong> 蛋白质。我们要么依靠大自然里已经存在的分子（比如抗体、激素、毒素），要么通过大规模筛选找到有用的片段。但这种方式有两个根本性问题：</p>
+<ol>
+<li>
+<p><strong>效率低</strong>：像大海捞针一样，需要成千上万次实验，耗时耗力。</p>
+</li>
+<li>
+<p><strong>局限大</strong>：我们往往只能找到“差不多能用”的分子，而不是“完全为我们量身定制”的分子。</p>
+</li>
+</ol>
+<p>想象一下，如果你需要一把钥匙来打开某个复杂的锁（比如癌细胞上的受体蛋白），传统方式就是到处翻找已有的钥匙，试一把算一把。但如果可以 <strong>直接设计一把全新的钥匙</strong>，精确匹配这把锁呢？这就是 <strong>蛋白质设计（protein design）</strong> 的愿景。</p>
+<p>几十年来，这个愿景听上去更像科幻小说，因为蛋白质折叠与结合的规律极其复杂，远超人类直觉。直到最近几年，随着 <strong>计算方法与人工智能的飞跃</strong>，我们才真正走到可以“编程蛋白质”的时代。</p>
+<p>在这一领域，最具代表性的团队之一就是 <strong>David Baker 领导的华盛顿大学蛋白质设计研究所（IPD）</strong>。这支团队在过去十多年里不断突破，先后开发了 Rosetta、AlphaFold 相关工具，最近更是把深度学习和生成模型引入蛋白质设计。</p>
+<p>而我今天要和大家分享的，是基于 Baker 组博士生 <strong>黄博伟（Buwei Huang）</strong> 的博士论文的引入部分，做了一些我自己的理解，可以方便大家理解蛋白质设计发展的脉络。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-6.png" alt=""></p>
+<p>在接下来的文章里，我会带你一起走进这篇论文，总结两大核心内容：</p>
+<ol>
+<li>
+<p><strong>蛋白质结合物的概念与设计思路</strong></p>
+</li>
+<li>
+<p><strong>三代计算设计 pipeline 的演进</strong></p>
+</li>
+</ol>
+<hr>
+<h2 id="1-蛋白质结合物-minibinders-的概念">1. <strong>蛋白质结合物 Minibinders 的概念</strong></h2>
+<h3 id="11-什么是-minibinders">1.1 <strong>什么是 minibinders？</strong></h3>
+<p>简单来说，minibinders 是 <strong>人工设计的小型蛋白质</strong>，通常只有 50–70 个氨基酸，结构紧凑，功能单一。它们的主要任务是：</p>
+<blockquote>
+<p><strong>高特异性、高亲和力地结合目标蛋白上的某个特定位点（epitope）</strong>。</p>
+</blockquote>
+<p>如果说传统的抗体像一把大雨伞，能牢牢罩住一个靶点；那么 minibinder 更像是一把小巧的折叠伞，精准地卡在你想要的位置上。</p>
+<hr>
+<h3 id="12-为什么要做小蛋白抗体不够好吗">1.2 <strong>为什么要做小蛋白？抗体不够好吗？</strong></h3>
+<p>抗体当然强大，它们是目前最重要的生物药物类别（占了全球生物药物市场的大头）。但抗体也有不少“短板”：</p>
+<ul>
+<li>
+<p><strong>体积太大</strong>：动辄上百千道尔顿，很多组织（比如脑部）难以进入。</p>
+</li>
+<li>
+<p><strong>生产复杂</strong>：需要哺乳动物细胞培养，成本高。</p>
+</li>
+<li>
+<p><strong>稳定性有限</strong>：抗体在高温或极端环境下容易变性。</p>
+</li>
+</ul>
+<p>而 minibinders 的优势正好互补：</p>
+<ul>
+<li>
+<p><strong>小巧稳定</strong>：几十个氨基酸，热稳定性极佳（很多能耐受 95°C 加热！）。</p>
+</li>
+<li>
+<p><strong>高特异性</strong>：计算机可以精确控制它们结合的氨基酸位点，避免副作用。</p>
+</li>
+<li>
+<p><strong>生产便宜</strong>：像普通蛋白一样，大肠杆菌就能表达出来。</p>
+</li>
+<li>
+<p><strong>模块化组合</strong>：可以像乐高积木一样拼接，做多价、多功能的“定制药物”。</p>
+</li>
+</ul>
+<h3 id="13-它们能做什么">1.3 <strong>它们能做什么？</strong></h3>
+<p>在论文中，黄博伟主要展示了两大方向：</p>
+<ol>
+<li>
+<p><strong>作为拮抗剂</strong>：阻断关键蛋白信号通路，比如细胞因子风暴中的 IL-6、IL-1 通路。</p>
+</li>
+<li>
+<p><strong>作为内吞诱饵（EndoTags）</strong>：把靶标蛋白“骗进”溶酶体里进行降解，类似一种“自毁标签”。</p>
+</li>
+</ol>
+<p>这两个方向都直击传统药物的痛点：</p>
+<ul>
+<li>
+<p>小分子药物虽然能进入细胞，但很难做到高特异性。</p>
+</li>
+<li>
+<p>抗体药物虽然特异，但大、贵、不稳定。</p>
+</li>
+<li>
+<p>minibinders 正好卡在中间 → 小巧 + 高特异性 + 可模块化。</p>
+</li>
+</ul>
+<blockquote>
+<p>可以说，<strong>minibinders 是介于抗体与小分子之间的新一代药物平台</strong>。它们不是替代品，而是补充，可以填补现有药物的空白。</p>
+</blockquote>
+<h2 id="2-蛋白质设计-pipeline-的三代演进">2. <strong>蛋白质设计 pipeline 的三代演进</strong></h2>
+<p>在黄博伟的博士论文中，蛋白质结合物（minibinders）的设计被系统性地分为三代方法学演进。这一演进过程，反映了计算驱动与人工智能驱动方法在蛋白质设计领域的结合与迭代。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-3.png" alt=""></p>
+<hr>
+<h3 id="21-从经验筛选到基于结构的信息">2.1 <strong>从经验筛选到基于结构的信息</strong></h3>
+<ul>
+<li>
+<p>早期药物开发主要依赖 <strong>经验性筛选</strong> 或 <strong>大规模文库筛选</strong>，很难直接锁定目标蛋白上的某个表位 。</p>
+</li>
+<li>
+<p>一种改进方法是 <strong>基于已知结合蛋白的片段嫁接（motif grafting）</strong>，但这种方式过度依赖现有天然蛋白，导致可采样空间受限，亲和力和适用范围有限 。</p>
+</li>
+</ul>
+<h3 id="22-第一代基于-rosetta-的结构驱动方法cao-2021">2.2 <strong>第一代：基于 Rosetta 的结构驱动方法（Cao 2021）</strong></h3>
+<p>在蛋白质设计的早期，研究者最初的思路是：</p>
+<blockquote>
+<p><strong>先构建一批小型蛋白骨架，然后尝试把它们“拼接”到目标蛋白的结合位点上</strong>。</p>
+</blockquote>
+<p>这种方法最具代表性的实现，就是 Baker 团队开发的 <strong>Rosetta 设计流程</strong>。</p>
+<h4 id="221-骨架库的建立">2.2.1 <strong>骨架库的建立</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-9.png" alt=""></p>
+<p>研究者首先需要一个可以尝试的“零件库”。</p>
+<ul>
+<li>
+<p>他们从自然界常见的蛋白质折叠（例如铁氧还蛋白 ferredoxin-like 结构）出发，抽象出常见的二级结构排列模式。</p>
+</li>
+<li>
+<p>然后通过 <strong>Rosetta Blueprint 构建方法</strong>，组合不同的 α 螺旋、β 片层和环区，拼装成几十个氨基酸长的小蛋白骨架。</p>
+</li>
+<li>
+<p>最终生成了一个 <strong>多样化的骨架库</strong>，每个骨架大约 50–70 个氨基酸，能折叠成稳定的三维结构。</p>
+</li>
+</ul>
+<blockquote>
+<p>这一步的意义在于：如果没有骨架，就无法承载结合界面。骨架库相当于设计的“备件仓库”。</p>
+</blockquote>
+<hr>
+<h4 id="222-骨架与目标表位的对接">2.2.2 <strong>骨架与目标表位的对接</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-7.png" alt=""></p>
+<p>接下来，研究者使用 <strong>PatchDock</strong> 和 <strong>RifDock</strong> 这两种分子对接工具，把骨架尝试性地“放置”到目标蛋白的结合表位上。</p>
+<ul>
+<li>
+<p><strong>PatchDock</strong> 用于快速找到几何上可行的初始对接模式。</p>
+</li>
+<li>
+<p><strong>RifDock</strong> 则在此基础上进行构象调整和精细化采样，尝试找到最佳的空间互补方式。</p>
+</li>
+</ul>
+<blockquote>
+<p>这一过程类似“把各种钥匙模具往锁孔里试”，直到找到潜在合适的组合。</p>
+</blockquote>
+<hr>
+<h4 id="223-序列与能量优化">2.2.3 <strong>序列与能量优化</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-5.png" alt=""></p>
+<p>对接后，骨架只是几何上“卡进去”，它的氨基酸序列还需要调整。</p>
+<ul>
+<li>
+<p>研究者使用 <strong>Rosetta FastDesign</strong> 算法，对骨架的氨基酸序列进行重新设计，优化氢键、疏水相互作用、静电作用等。</p>
+</li>
+<li>
+<p>同时通过 Rosetta 的能量函数来评估：</p>
+<ul>
+<li>
+<p>结构是否能稳定折叠？</p>
+</li>
+<li>
+<p>与目标蛋白的界面是否足够紧密、互补？</p>
+</li>
+<li>
+<p>结合自由能是否足够低？</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="224-筛选与实验验证">2.2.4 <strong>筛选与实验验证</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-8.png" alt=""></p>
+<p>最终，研究者从海量候选设计中，筛选出结合界面面积大、能量评分优的候选小蛋白，送去实验验证。</p>
+<p>然而，这种方法面临两个巨大瓶颈：</p>
+<ol>
+<li>
+<p><strong>成功率极低</strong>：在数十万甚至百万级别的候选设计中，真正能在实验里稳定折叠并高亲和结合的比例只有 <strong>约 0.1%</strong>。</p>
+</li>
+<li>
+<p><strong>计算与实验成本高昂</strong>：每一次设计都需要大量对接、优化和筛选，计算资源消耗巨大；实验部分则往往“十万投一中”。</p>
+</li>
+</ol>
+<h4 id="225-小结">2.2.5 <strong>小结</strong></h4>
+<p>第一代 pipeline 的最大意义在于 <strong>证明了从零开始设计结合物是可行的</strong>。研究者确实能够利用骨架库和 Rosetta 打分，得到能与目标蛋白结合的小蛋白。但它的低成功率和高开销，使得这种方法 <strong>更像是概念验证，而非实用工具</strong>。</p>
+<p>这一代方法的局限性也为后续的改进指明了方向：</p>
+<blockquote>
+<p>如何让序列设计更高效？如何提升结构预测与筛选的准确性？</p>
+</blockquote>
+<hr>
+<h3 id="23-第二代深度学习辅助的混合方法bennet-2023">2.3 <strong>第二代：深度学习辅助的混合方法（Bennet 2023）</strong></h3>
+<p>在第一代 Rosetta 流程中，虽然证明了 <strong>de novo 设计蛋白结合物是可行的</strong>，但极低的成功率和高昂的成本严重限制了应用。为此，研究者在第二代 pipeline 中引入了 <strong>深度学习工具</strong>，大幅提升了效率和准确性。</p>
+<hr>
+<h4 id="231-核心改进一proteinmpnn-替代-rosetta-fastdesign">2.3.1 <strong>核心改进一：ProteinMPNN 替代 Rosetta FastDesign</strong></h4>
+<p>在第一代方法里，序列优化由 Rosetta 完成，需要在巨大的序列空间里不断尝试，计算负担极重。</p>
+<ul>
+<li><strong>ProteinMPNN</strong> 的出现改变了这一局面。它是一个基于图神经网络的序列生成模型，能够在已知骨架结构的情况下，快速生成合理的氨基酸序列。</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-4.png" alt=""></p>
+<ul>
+<li>
+<p>相比 Rosetta FastDesign：</p>
+<ul>
+<li>
+<p><strong>速度更快</strong>：数分钟就能完成过去数小时甚至数天的计算。</p>
+</li>
+<li>
+<p><strong>质量更高</strong>：生成的序列折叠稳定性和结合成功率明显优于传统方法。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>可以说，ProteinMPNN 把序列设计从“低效搜索”变成了“高效预测”。</p>
+</blockquote>
+<hr>
+<h4 id="232-核心改进二alphafold2-作为独立打分工具">2.3.2 <strong>核心改进二：AlphaFold2 作为独立打分工具</strong></h4>
+<p>设计的蛋白质结构，能否真正按照预期折叠？在第一代方法里，这一步依赖 Rosetta 能量函数打分，但其区分度有限。</p>
+<ul>
+<li>
+<p><strong>AlphaFold2</strong> 的引入带来了全新的解决方案：</p>
+<ul>
+<li>
+<p>通过预测设计蛋白的折叠结构，验证其是否稳定。</p>
+</li>
+<li>
+<p>特别是 <strong>PAE (Predicted Aligned Error) interaction</strong> 指标，可以衡量设计蛋白和目标蛋白结合界面的可靠性。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>在实际应用中，PAE 分数成为区分成功设计与失败设计的关键指标，显著提升了筛选的准确性。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image.png" alt=""></p>
+<blockquote>
+<p>这意味着，研究者不再需要完全依赖实验来淘汰失败设计，计算端就能预判大部分结果。</p>
+</blockquote>
+<hr>
+<h4 id="233-流程整合">2.3.3 <strong>流程整合</strong></h4>
+<p>第二代 pipeline 的整体流程可以概括为：</p>
+<ol>
+<li>
+<p><strong>对接阶段</strong>：依然使用 Rosetta docking 来探索骨架与表位的初步结合模式。</p>
+</li>
+<li>
+<p><strong>序列设计</strong>：用 ProteinMPNN 快速生成高质量序列。</p>
+</li>
+<li>
+<p><strong>筛选验证</strong>：通过 AlphaFold2 预测折叠和结合界面，利用 PAE 打分筛选最佳候选。</p>
+</li>
+</ol>
+<blockquote>
+<p>相比第一代“Rosetta 全包”的方式，第二代方法形成了一种 <strong>混合 pipeline</strong>：</p>
+<ul>
+<li>
+<p>Rosetta 负责几何构象搜索。</p>
+</li>
+<li>
+<p>深度学习负责序列设计和结构筛选。</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="234-成效与意义">2.3.4 <strong>成效与意义</strong></h4>
+<ul>
+<li>
+<p><strong>成功率显著提升</strong>：设计-验证-命中的比例远高于第一代，减少了实验消耗。</p>
+</li>
+<li>
+<p><strong>计算效率提升数十倍</strong>：大幅降低了对计算资源的依赖。</p>
+</li>
+<li>
+<p><strong>奠定了 AI 融入蛋白质设计的范式</strong>：证明深度学习不仅能预测结构，也能直接参与设计环节。</p>
+</li>
+</ul>
+<hr>
+<h4 id="235-小结">2.3.5 <strong>小结</strong></h4>
+<p>第二代 pipeline 的核心贡献是 <strong>将 AI 与传统物理建模相结合</strong>，实现了设计流程的降本增效。</p>
+<blockquote>
+<p>它不再是“十万投一”，而是让 de novo 设计真正进入了可以规模化探索的阶段。</p>
+</blockquote>
+<p>不过，这种方法依然有一个限制：<strong>仍然依赖预制骨架库</strong>。骨架库覆盖不到的表位，依旧很难设计。</p>
+<p>这正是第三代 pipeline 要解决的问题。</p>
+<hr>
+<h3 id="24-第三代生成模型驱动的-rfdiffusion2023">2.4 <strong>第三代：生成模型驱动的 RFdiffusion（2023）</strong></h3>
+<p>虽然第二代 pipeline 已经利用深度学习极大提升了效率和成功率，但它依然存在一个根本限制：</p>
+<blockquote>
+<p><strong>所有设计仍依赖于预制骨架库</strong>。</p>
+</blockquote>
+<p>这意味着如果骨架库里没有合适的结构拓扑，那么某些目标表位仍然无法被覆盖。</p>
+<p>为了解决这一问题，研究者引入了全新的思路：<strong>直接生成所需的蛋白骨架</strong>。这就是第三代 pipeline 的核心——基于扩散模型的 <strong>RFdiffusion</strong>。</p>
+<hr>
+<h4 id="241-原理扩散生成模型">2.4.1 <strong>原理：扩散生成模型</strong></h4>
+<p>扩散模型是一类在图像生成领域取得巨大成功的深度学习方法（如 Stable Diffusion），能够从随机噪声逐步生成符合约束条件的目标结构。</p>
+<ul>
+<li>
+<p>在蛋白质设计中，RFdiffusion 的工作方式是：</p>
+<ol>
+<li>
+<p>输入目标蛋白的结合表位约束信息。</p>
+</li>
+<li>
+<p>模型从随机结构出发，逐步生成与该表位高度互补的小蛋白骨架。</p>
+</li>
+<li>
+<p>最终得到一个稳定、可折叠且匹配度高的骨架。</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-1.png" alt=""></p>
+<blockquote>
+<p>这与之前“从骨架库里挑合适的”完全不同，它是 <strong>直接定制化生成骨架</strong>。</p>
+</blockquote>
+<hr>
+<h4 id="242-流程整合">2.4.2 <strong>流程整合</strong></h4>
+<p>第三代 pipeline 的整体流程：</p>
+<ol>
+<li>
+<p><strong>RFdiffusion</strong>：在目标表位约束下直接生成蛋白骨架。</p>
+</li>
+<li>
+<p><strong>ProteinMPNN</strong>：在生成的骨架上快速生成序列。</p>
+</li>
+<li>
+<p><strong>AlphaFold2</strong>：预测折叠与界面结构，用于筛选和验证。</p>
+</li>
+</ol>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion-1/images/image-2.png" alt=""></p>
+<blockquote>
+<p>换句话说，RFdiffusion 彻底取代了骨架库和对接步骤，把 pipeline 转变为 <strong>表位 → 骨架生成 → 序列设计 → 筛选</strong> 的流程。</p>
+</blockquote>
+<hr>
+<h4 id="243-成果与优势">2.4.3 <strong>成果与优势</strong></h4>
+<ul>
+<li>
+<p><strong>成功率数量级提升</strong>：binder 设计的实验命中率从第一代的 ~0.1%，提升到第三代的 ~10%。这是两个数量级的跨越。</p>
+</li>
+<li>
+<p><strong>覆盖范围更广</strong>：不再受限于骨架库，可以针对几乎任意表位进行设计。</p>
+</li>
+<li>
+<p><strong>效率与可扩展性</strong>：RFdiffusion 能快速生成多样化的骨架，支持大规模并行探索。</p>
+</li>
+</ul>
+<hr>
+<h4 id="244-意义">2.4.4 <strong>意义</strong></h4>
+<p>第三代 pipeline 的意义不仅仅是提高了成功率，更在于 <strong>范式的转变</strong>：</p>
+<ul>
+<li>
+<p>从“搜索与优化” → “直接生成”。</p>
+</li>
+<li>
+<p>从依赖有限骨架 → 实现无限空间的骨架定制。</p>
+</li>
+<li>
+<p>从尝试性探索 → 走向真正的“按需编程”。</p>
+</li>
+</ul>
+<blockquote>
+<p>这标志着蛋白质设计进入了一个新的阶段：研究者不再受限于已有结构，而是可以通过生成模型 <strong>直接“画”出分子机器的蓝图</strong>。</p>
+</blockquote>
+<hr>
+<h4 id="245-小结">2.4.5 <strong>小结</strong></h4>
+<p>第三代 pipeline（RFdiffusion）实现了质的飞跃，使蛋白质设计摆脱了骨架库的限制，并大幅提升了实验可行性。</p>
+<blockquote>
+<p>这一突破奠定了 <strong>可编程蛋白质设计</strong> 的基础，也预示着未来的药物开发能够在计算机中实现更大规模、更高精度的分子创造。</p>
+</blockquote>
+<hr>
+<h2 id="3-总结">3. <strong>总结</strong></h2>
+<p>这三代 pipeline 的演进体现了蛋白质设计的技术轨迹：</p>
+<ul>
+<li>
+<p>从基于物理规则的穷举搜索（Rosetta），</p>
+</li>
+<li>
+<p>到深度学习辅助的高效混合方法（ProteinMPNN + AlphaFold2），</p>
+</li>
+<li>
+<p>再到生成模型主导的按需设计（RFdiffusion）。</p>
+</li>
+</ul>
+<blockquote>
+<p>随着方法学的进步，<strong>蛋白质 binder 的设计成功率与精确性得到数量级提升</strong>，这为后续的应用研究（拮抗剂开发、靶向降解等）奠定了坚实基础。</p>
+</blockquote>
+<h2 id="4-方法学演进总结">4. <strong>方法学演进总结</strong></h2>
+<p>通过第一章的梳理，可以看到蛋白质结合物设计在过去几年经历了三个迭代阶段，每一次进步都解决了前一代的瓶颈：</p>
+<hr>
+<h3 id="41-从骨架库出发的物理建模第一代">4.1 <strong>从骨架库出发的物理建模（第一代）</strong></h3>
+<ul>
+<li>
+<p><strong>核心思路</strong>：依靠 Rosetta 物理能量函数 + 预制骨架库。</p>
+</li>
+<li>
+<p><strong>优点</strong>：首次证明了 de novo 设计蛋白结合物是可行的。</p>
+</li>
+<li>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>
+<p>成功率极低（~0.1%），计算与实验开销巨大。</p>
+</li>
+<li>
+<p>严重依赖骨架库 → 不能覆盖任意表位。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="42-ai-辅助的混合-pipeline第二代">4.2 <strong>AI 辅助的混合 pipeline（第二代）</strong></h3>
+<ul>
+<li>
+<p><strong>核心改进</strong>：</p>
+<ul>
+<li>
+<p>ProteinMPNN → 高效序列设计。</p>
+</li>
+<li>
+<p>AlphaFold2 → 高精度结构预测与界面打分。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>
+<p>成功率显著提高，实验命中率增加数十倍。</p>
+</li>
+<li>
+<p>计算成本大幅下降，设计周期缩短。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>
+<p>依旧依赖骨架库。</p>
+</li>
+<li>
+<p>对新颖拓扑或复杂表位的适应性有限。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="43-生成模型主导的全新范式第三代">4.3 <strong>生成模型主导的全新范式（第三代）</strong></h3>
+<ul>
+<li>
+<p><strong>核心创新</strong>：RFdiffusion 扩散模型 → 在表位约束下直接生成定制化骨架。</p>
+</li>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>
+<p>实现“按需生成”，不再受限于骨架库。</p>
+</li>
+<li>
+<p>成功率提升到 ~10%，相比第一代引入百倍跃升。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>意义</strong>：从“搜索与优化”彻底转变为“生成与编程”。</p>
+</li>
+</ul>
+<hr>
+<h3 id="44-整体脉络总结">4.4 <strong>整体脉络总结</strong></h3>
+<ul>
+<li>
+<p><strong>早期阶段</strong>：依赖天然蛋白改造（motif grafting、筛选）。</p>
+</li>
+<li>
+<p><strong>第一代</strong>：验证了 de novo 设计的可行性，但效率低。</p>
+</li>
+<li>
+<p><strong>第二代</strong>：引入深度学习，大幅提高成功率和效率。</p>
+</li>
+<li>
+<p><strong>第三代</strong>：生成模型实现范式转变，奠定“可编程蛋白质设计”的基础。</p>
+</li>
+</ul>
+<hr>
+<h3 id="45-启示">4.5 <strong>启示</strong></h3>
+<ul>
+<li>
+<p>每一代方法的突破，都源于 <strong>新工具的引入</strong>：</p>
+<ul>
+<li>
+<p>Rosetta → 物理能量函数</p>
+</li>
+<li>
+<p>ProteinMPNN &amp; AlphaFold2 → 深度学习</p>
+</li>
+<li>
+<p>RFdiffusion → 生成模型</p>
+</li>
+</ul>
+</li>
+<li>
+<p>整个领域的发展趋势非常清晰：</p>
+</li>
+</ul>
+<blockquote>
+<p>从依赖自然和物理规则 → 过渡到 AI 辅助 → 走向 AI 主导。</p>
+</blockquote>
+<p>这不仅是蛋白质设计的技术迭代，也是 <strong>生命科学与人工智能深度融合</strong> 的缩影</p>
+<blockquote>
+<p><strong>蓝极说：</strong></p>
+<p>回顾这三代蛋白质设计方法的发展，我们看到的不仅仅是算法和技术的更新迭代，更是一个科学范式的转变：从依赖自然、依赖偶然的“寻找”，到可以借助 AI 的力量主动“创造”。第一代方法让我们看到了可能性，第二代方法让这种可能性变得更高效、更可控，而第三代方法则真正把我们带入了“编程蛋白质”的新纪元。</p>
+<p>这意味着，未来的药物不再只是自然界里“碰巧存在”的分子，而是可以根据疾病的需求被<strong>量身定制</strong>的分子机器。蛋白质设计从概念验证走向大规模应用，也许正如计算机从最初的实验室原型走向普及一样，将彻底改变医学与生物技术的格局。</p>
+</blockquote>
+<p>原文链接：https://digital.lib.washington.edu/server/api/core/bitstreams/bd74c9ab-2bd4-44ef-a68f-329f194e3226/content</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/" class="link dim">
+                RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Protein Structure Prediction on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/protein-structure-prediction/</link>
+    <description>Recent content in Protein Structure Prediction on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 25 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/protein-structure-prediction/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>够简单，也够强大：苹果发布蛋白结构预测工具 SimpleFold</title>
+      <link>http://localhost:1313/zh/literature/%E5%A4%9F%E7%AE%80%E5%8D%95%E4%B9%9F%E5%A4%9F%E5%BC%BA%E5%A4%A7%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%B7%A5%E5%85%B7simplefold/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%A4%9F%E7%AE%80%E5%8D%95%E4%B9%9F%E5%A4%9F%E5%BC%BA%E5%A4%A7%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%B7%A5%E5%85%B7simplefold/</guid>
+      <description>苹果发布蛋白结构预测模型 SimpleFold，完全抛弃 MSA、pair 表示与 triangle updates，仅依赖通用 Transformer 与 flow-matching 生成式训练目标，在 CASP14 与 CAMEO 等基准上达到接近 AlphaFold2 的精度，同时具备多构象生成能力，并可在消费级硬件上运行。</description>
+    </item>
+    <item>
+      <title>RareFold：20种氨基酸不够用？让蛋白质设计进入“外挂模式”</title>
+      <link>http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 29 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description>RareFold 在 AlphaFold2 架构上引入“氨基酸 token 扩展”策略，使模型能够直接建模 29 种非天然氨基酸的结构特征，并在多项预测任务中优于 AlphaFold3；同时结合 EvoBindRare 框架，实现了含非天然氨基酸线性与环状多肽的从头设计，并通过 SPR 实验获得 μM 级真实结合活性。</description>
+    </item>
+  </channel>
+</rss>

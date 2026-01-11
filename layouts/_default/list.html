@@ -32,6 +32,14 @@
       </section>
     {{ end }}
     
+    {{ $total := len .Pages }}
+
+    {{ $latest := (index (sort .Pages "Date" "desc") 0).Date }}
+
+    <div class="tc gray f6 mb3">
+      共收录 {{ len .Pages }} 篇文献解读 · 最近更新于 {{ $latest.Format "2006-01-02" }}
+    </div>
+
     <!-- 热门标签，仅 literature 显示 -->
     {{ if eq .Section "literature" }}
       <section class="ph3 ph5-l mb4">

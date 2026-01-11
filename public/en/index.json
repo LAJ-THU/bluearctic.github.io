@@ -1,0 +1,49 @@
+[
+  {
+    "title": "AI for Proteins: 工具那么多，我究竟该用哪个？蓝极的完整清单",
+    "summary": "一份系统梳理 AI4S 工具的实用指南。",
+    "url": "/en/tutorial/tamarind/",
+    "date": "2026-01-09",
+    "tags": ["AI4S","Protein Design","Tutorial"],
+    "external": null
+  },
+  {
+    "title": "About Me",
+    "summary": "👋 你好 (Hello) 我是 刘安吉，一名专注于 结构生物学 与 AI4S (AI for Science) 交叉领域的博士研究生。 我对利用深度学习（如 AlphaFold, RFdiffusion）解决蛋白质设计与结构预测问题充满热情。目前，我正在维护一个关于蛋白质设计的公众号，并致力于开发本地化的 AI 预测流程。\n📥 下载我的完整简历 (PDF) \u0026mdash;\n教育背景 (Education) 清华大学 (Tsinghua University) | 博士生在读 (Ph.D. Candidate)\n生物学 (Biological Science)* | 2022 - 至今 研究方向：基于深度学习的蛋白从头设计 / 多肽设计 核心技能：针对蛋白质设计任务，熟练掌握 RFdiffusion, ProteinMPNN, AlphaFold3 等工具。 上海科技大学 (ShanghaiTech University) | 本科 (B.S.)\n生物医学工程 (Biomedical Engineering)* | 2018 - 2022 🔬 研究兴趣 (Research Interests) 我关注 结构生物学 × 人工智能（AI4S, AI for Science） 的交叉问题，核心目标是：\n利用深度学习模型理解并“设计”蛋白质结构与功能，而不仅仅是预测。\n",
+    "url": "/en/about/",
+    "date": "2026-01-07",
+    "tags": null,
+    "external": null
+  },
+  {
+    "title": "BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？",
+    "summary": "BoltzGen也许是Boltz生态的闭环，但仅仅是通用Binder设计的开端",
+    "url": "/en/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/",
+    "date": "2025-10-28",
+    "tags": null,
+    "external": "https://mp.weixin.qq.com/s/yvN5CreAH4_D08lwhbQMXg"
+  },
+  {
+    "title": "“人类互作组”的开山之作：Science揭示最大规模蛋白互作预测",
+    "summary": "我愿称这篇文章为“人类互作组”的开山之作！",
+    "url": "/en/literature/%E4%BA%BA%E7%B1%BB%E4%BA%92%E4%BD%9C%E7%BB%84%E7%9A%84%E5%BC%80%E5%B1%B1%E4%B9%8B%E4%BD%9Cscience%E6%8F%AD%E7%A4%BA%E6%9C%80%E5%A4%A7%E8%A7%84%E6%A8%A1%E8%9B%8B%E7%99%BD%E4%BA%92%E4%BD%9C%E9%A2%84%E6%B5%8B/",
+    "date": "2025-09-29",
+    "tags": null,
+    "external": "https://mp.weixin.qq.com/s/-nfks14vBtoNQdmedK55lA"
+  },
+  {
+    "title": "“是妥协，也是突破｜RFdiffusion3：RFdiffusion进入全原子设计时代",
+    "summary": "RFdiffusion第一次真正进入了原子级的时代！",
+    "url": "/en/literature/%E6%98%AF%E5%A6%A5%E5%8D%8F%E4%B9%9F%E6%98%AF%E7%AA%81%E7%A0%B4rfdiffusion3rfdiffusion%E8%BF%9B%E5%85%A5%E5%85%A8%E5%8E%9F%E5%AD%90%E8%AE%BE%E8%AE%A1%E6%97%B6%E4%BB%A3/",
+    "date": "2025-09-20",
+    "tags": null,
+    "external": "https://mp.weixin.qq.com/s/Ijp_YuZszEBSvF7BxUdTfw"
+  },
+  {
+    "title": "蛋白质binder设计的三代演进：从 Rosetta 到 RFdiffusion",
+    "summary": "一文梳理蛋白质binder设计的三代演进",
+    "url": "/en/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/",
+    "date": "2025-09-01",
+    "tags": null,
+    "external": "https://mp.weixin.qq.com/s/iF6qFNKIiIBoZ0uNlTwDWQ"
+  }]

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Protenix on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/protenix/</link>
+    <description>Recent content in Protenix on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 17 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/protenix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？</title>
+      <link>http://localhost:1313/zh/literature/pxdesign/</link>
+      <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pxdesign/</guid>
+      <description>字节跳动 Seed 团队提出 PXDesign 框架，将扩散生成与幻觉优化相结合，并配合 Protenix 与 AF2-IG 的多模型筛选策略，在多个真实靶标上实现 20–61% 的体外命中率（PD-L1、IL-7RA 等甚至超过 70%），显著高于现有方法，展示出高成功率蛋白设计的现实可行性。</description>
+    </item>
+  </channel>
+</rss>

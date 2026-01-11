@@ -1,0 +1,23 @@
+{{ define "main" }}
+<div class="mw7 center pa4">
+  <h1 class="f2 mb4">搜索</h1>
+
+  <input 
+    id="search-input"
+    class="input-reset ba b--moon-gray pa3 w-100 br2"
+    style="font-size:18px"
+    placeholder="搜索标题 / 摘要 / 标签..."
+  >
+
+  <div id="search-results" class="mt4"></div>
+</div>
+
+<style>
+  mark {
+    background: #ffe58a;
+    padding: 0 2px;
+  }
+</style>
+
+<script src="/js/search.js"></script>
+{{ end }}

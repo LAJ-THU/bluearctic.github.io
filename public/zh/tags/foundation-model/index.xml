@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Foundation Model on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/foundation-model/</link>
+    <description>Recent content in Foundation Model on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 05 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/foundation-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>真的理解了蛋白“语言”：西湖大学原发杰团队推出三模态蛋白语言模型 ProTrek</title>
+      <link>http://localhost:1313/zh/literature/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/</link>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/</guid>
+      <description>西湖大学原发杰团队提出三模态蛋白语言模型 ProTrek，通过联合对齐序列、结构与功能文本三种模态，在统一语义空间中实现跨模态蛋白搜索。该模型在多项检索基准上相较现有方法提升一个数量级，并成功指导发现并改造新型 UDG 变体，实现高效碱基编辑的真实实验验证。</description>
+    </item>
+    <item>
+      <title>够简单，也够强大：苹果发布蛋白结构预测工具 SimpleFold</title>
+      <link>http://localhost:1313/zh/literature/%E5%A4%9F%E7%AE%80%E5%8D%95%E4%B9%9F%E5%A4%9F%E5%BC%BA%E5%A4%A7%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%B7%A5%E5%85%B7simplefold/</link>
+      <pubDate>Thu, 25 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%A4%9F%E7%AE%80%E5%8D%95%E4%B9%9F%E5%A4%9F%E5%BC%BA%E5%A4%A7%E8%8B%B9%E6%9E%9C%E5%8F%91%E5%B8%83%E8%9B%8B%E7%99%BD%E7%BB%93%E6%9E%84%E9%A2%84%E6%B5%8B%E5%B7%A5%E5%85%B7simplefold/</guid>
+      <description>苹果发布蛋白结构预测模型 SimpleFold，完全抛弃 MSA、pair 表示与 triangle updates，仅依赖通用 Transformer 与 flow-matching 生成式训练目标，在 CASP14 与 CAMEO 等基准上达到接近 AlphaFold2 的精度，同时具备多构象生成能力，并可在消费级硬件上运行。</description>
+    </item>
+    <item>
+      <title>腾讯提出 IgGM：一站式解决抗体设计难题</title>
+      <link>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</link>
+      <pubDate>Fri, 19 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</guid>
+      <description>腾讯 AI for Life Sciences Lab 提出生成式抗体基础模型 IgGM，首次将结构预测、逆向设计、亲和力成熟、人源化、框架区优化与 de novo 设计统一进单一模型框架。在 PD-L1、新冠 RBD、IL-33 等多个真实体系中完成体外实验验证，并成功设计出具备 nM–pM 级亲和力的全新抗体分子。</description>
+    </item>
+    <item>
+      <title>英伟达 La-Proteina 开源：首个可扩展到 800 残基的全原子蛋白生成模型</title>
+      <link>http://localhost:1313/zh/literature/%E8%8B%B1%E4%BC%9F%E8%BE%BEla-proteina-%E5%BC%80%E6%BA%90%E9%A6%96%E4%B8%AA%E5%8F%AF%E6%89%A9%E5%B1%95%E5%88%B0-800-%E6%AE%8B%E5%9F%BA%E7%9A%84%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Thu, 11 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E8%8B%B1%E4%BC%9F%E8%BE%BEla-proteina-%E5%BC%80%E6%BA%90%E9%A6%96%E4%B8%AA%E5%8F%AF%E6%89%A9%E5%B1%95%E5%88%B0-800-%E6%AE%8B%E5%9F%BA%E7%9A%84%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</guid>
+      <description>NVIDIA 提出并开源 La-Proteina，一种基于“部分潜变量 + 流匹配”的全原子蛋白生成模型，可同时生成 backbone、侧链与序列，并稳定扩展至 800 残基长链。模型在结构物理合理性、rotamer 分布与 motif scaffolding 等任务上显著优于现有方法，首次实现大尺度全原子蛋白生成的可扩展性。</description>
+    </item>
+  </channel>
+</rss>

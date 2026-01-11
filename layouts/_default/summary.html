@@ -12,6 +12,12 @@
       </a>
     </h1>
 
+    {{ if not .Date.IsZero }}
+      <div class="f6 mid-gray mt2 mb3">
+        发表于： {{ .Date.Format "2006-01-02" }}
+      </div>
+    {{ end }}
+
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       {{ .Summary }}
     </div>

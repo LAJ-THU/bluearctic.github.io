@@ -87,3 +87,12 @@ defaultContentLanguageInSubdir = true
   [[related.indices]]
     name = "keywords"
     weight = 80
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS", "JSON"]
+
+[[languages.zh.menu.main]]
+  name = "搜索"
+  url = "/zh/search/"
+  weight = 5

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Science｜从头设计可被小分子“遥控”的动态蛋白 | 蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="Science｜从头设计可被小分子“遥控”的动态蛋白">
+  <meta property="og:description" content="深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+    <meta property="article:published_time" content="2026-01-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-02T00:00:00+00:00">
+    <meta property="article:tag" content="AI4S">
+    <meta property="article:tag" content="Protein Design">
+    <meta property="article:tag" content="Dynamic Protein">
+    <meta property="article:tag" content="Conformational Change">
+    <meta property="article:tag" content="Synthetic Biology">
+    <meta property="article:tag" content="Small Molecule Control">
+    <meta property="og:image" content="http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/cover.png">
+
+  <meta itemprop="name" content="Science｜从头设计可被小分子“遥控”的动态蛋白">
+  <meta itemprop="description" content="深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。">
+  <meta itemprop="datePublished" content="2026-01-02T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-01-02T00:00:00+00:00">
+  <meta itemprop="wordCount" content="364">
+  <meta itemprop="image" content="http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/cover.png">
+  <meta itemprop="keywords" content="de novo dynamic protein design,conformational switching protein,small-molecule-induced assembly,chemically induced dimerization,programmable protein system,Cao Longxing lab,Westlake University,AI4S">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/cover.png">
+  <meta name="twitter:title" content="Science｜从头设计可被小分子“遥控”的动态蛋白">
+  <meta name="twitter:description" content="深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。">
+
+	
+<meta name="keywords" content="de novo dynamic protein design, conformational switching protein, small-molecule-induced assembly, chemically induced dimerization, programmable protein system, Cao Longxing lab, Westlake University, AI4S">
+
+
+
+<meta name="description" content="深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。">
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  
+  
+  
+  <header class="cover bg-center" style="background-image: url('/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/cover.png');">
+    <div class="bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/search/" title="搜索 页">
+              搜索
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <div class="f2 f1-l fw2 white-90 mb0 lh-title">Science｜从头设计可被小分子“遥控”的动态蛋白</div>
+          
+            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              深度解读 Science 工作：研究团队将“构象变化”本身作为设计目标，通过定义跨状态约束而非单一结构目标，构建出可控的蛋白多聚化模块；进一步将小分子写入装配逻辑，实现外源信号对蛋白行为的精准控制，并完成从体外到活体的完整实验闭环，为“可编程蛋白行为”奠定基础。
+            </div>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        Science｜从头设计可被小分子“遥控”的动态蛋白
+      </h1>
+
+      
+
+      
+      <time class="f6 mv4 dib tracked"
+            datetime="2026-01-02T00:00:00Z">
+        一月 2, 2026
+      </time>
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p>今天想和大家分享一篇刚刚（2026.01.02）发表在 <strong>Science</strong> 上的工作，来自西湖大学生命科学学院 <strong>曹龙兴</strong> 老师实验室，联合西湖大学医学院 <strong>解明岐</strong> 老师团队。</p>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-6.png" alt=""></p>
+<p>这篇文章做了一件在蛋白质设计领域里被讨论了很多年、但真正系统解决的工作并不多的事——</p>
+<p><strong>从头设计一个“会动”的蛋白质系统，并且让这种动态可以被小分子精准控制。</strong></p>
+<p>更具体地说，他们不是设计了某个“刚好会变化”的例子，而是构建了一套<strong>可复用的蛋白质多聚化“遥控器”</strong>：</p>
+<p>通过口服小分子药物，按下“开关”，就能让蛋白质按设计好的方式完成组装或解体，而且这一过程在细胞里、甚至在小鼠体内都成立。</p>
+<p>这篇文章的意义，并不只在于多了一套好用的合成生物学工具。</p>
+<p>它更重要的一点在于：<strong>作者从一开始就把“动态”当作设计目标本身，而不是结构之后的附赠品。</strong></p>
+<p>下面这篇解读，我想顺着论文的配图，一步一步讲清楚三件事：</p>
+<ol>
+<li>
+<p>他们要解决的难题是什么；</p>
+</li>
+<li>
+<p>他们是如何把“动态”真正写进设计流程的；</p>
+</li>
+<li>
+<p>以及这件事，为什么可能会改变我们之后设计功能蛋白的方式。</p>
+</li>
+</ol>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image.png" alt=""></p>
+<p>原文链接：https://doi.org/10.1126/science.ady6017</p>
+<hr>
+<h2 id="从静止到变化为什么设计一个会动的蛋白这么难"><strong>从“静止”到“变化”：为什么设计一个会动的蛋白这么难？</strong></h2>
+<p>在蛋白质的世界里，很多关键时刻都不是一个“独角戏”。</p>
+<p>病毒入侵细胞时，几个细长的蛋白从不同方向靠近，像对接舱段一样精准咬合，才能打开细胞的大门；</p>
+<p>免疫系统被激活时，原本分散的受体蛋白迅速聚拢，像听到号令的士兵，列阵迎敌；</p>
+<p>而在细胞内部，一次信号传递往往依赖多个蛋白短暂集结、又迅速解散，把信息一级一级送达。</p>
+<p>这些过程的共同点只有一个：</p>
+<p><strong>功能发生在变化中，而不是停留在某一个静态结构上。</strong></p>
+<p>过去十几年，蛋白质设计领域进展飞快。</p>
+<p>我们已经能从头设计出稳定折叠的蛋白，能让它们精准结合靶标，甚至能生成自然界从未出现过的新结构。</p>
+<p>但越往前走，一个问题越发明显——</p>
+<blockquote>
+<p>真正难的，从来不是“能不能折起来”，而是<strong>能不能按需要动起来。</strong></p>
+</blockquote>
+<hr>
+<h2 id="part-01难题为什么从头设计动态蛋白一直这么难"><strong>PART 01｜难题：为什么“从头设计动态蛋白”一直这么难？</strong></h2>
+<p>如果你回顾过去的蛋白质设计工作，会发现一个耐人寻味的事实：</p>
+<p><strong>最成功的案例，几乎清一色都是“静态问题”。</strong></p>
+<ul>
+<li>
+<p>设计一个稳定的折叠</p>
+</li>
+<li>
+<p>设计一个高亲和力的结合界面</p>
+</li>
+<li>
+<p>设计一个结构固定的功能模块</p>
+</li>
+</ul>
+<p>这些问题，都有一个共同特征：<strong>目标是单一结构。</strong></p>
+<p>而一旦问题变成——</p>
+<p>“这个蛋白需要在两种状态之间切换”、</p>
+<p>“只有在某种构象下功能才会打开”、</p>
+<p>“构象变化本身就是功能的一部分”，</p>
+<p>设计难度就会陡然上升。</p>
+<p>原因并不复杂。</p>
+<h3 id="第一动态不是一个结构的问题"><strong>第一，动态不是“一个结构的问题”</strong></h3>
+<p>构象变化意味着什么？</p>
+<p>意味着你要同时满足至少两个稳定状态，还要让它们之间存在一条<strong>合理、可跨越的转换路径</strong>。</p>
+<p>这已经不是“结构设计”，而是在设计一个<strong>能量景观</strong>。</p>
+<h3 id="第二现有工具很难直接处理变化"><strong>第二，现有工具很难直接处理“变化”</strong></h3>
+<p>无论是结构预测，还是大多数生成模型，本质上都在回答一个问题：</p>
+<blockquote>
+<p>给定序列，它最可能长成什么样？</p>
+</blockquote>
+<p>但“动态”关心的却是另一个问题：</p>
+<blockquote>
+<p>同一条序列，在不同条件下，<strong>能不能稳定存在于不同构象</strong>？</p>
+</blockquote>
+<p>这不是多预测几个结构就能解决的事。</p>
+<h3 id="第三会动不等于乱动"><strong>第三，“会动”不等于“乱动”</strong></h3>
+<p>在很多语境里，“动态”常常被简化成“柔性”。</p>
+<p>但在真实的生物系统中，关键的动态几乎从来不是随机抖动，而是：</p>
+<ul>
+<li>
+<p>有明确差异的状态</p>
+</li>
+<li>
+<p>有方向性的转换</p>
+</li>
+<li>
+<p>有功能后果的切换</p>
+</li>
+</ul>
+<p>换句话说，真正有价值的动态，是<strong>可控的状态切换</strong>。</p>
+<hr>
+<h2 id="破题的关键先定义怎么动而不是长什么样"><strong>破题的关键：先定义“怎么动”，而不是“长什么样”</strong></h2>
+<p>正是在这样的背景下，曹龙兴老师团队的这篇 Science 把问题摆在了一个非常不同的位置。</p>
+<p>他们没有从“我想要一个什么样的蛋白结构”开始，而是先问了一个更根本的问题：</p>
+<blockquote>
+<p><strong>如果一个蛋白的功能依赖构象变化，那这种变化本身，能不能成为设计目标？</strong></p>
+</blockquote>
+<p>在论文的 Fig.1 中，这个立场被表达得非常直接：</p>
+<p>作者关注的不是一个“最好看的结构”，而是<strong>同一条蛋白在不同状态下的关系</strong>。</p>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-3.png" alt=""></p>
+<p>两个构象都需要是合理、可折叠的；</p>
+<p>构象之间的差异不是随意的；</p>
+<p>而它们之间的转换，是整个设计的核心。</p>
+<p>这一点看似简单，却几乎决定了后面所有方法选择的方向。</p>
+<p>因为一旦你承认：</p>
+<p><strong>动态不是结构之后的附赠品，而是设计一开始就要解决的对象</strong>，那么，后面的设计逻辑就必须全部重来。</p>
+<p>也正是从这里开始，这篇文章真正走上了一条与传统蛋白质设计截然不同的路。</p>
+<hr>
+<h2 id="part-02方法他们是怎么把动态写进设计流程的"><strong>PART 02｜方法：他们是怎么把“动态”写进设计流程的？</strong></h2>
+<p>如果说 Fig.1 解决的是“要设计什么”，那 Fig.2 回答的就是更棘手的问题：</p>
+<p><strong>这件事到底怎么做？</strong></p>
+<p>在传统的蛋白质设计流程里，步骤往往很清晰：</p>
+<p>先选一个目标结构 → 再围着这个结构优化序列 → 最后希望它在现实世界里折成那个样子。</p>
+<p>但一旦目标不再是“一个结构”，而是“两个状态及其关系”，这条路就走不通了。</p>
+<p>因为你无法简单地告诉模型：</p>
+<blockquote>
+<p>“请同时折成 A 和 B。”</p>
+</blockquote>
+<p>作者在 Fig.2 中做的第一件事，就是<strong>彻底放弃“单一目标结构”这个前提</strong>。</p>
+<hr>
+<h3 id="不再设计一个答案而是设计一组条件"><strong>不再设计“一个答案”，而是设计“一组条件”</strong></h3>
+<p>从 Fig.2 的示意中可以看到，作者真正给模型的，不是某个确定的三维构象，而是一套<strong>约束条件</strong>：</p>
+<ul>
+<li>
+<p>哪些区域在两个状态中必须保持相似</p>
+</li>
+<li>
+<p>哪些区域允许、甚至必须发生变化</p>
+</li>
+<li>
+<p>变化的幅度大概在什么范围内</p>
+</li>
+<li>
+<p>哪些相互作用在状态 A 中存在、在状态 B 中消失，反之亦然</p>
+</li>
+</ul>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-4.png" alt=""></p>
+<p>换句话说，他们不是在问：</p>
+<blockquote>
+<p>“这个蛋白应该长什么样？”</p>
+</blockquote>
+<p>而是在问：</p>
+<blockquote>
+<p><strong>“有没有一种结构，能同时满足这些互相矛盾、但又被精心定义的要求？”</strong></p>
+</blockquote>
+<p>这一步的转变非常关键。</p>
+<p>它把蛋白质设计，从“寻找最优结构”，变成了“寻找满足条件的解”。</p>
+<hr>
+<h3 id="动态被转化成了几何与能量的约束"><strong>动态，被转化成了几何与能量的约束</strong></h3>
+<p>Fig.2 里还有一个容易被忽略，但非常重要的点：</p>
+<p>作者并没有试图直接让模型“理解动态”。</p>
+<p>他们做的，是把动态<strong>拆解成模型本来就能处理的东西</strong>：</p>
+<ul>
+<li>
+<p>空间几何关系</p>
+</li>
+<li>
+<p>接触与分离</p>
+</li>
+<li>
+<p>稳定与不稳定</p>
+</li>
+<li>
+<p>能量偏好</p>
+</li>
+</ul>
+<p>在模型眼里，这不再是“会不会动”，而是“在不同条件下，哪些构象是允许的，哪些是不允许的”。</p>
+<p>这种处理方式非常工程化，也非常现实。它承认一个事实：</p>
+<blockquote>
+<p>我们不需要模型真正“理解运动”，只需要它能<strong>尊重运动所带来的约束</strong>。</p>
+</blockquote>
+<hr>
+<h3 id="为什么这一步很反直觉但又很聪明"><strong>为什么这一步很“反直觉”，但又很聪明？</strong></h3>
+<p>很多人第一次看到这个思路，都会有一个直觉反应：</p>
+<blockquote>
+<p>那不就是给模型加了更多限制吗？会不会更难设计？</p>
+</blockquote>
+<p>恰恰相反。</p>
+<p>当你设计一个静态结构时，模型需要在极大的自由空间里寻找一个“最好”的答案；</p>
+<p>但当你清楚地告诉它：</p>
+<ul>
+<li>
+<p>哪些地方不能动</p>
+</li>
+<li>
+<p>哪些地方必须动</p>
+</li>
+<li>
+<p>动到什么程度算合理</p>
+</li>
+</ul>
+<p>搜索空间反而被<strong>压缩到了一个更有意义的范围内</strong>。</p>
+<p>也正因为如此，作者后面才能设计出一整批满足动态要求的候选，而不是零星的“幸运样本”。</p>
+<hr>
+<h3 id="fig2-隐含的一条核心逻辑"><strong>Fig.2 隐含的一条核心逻辑</strong></h3>
+<p>如果用一句话概括 Fig.2 的方法论，那就是：</p>
+<blockquote>
+<p><strong>不是先设计结构，再希望它有动态；</strong></p>
+<p><strong>而是先定义动态，再让结构去满足它。</strong></p>
+</blockquote>
+<p>这句话在读的时候很顺，但在做的时候，其实是一次彻底的范式切换。</p>
+<p>它要求设计者放弃对“理想结构”的执念，转而接受：</p>
+<p><strong>结构只是实现动态的一种手段。</strong></p>
+<p>也正是在这一步之后，这篇文章开始真正和以往的蛋白质设计工作拉开距离。</p>
+<p>到这里，我们已经知道三件事：</p>
+<ol>
+<li>
+<p>他们想设计的不是“更柔的蛋白”，而是<strong>可切换的状态系统</strong></p>
+</li>
+<li>
+<p>动态被拆解成了一套可计算、可约束的设计条件</p>
+</li>
+<li>
+<p>设计目标从“一个结构”变成了“满足条件的解空间”</p>
+</li>
+</ol>
+<p>接下来的问题就变得非常具体了：</p>
+<p><strong>按这套方法设计出来的蛋白，真的会按预期在两个状态之间切换吗？</strong></p>
+<hr>
+<h2 id="part-03结果设计出来的蛋白真的在按设计动吗"><strong>PART 03｜结果：设计出来的蛋白，真的在“按设计动”吗？</strong></h2>
+<p>到这一步，其实读者心里都会有一个共同的疑问：</p>
+<blockquote>
+<p>设计思路听起来很漂亮，但这些蛋白在现实世界里，真的会照着设计那样切换状态吗？</p>
+</blockquote>
+<p>这不是一个多余的怀疑。</p>
+<p>在蛋白质设计领域，<strong>“设计得通”和“现实中能实现”之间，隔着一条很深的鸿沟</strong>。</p>
+<p>尤其是当目标从“折叠”升级为“构象切换”，任何一个环节的偏差，都可能让结果彻底失效。</p>
+<p>Fig.3，正是作者正面回应这个问题的地方。</p>
+<hr>
+<h3 id="先看-fig3-在验证什么"><strong>先看 Fig.3 在“验证”什么</strong></h3>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-7.png" alt=""></p>
+<p>如果你仔细看 Fig.3，会发现作者并没有急着展示复杂的应用或功能，而是非常克制地只做了一件事：</p>
+<blockquote>
+<p><strong>证明这些蛋白，确实存在设计中预期的多种构象状态。</strong></p>
+</blockquote>
+<p>这听起来很基础，但恰恰是最关键的一步。</p>
+<p>因为如果连“两个状态”本身都站不住，后面所有关于调控、响应、功能的讨论，都没有意义。</p>
+<hr>
+<h3 id="不是结构不一样而是状态真的可分"><strong>不是“结构不一样”，而是“状态真的可分”</strong></h3>
+<p>Fig.3 中展示的结果有一个共同特点：</p>
+<p><strong>不同构象不是模糊连续的，而是可以清楚区分的。</strong></p>
+<p>你能看到：</p>
+<ul>
+<li>
+<p>在不同条件下，蛋白更倾向于稳定在不同的构象</p>
+</li>
+<li>
+<p>这些构象之间的差异，与设计时定义的变化区域高度一致</p>
+</li>
+<li>
+<p>而那些被设计为“保持稳定”的区域，确实没有发生无序塌陷</p>
+</li>
+</ul>
+<p>这点非常重要。</p>
+<p>它说明模型并不是随意生成了一堆“可能的形状”，而是真的在遵守那套关于“哪里该变、哪里不该变”的约束。</p>
+<hr>
+<h3 id="构象变化是有方向的而不是随机漂移"><strong>构象变化是“有方向的”，而不是随机漂移</strong></h3>
+<p>另一个值得注意的细节是：</p>
+<p>作者反复强调，这些构象变化并不是不可控的热噪声，而是<strong>在预期的构象之间来回切换</strong>。</p>
+<p>换句话说，蛋白不是在“乱晃”，而是在两个设计好的状态之间<strong>做选择</strong>。</p>
+<p>这正是前面 Fig.1 和 Fig.2 所铺垫的目标：设计的不是柔性，而是<strong>可识别的状态切换</strong>。</p>
+<hr>
+<h3 id="fig3-给出的第一个强信号"><strong>Fig.3 给出的第一个强信号</strong></h3>
+<p>如果只从 Fig.3 得出一个结论，那会是这一句：</p>
+<blockquote>
+<p><strong>动态，第一次被证明可以作为“设计结果”本身出现，而不是事后观察到的副产物。</strong></p>
+</blockquote>
+<p>这一步虽然不显山露水，但意义非常大。</p>
+<p>它说明那套“先定义动态、再让结构满足”的设计逻辑，至少在物理层面是自洽的。</p>
+<p>但到这里，作者其实只完成了<strong>一半的验证</strong>。</p>
+<p>因为还有一个更现实的问题在等着——</p>
+<p>即便蛋白在体外、在理想条件下能切换状态，<strong>这种切换真的能被外界信号精准控制吗？</strong></p>
+<p>而这，正是下一部分要回答的。</p>
+<hr>
+<h2 id="part-04控制怎样用一个小分子真正遥控蛋白的组装与解体"><strong>PART 04｜控制：怎样用一个小分子，真正“遥控”蛋白的组装与解体？</strong></h2>
+<p>到目前为止，作者已经证明了一件事：</p>
+<p>他们设计的蛋白，确实能够在不同构象状态之间切换。</p>
+<p>但如果动态只能“自发发生”，那它的意义依然有限。</p>
+<p>真正让这项工作跨出关键一步的，是接下来的问题：</p>
+<blockquote>
+<p><strong>这种构象变化，能不能被外界信号精准控制？</strong></p>
+</blockquote>
+<p>在生物体系中，最理想的“遥控信号”其实早就写好了答案——<strong>小分子药物</strong>。</p>
+<hr>
+<h3 id="为什么一定要是小分子"><strong>为什么一定要是“小分子”？</strong></h3>
+<p>Fig.4 之前，作者其实已经做了一个非常现实的取舍。</p>
+<p>在所有可能的调控方式里，小分子有几个几乎无法替代的优势：</p>
+<ul>
+<li>
+<p>能口服、能进细胞</p>
+</li>
+<li>
+<p>起效快、可逆</p>
+</li>
+<li>
+<p>剂量可控，随时停药</p>
+</li>
+</ul>
+<p>如果真的想把“动态蛋白设计”推向应用层面，小分子几乎是绕不开的选择。</p>
+<p>但问题也恰恰出在这里。</p>
+<hr>
+<h3 id="难点不在找一个能结合的小分子"><strong>难点不在“找一个能结合的小分子”</strong></h3>
+<p>很多蛋白都能结合小分子。真正困难的是：</p>
+<p><strong>让小分子的存在，改变蛋白之间的相互作用方式。</strong></p>
+<p>换句话说，小分子不是“塞进一个口袋”，而是要充当一个<strong>几何与能量上的枢纽</strong>：</p>
+<ul>
+<li>
+<p>有它时，蛋白更愿意组队</p>
+</li>
+<li>
+<p>没有它时，蛋白就乖乖分开</p>
+</li>
+<li>
+<p>而且这一切，必须是干净、可逆、可预测的</p>
+</li>
+</ul>
+<p>这对天然蛋白都很难，更不用说从头设计的蛋白。</p>
+<hr>
+<h3 id="fig4-的关键设计思想让小分子成为装配的一部分"><strong>Fig.4 的关键设计思想：让小分子成为“装配的一部分”</strong></h3>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-5.png" alt=""></p>
+<p>Fig.4 展示的不是一个简单的结合模型，而是一种非常明确的设计策略：</p>
+<blockquote>
+<p><strong>小分子不是外来的调节因子，而是被当作“结构的一部分”写进了设计中。</strong></p>
+</blockquote>
+<p>在作者的设计里：</p>
+<ul>
+<li>
+<p>蛋白单体本身并不会稳定聚在一起</p>
+</li>
+<li>
+<p>只有当小分子出现时，它们之间的界面才“拼得完整”</p>
+</li>
+<li>
+<p>小分子相当于补上了装配所需的关键几何与相互作用</p>
+</li>
+</ul>
+<p>这一步非常重要。</p>
+<p>它意味着调控不是靠“增强或削弱亲和力”，而是靠<strong>改变装配是否在物理上成立</strong>。</p>
+<hr>
+<h3 id="从二聚体到三聚体再到更复杂的组合"><strong>从二聚体，到三聚体，再到更复杂的组合</strong></h3>
+<p>Fig.4 中，作者并没有停留在一个“成功案例”上，而是系统性地展示了：</p>
+<ul>
+<li>
+<p>小分子诱导的同源多聚体</p>
+</li>
+<li>
+<p>小分子诱导的异源二聚体</p>
+</li>
+<li>
+<p>以及进一步扩展到更复杂的装配形式</p>
+</li>
+</ul>
+<p>这一连串结果传达了一个很清晰的信息：</p>
+<blockquote>
+<p>这不是一次性的设计巧合，而是一套<strong>可以复用、可以扩展的设计逻辑</strong>。</p>
+</blockquote>
+<p>你可以把它理解成一组“模块”：</p>
+<p>设计好的蛋白单元 + 合适的小分子 → 可控的组装行为。</p>
+<hr>
+<h3 id="fig4-给出的第二个强信号"><strong>Fig.4 给出的第二个强信号</strong></h3>
+<p>如果说 Fig.3 证明了“动态可以被设计”，那 Fig.4 则进一步证明了：</p>
+<blockquote>
+<p><strong>动态不仅能被设计，还能被人为操控。</strong></p>
+</blockquote>
+<p>而且这种操控，不是靠极端条件，也不是靠复杂外部装置，而是靠一个现实中已经存在、可口服的小分子。</p>
+<p>这一步，已经明显超出了“方法学展示”的范畴，开始触及真正的功能设计。</p>
+<p>但作者并没有在这里收手。</p>
+<p>因为还有最后一个、也是最严苛的问题：</p>
+<blockquote>
+<p>这些在试管里、在理想条件下成立的“遥控”，<strong>在真实的细胞、甚至活体里，还能奏效吗？</strong></p>
+</blockquote>
+<hr>
+<h2 id="part-05验证当遥控器进入细胞甚至进入活体"><strong>PART 05｜验证：当“遥控器”进入细胞，甚至进入活体</strong></h2>
+<p>如果一项蛋白质设计工作，只在试管里成立，其实并不罕见。</p>
+<p>真正罕见的是：当你把它放进细胞，甚至放进动物体内，它还能不能按照设计逻辑工作。</p>
+<p>作者显然很清楚这一点。</p>
+<p>所以在 Fig.5 中，他们把“遥控器”直接推到了一个更严苛的环境里——<strong>真实的生物系统</strong>。</p>
+<hr>
+<h3 id="在细胞里不是能不能动而是会不会乱动"><strong>在细胞里：不是“能不能动”，而是“会不会乱动”</strong></h3>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-1.png" alt=""></p>
+<p>Fig.5 的前半部分，展示的是在细胞层面的验证。</p>
+<p>这里作者做得非常克制，也非常聪明：</p>
+<p>他们并没有一上来就追求复杂功能，而是先验证<strong>控制是否干净</strong>。</p>
+<p>几个关键观察点很清楚：</p>
+<ul>
+<li>
+<p><strong>没加小分子时</strong>，系统几乎完全安静</p>
+</li>
+<li>
+<p><strong>加了小分子后</strong>，蛋白迅速组装，信号被激活</p>
+</li>
+<li>
+<p>整个过程是可逆的，撤掉小分子后，系统回到初始状态</p>
+</li>
+</ul>
+<p>这一点其实比“激活得多强”更重要。</p>
+<p>因为在任何调控系统里，<strong>漏启动</strong>往往比“启动不够强”更致命。</p>
+<p>从这些结果来看，这套设计在细胞中表现得非常“守纪律”：</p>
+<p>该动的时候动，不该动的时候不乱来。</p>
+<hr>
+<h3 id="用遥控组队实现真实功能操作"><strong>用“遥控组队”，实现真实功能操作</strong></h3>
+<p>接下来，作者展示了几种更贴近应用的例子。</p>
+<p>他们把这套小分子诱导的组装系统，接到了不同的功能模块上：</p>
+<ul>
+<li>
+<p>用来控制基因表达的开关</p>
+</li>
+<li>
+<p>用来改变蛋白在细胞内的定位</p>
+</li>
+<li>
+<p>甚至用来诱导蛋白形成可控的凝聚体</p>
+</li>
+</ul>
+<p>这些实验的共同点不是“花哨”，而是<strong>逻辑一致</strong>：</p>
+<p>无论接上什么功能模块，<strong>控制权始终掌握在那一个小分子手里</strong>。</p>
+<p>这说明“遥控器”本身是一个相对独立、可靠的模块，而不是只能在某个特定场景下工作的“特例”。</p>
+<hr>
+<h3 id="到了活体这是最不讨巧也最有说服力的一步"><strong>到了活体：这是最不讨巧、也最有说服力的一步</strong></h3>
+<p>真正让这篇文章站得很稳的，是最后一步——<strong>动物实验</strong>。</p>
+<p>作者把这套系统引入小鼠体内，通过口服给药的方式，观察是否能在特定组织中启动预期的生物过程。</p>
+<p><img src="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/images/image-2.png" alt=""></p>
+<p>结果非常直接：</p>
+<p><strong>小分子给下去，信号就开；不给，系统就关。</strong></p>
+<p>这里没有复杂修辞，数据本身已经足够说明问题。</p>
+<p>这意味着什么？</p>
+<p>意味着这套“遥控器”不是一个只能存在于理想条件下的设计品，而是<strong>已经跨过了从概念到系统工具的那道门槛</strong>。</p>
+<hr>
+<h3 id="fig5-隐含的一个重要判断"><strong>Fig.5 隐含的一个重要判断</strong></h3>
+<p>如果把 Fig.5 放回整篇文章的脉络里，它其实在回答一个非常关键的问题：</p>
+<blockquote>
+<p><strong>从头设计的动态蛋白，能不能承受真实生物环境的复杂性？</strong></p>
+</blockquote>
+<p>作者给出的答案是：至少在这套体系中，是可以的。</p>
+<p>而这，也让前面关于“动态作为设计目标”的讨论，真正落了地。</p>
+<hr>
+<p>到这里，这篇 Science 的<strong>核心证据链已经完整闭合</strong>：</p>
+<ul>
+<li>
+<p>动态被明确地定义</p>
+</li>
+<li>
+<p>被写进设计约束</p>
+</li>
+<li>
+<p>在体外被验证</p>
+</li>
+<li>
+<p>被小分子精准控制</p>
+</li>
+<li>
+<p>并最终在细胞和活体中工作</p>
+</li>
+</ul>
+<p>最后，我们就差一步了。</p>
+<hr>
+<h2 id="part-06结语当动态成为设计对象蛋白质设计在变什么"><strong>PART 06｜结语：当“动态”成为设计对象，蛋白质设计在变什么？</strong></h2>
+<p>回头看这篇文章，真正让人印象深刻的，其实不是某一个具体结果——</p>
+<p>不是某个蛋白聚成了三聚体，也不是某个小分子成功当了“遥控器”。</p>
+<p>而是作者在一开始，就<strong>换了一种提问方式</strong>。</p>
+<p>过去我们常问的是：</p>
+<blockquote>
+<p>能不能从头设计一条蛋白，让它稳定折叠、完成某个功能？</p>
+</blockquote>
+<p>而这篇 Science 问的是：</p>
+<blockquote>
+<p>如果功能本身依赖变化，那这种变化，能不能被直接设计出来？</p>
+</blockquote>
+<p>这两种问题，看起来只差了一点点，但背后的设计逻辑几乎完全不同。</p>
+<hr>
+<h3 id="他们真正做成的不只是一个工具"><strong>他们真正做成的，不只是一个“工具”</strong></h3>
+<p>当然，从应用角度看，这套小分子可控的蛋白“组队遥控器”已经足够亮眼：</p>
+<p>它安全、可逆、灵敏，还能在细胞乃至动物体内工作。</p>
+<p>但如果只把这篇文章理解为“又多了一种合成生物学工具”，其实是低估了它。</p>
+<p>更重要的是，作者证明了一件长期被认为“很难系统解决”的事：</p>
+<blockquote>
+<p><strong>动态，不再只是结构设计之后的自然产物，</strong></p>
+<p><strong>而是可以被提前定义、被计算约束、被实验验证的设计目标。</strong></p>
+</blockquote>
+<p>一旦这一点成立，很多原本看似“太复杂、太不稳定”的蛋白功能，都会重新变得可被讨论。</p>
+<hr>
+<h3 id="从造结构到造行为"><strong>从“造结构”，到“造行为”</strong></h3>
+<p>如果用一句话来概括这篇工作的定位，我会更愿意这样说：</p>
+<blockquote>
+<p>这不是在教我们如何造一个更复杂的蛋白，</p>
+<p>而是在教我们，如何开始设计蛋白质的“行为”。</p>
+</blockquote>
+<p>行为意味着什么？</p>
+<p>意味着状态、切换、条件、响应。</p>
+<p>意味着蛋白质不再只是一个静态零件，而是一个<strong>可编程的系统单元</strong>。</p>
+<p>这一步，可能正是蛋白质设计走向更复杂生命功能之前，绕不开的门槛。</p>
+<hr>
+<h3 id="那接下来呢"><strong>那接下来呢？</strong></h3>
+<p>文章最后，作者并没有给出过于宏大的承诺。</p>
+<p>但顺着这条思路，其实已经能看到很多自然的延伸方向：</p>
+<ul>
+<li>
+<p>更复杂的构象切换</p>
+</li>
+<li>
+<p>更多类型的小分子输入</p>
+</li>
+<li>
+<p>多重信号的逻辑组合</p>
+</li>
+<li>
+<p>以及与真实疾病、治疗场景更紧密的结合</p>
+</li>
+</ul>
+<p>这些都不是“如果有一天”，而是<strong>已经站在门口的问题</strong>。</p>
+<hr>
+<p>也许若干年后再回头看，这篇文章的重要性不在于它设计了哪一套具体系统，</p>
+<p>而在于它让越来越多的人开始认真思考一件事：</p>
+<blockquote>
+<p><strong>如果生命活动的本质是动态的，</strong></p>
+<p><strong>那蛋白质设计，也该从“静止”走向“变化”。</strong></p>
+</blockquote>
+<p>而这一步，已经有人先走出来了。</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+          <a href="https://mp.weixin.qq.com/s/kOBbPbVzV17nYX0Y0Dh6Eg"
+             target="_blank"
+             rel="noopener"
+             class="ba b--dark-green bg-washed-green br2 dark-green dib f7 hover-bg-light-green link ph3 pv2">
+            去公众号阅读完整版 →
+          </a>
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/" class="link dim">
+                结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/" class="link dim">
+                RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+   <li class="list di">
+     <a href="/zh/tags/ai4s/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">AI4S</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/protein-design/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Protein Design</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/dynamic-protein/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Dynamic Protein</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/conformational-change/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Conformational Change</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/synthetic-biology/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Synthetic Biology</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/small-molecule-control/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Small Molecule Control</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/optogenetics/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Optogenetics</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/science/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Science</a>
+   </li>
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

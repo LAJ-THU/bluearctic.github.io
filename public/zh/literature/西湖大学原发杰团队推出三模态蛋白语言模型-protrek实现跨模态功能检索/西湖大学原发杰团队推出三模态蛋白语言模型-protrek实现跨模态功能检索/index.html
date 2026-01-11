@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+蓝极说：
+说说话就能了解一个蛋白质功能的时代，真的要来了。
+
+
+一：从“序列比对”到“理解蛋白语言”
+在蛋白质研究的历史里，“比对”几乎是所有探索的起点。无论是 BLAST、MMseqs2 还是 Foldseek，这些工具让我们能够在浩瀚的数据库中迅速找到序列或结构上相似的分子。它们推动了蛋白质组学的发展，也奠定了生物信息学的底层逻辑——通过相似性来推测关系。
+但“比对”始终是一种浅层的理解。它回答的是“这个序列像谁”，却无法回答“这个蛋白想做什么”。在序列相似性不高、进化距离遥远的情况下，这种局限被放大。如今，UniProt 中仍有约三分之一的蛋白没有明确的功能注释——它们已经有了预测结构，却依然是“无名者”。问题不在算力，而在方法。传统工具只能在单一模态中比较：序列对序列，结构对结构。这种“模态内”的封闭视角，让我们难以看见那些跨越形式相似性的深层功能联系。
+而在近几年，大语言模型改变了人们对“理解”的定义。它们在语言中学会了抽象与语义，能够把复杂信息映射到一个可以计算的空间。如果语言可以被学习，蛋白质是否也有自己的“语言学”？序列、结构与功能之间的关系，是否也能被编码、被理解？
+这正是西湖大学原发杰团队提出的问题。原老师在最新发表在《Nature Biotechnology》上的文章《A trimodal protein language model enables advanced protein searches》中，并没有把蛋白质看作一串序列，而是看作一个能“说三种语言”的存在：氨基酸的语言、折叠结构的语言，以及自然语言中的功能描述。他们提出的模型——ProTrek，尝试让这三种语言在同一个语义空间里互相对齐。
+
+如果说传统工具是在寻找“形似”的蛋白，ProTrek 想要找到的，是“神似”的蛋白。
+
+
+二、核心机制：三模态的语言共振
+ProTrek 的核心思想，其实是一次“翻译”的尝试。它让蛋白的三种模态——序列、结构与功能语言——在同一个语义空间中建立映射关系。对研究者而言，这意味着无论输入的是氨基酸序列、一段功能描述，还是三维结构，模型都能理解它们属于同一个生物学对象，只是被不同的语言描述而已。
+这种“理解”的基础在于对比学习（contrastive learning）。模型在训练时被迫去判断哪一对数据是正确对应的，哪一对是无关的。具体而言，它会同时接收三种信息：一个蛋白的序列、它的结构，以及它在数据库中对应的功能文本。ProTrek 学会通过嵌入（embedding）把它们投射到同一个空间中，让真正属于同一个蛋白的三模态样本距离更近，而随机配对的样本被推得更远。经过大规模训练后，模型便形成了一个“通用语义地图”，能自动捕捉蛋白之间深层次的结构与功能关联。
+在实现上，ProTrek 由三个独立的编码器组成：序列由预训练的 ESM 模型处理，结构信息通过 Foldseek 转换成离散的三维“语句”，再交给 BERT 架构学习，而功能语言则由 PubMedBERT 提供语义理解。三者通过双向对比学习进行联合优化，这种“多声部合奏”让模型真正具备了跨模态理解的能力。
+
+从图1a可以看到，ProTrek 在训练过程中并非单向映射，而是让三种模态彼此对齐：序列对结构、结构对功能、功能对序列。这样一来，模型不仅能在三者之间进行互查（sequence↔structure↔text），还可以在单一模态内部完成高精度的搜索（sequence↔sequence 或 structure↔structure）。图1b展示了这种九种检索任务的全景——ProTrek 实际上成了一个面向蛋白宇宙的“通用搜索引擎”。
+更有意思的是，图1d展示的结果让人第一次看到一个“语言化的蛋白宇宙”。在经过三模态对齐后，ProTrek 能够根据功能而非序列，将不同蛋白聚类到同一个语义空间中。图中那些颜色分布的点簇，并不是传统意义上的同源家族，而是被模型判定为“功能相似”的分子。换句话说，ProTrek 已经学会了用“语义”来组织蛋白世界。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E5%8E%9F%E5%8F%91%E6%9D%B0%E5%9B%A2%E9%98%9F%E6%8E%A8%E5%87%BA%E4%B8%89%E6%A8%A1%E6%80%81%E8%9B%8B%E7%99%BD%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B-protrek%E5%AE%9E%E7%8E%B0%E8%B7%A8%E6%A8%A1%E6%80%81%E5%8A%9F%E8%83%BD%E6%A3%80%E7%B4%A2/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="蓝极说：
+说说话就能了解一个蛋白质功能的时代，真的要来了。
+一：从“序列比对”到“理解蛋白语言” 在蛋白质研究的历史里，“比对”几乎是所有探索的起点。无论是 BLAST、MMseqs2 还是 Foldseek，这些工具让我们能够在浩瀚的数据库中迅速找到序列或结构上相似的分子。它们推动了蛋白质组学的发展，也奠定了生物信息学的底层逻辑——通过相似性来推测关系。
+但“比对”始终是一种浅层的理解。它回答的是“这个序列像谁”，却无法回答“这个蛋白想做什么”。在序列相似性不高、进化距离遥远的情况下，这种局限被放大。如今，UniProt 中仍有约三分之一的蛋白没有明确的功能注释——它们已经有了预测结构，却依然是“无名者”。问题不在算力，而在方法。传统工具只能在单一模态中比较：序列对序列，结构对结构。这种“模态内”的封闭视角，让我们难以看见那些跨越形式相似性的深层功能联系。
+而在近几年，大语言模型改变了人们对“理解”的定义。它们在语言中学会了抽象与语义，能够把复杂信息映射到一个可以计算的空间。如果语言可以被学习，蛋白质是否也有自己的“语言学”？序列、结构与功能之间的关系，是否也能被编码、被理解？
+这正是西湖大学原发杰团队提出的问题。原老师在最新发表在《Nature Biotechnology》上的文章《A trimodal protein language model enables advanced protein searches》中，并没有把蛋白质看作一串序列，而是看作一个能“说三种语言”的存在：氨基酸的语言、折叠结构的语言，以及自然语言中的功能描述。他们提出的模型——ProTrek，尝试让这三种语言在同一个语义空间里互相对齐。
+如果说传统工具是在寻找“形似”的蛋白，ProTrek 想要找到的，是“神似”的蛋白。
+二、核心机制：三模态的语言共振 ProTrek 的核心思想，其实是一次“翻译”的尝试。它让蛋白的三种模态——序列、结构与功能语言——在同一个语义空间中建立映射关系。对研究者而言，这意味着无论输入的是氨基酸序列、一段功能描述，还是三维结构，模型都能理解它们属于同一个生物学对象，只是被不同的语言描述而已。
+这种“理解”的基础在于对比学习（contrastive learning）。模型在训练时被迫去判断哪一对数据是正确对应的，哪一对是无关的。具体而言，它会同时接收三种信息：一个蛋白的序列、它的结构，以及它在数据库中对应的功能文本。ProTrek 学会通过嵌入（embedding）把它们投射到同一个空间中，让真正属于同一个蛋白的三模态样本距离更近，而随机配对的样本被推得更远。经过大规模训练后，模型便形成了一个“通用语义地图”，能自动捕捉蛋白之间深层次的结构与功能关联。
+在实现上，ProTrek 由三个独立的编码器组成：序列由预训练的 ESM 模型处理，结构信息通过 Foldseek 转换成离散的三维“语句”，再交给 BERT 架构学习，而功能语言则由 PubMedBERT 提供语义理解。三者通过双向对比学习进行联合优化，这种“多声部合奏”让模型真正具备了跨模态理解的能力。
+从图1a可以看到，ProTrek 在训练过程中并非单向映射，而是让三种模态彼此对齐：序列对结构、结构对功能、功能对序列。这样一来，模型不仅能在三者之间进行互查（sequence↔structure↔text），还可以在单一模态内部完成高精度的搜索（sequence↔sequence 或 structure↔structure）。图1b展示了这种九种检索任务的全景——ProTrek 实际上成了一个面向蛋白宇宙的“通用搜索引擎”。
+更有意思的是，图1d展示的结果让人第一次看到一个“语言化的蛋白宇宙”。在经过三模态对齐后，ProTrek 能够根据功能而非序列，将不同蛋白聚类到同一个语义空间中。图中那些颜色分布的点簇，并不是传统意义上的同源家族，而是被模型判定为“功能相似”的分子。换句话说，ProTrek 已经学会了用“语义”来组织蛋白世界。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="蓝极说：
+说说话就能了解一个蛋白质功能的时代，真的要来了。
+一：从“序列比对”到“理解蛋白语言” 在蛋白质研究的历史里，“比对”几乎是所有探索的起点。无论是 BLAST、MMseqs2 还是 Foldseek，这些工具让我们能够在浩瀚的数据库中迅速找到序列或结构上相似的分子。它们推动了蛋白质组学的发展，也奠定了生物信息学的底层逻辑——通过相似性来推测关系。
+但“比对”始终是一种浅层的理解。它回答的是“这个序列像谁”，却无法回答“这个蛋白想做什么”。在序列相似性不高、进化距离遥远的情况下，这种局限被放大。如今，UniProt 中仍有约三分之一的蛋白没有明确的功能注释——它们已经有了预测结构，却依然是“无名者”。问题不在算力，而在方法。传统工具只能在单一模态中比较：序列对序列，结构对结构。这种“模态内”的封闭视角，让我们难以看见那些跨越形式相似性的深层功能联系。
+而在近几年，大语言模型改变了人们对“理解”的定义。它们在语言中学会了抽象与语义，能够把复杂信息映射到一个可以计算的空间。如果语言可以被学习，蛋白质是否也有自己的“语言学”？序列、结构与功能之间的关系，是否也能被编码、被理解？
+这正是西湖大学原发杰团队提出的问题。原老师在最新发表在《Nature Biotechnology》上的文章《A trimodal protein language model enables advanced protein searches》中，并没有把蛋白质看作一串序列，而是看作一个能“说三种语言”的存在：氨基酸的语言、折叠结构的语言，以及自然语言中的功能描述。他们提出的模型——ProTrek，尝试让这三种语言在同一个语义空间里互相对齐。
+如果说传统工具是在寻找“形似”的蛋白，ProTrek 想要找到的，是“神似”的蛋白。
+二、核心机制：三模态的语言共振 ProTrek 的核心思想，其实是一次“翻译”的尝试。它让蛋白的三种模态——序列、结构与功能语言——在同一个语义空间中建立映射关系。对研究者而言，这意味着无论输入的是氨基酸序列、一段功能描述，还是三维结构，模型都能理解它们属于同一个生物学对象，只是被不同的语言描述而已。
+这种“理解”的基础在于对比学习（contrastive learning）。模型在训练时被迫去判断哪一对数据是正确对应的，哪一对是无关的。具体而言，它会同时接收三种信息：一个蛋白的序列、它的结构，以及它在数据库中对应的功能文本。ProTrek 学会通过嵌入（embedding）把它们投射到同一个空间中，让真正属于同一个蛋白的三模态样本距离更近，而随机配对的样本被推得更远。经过大规模训练后，模型便形成了一个“通用语义地图”，能自动捕捉蛋白之间深层次的结构与功能关联。
+在实现上，ProTrek 由三个独立的编码器组成：序列由预训练的 ESM 模型处理，结构信息通过 Foldseek 转换成离散的三维“语句”，再交给 BERT 架构学习，而功能语言则由 PubMedBERT 提供语义理解。三者通过双向对比学习进行联合优化，这种“多声部合奏”让模型真正具备了跨模态理解的能力。
+从图1a可以看到，ProTrek 在训练过程中并非单向映射，而是让三种模态彼此对齐：序列对结构、结构对功能、功能对序列。这样一来，模型不仅能在三者之间进行互查（sequence↔structure↔text），还可以在单一模态内部完成高精度的搜索（sequence↔sequence 或 structure↔structure）。图1b展示了这种九种检索任务的全景——ProTrek 实际上成了一个面向蛋白宇宙的“通用搜索引擎”。
+更有意思的是，图1d展示的结果让人第一次看到一个“语言化的蛋白宇宙”。在经过三模态对齐后，ProTrek 能够根据功能而非序列，将不同蛋白聚类到同一个语义空间中。图中那些颜色分布的点簇，并不是传统意义上的同源家族，而是被模型判定为“功能相似”的分子。换句话说，ProTrek 已经学会了用“语义”来组织蛋白世界。">
+  <meta itemprop="wordCount" content="165">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="蓝极说：
+说说话就能了解一个蛋白质功能的时代，真的要来了。
+一：从“序列比对”到“理解蛋白语言” 在蛋白质研究的历史里，“比对”几乎是所有探索的起点。无论是 BLAST、MMseqs2 还是 Foldseek，这些工具让我们能够在浩瀚的数据库中迅速找到序列或结构上相似的分子。它们推动了蛋白质组学的发展，也奠定了生物信息学的底层逻辑——通过相似性来推测关系。
+但“比对”始终是一种浅层的理解。它回答的是“这个序列像谁”，却无法回答“这个蛋白想做什么”。在序列相似性不高、进化距离遥远的情况下，这种局限被放大。如今，UniProt 中仍有约三分之一的蛋白没有明确的功能注释——它们已经有了预测结构，却依然是“无名者”。问题不在算力，而在方法。传统工具只能在单一模态中比较：序列对序列，结构对结构。这种“模态内”的封闭视角，让我们难以看见那些跨越形式相似性的深层功能联系。
+而在近几年，大语言模型改变了人们对“理解”的定义。它们在语言中学会了抽象与语义，能够把复杂信息映射到一个可以计算的空间。如果语言可以被学习，蛋白质是否也有自己的“语言学”？序列、结构与功能之间的关系，是否也能被编码、被理解？
+这正是西湖大学原发杰团队提出的问题。原老师在最新发表在《Nature Biotechnology》上的文章《A trimodal protein language model enables advanced protein searches》中，并没有把蛋白质看作一串序列，而是看作一个能“说三种语言”的存在：氨基酸的语言、折叠结构的语言，以及自然语言中的功能描述。他们提出的模型——ProTrek，尝试让这三种语言在同一个语义空间里互相对齐。
+如果说传统工具是在寻找“形似”的蛋白，ProTrek 想要找到的，是“神似”的蛋白。
+二、核心机制：三模态的语言共振 ProTrek 的核心思想，其实是一次“翻译”的尝试。它让蛋白的三种模态——序列、结构与功能语言——在同一个语义空间中建立映射关系。对研究者而言，这意味着无论输入的是氨基酸序列、一段功能描述，还是三维结构，模型都能理解它们属于同一个生物学对象，只是被不同的语言描述而已。
+这种“理解”的基础在于对比学习（contrastive learning）。模型在训练时被迫去判断哪一对数据是正确对应的，哪一对是无关的。具体而言，它会同时接收三种信息：一个蛋白的序列、它的结构，以及它在数据库中对应的功能文本。ProTrek 学会通过嵌入（embedding）把它们投射到同一个空间中，让真正属于同一个蛋白的三模态样本距离更近，而随机配对的样本被推得更远。经过大规模训练后，模型便形成了一个“通用语义地图”，能自动捕捉蛋白之间深层次的结构与功能关联。
+在实现上，ProTrek 由三个独立的编码器组成：序列由预训练的 ESM 模型处理，结构信息通过 Foldseek 转换成离散的三维“语句”，再交给 BERT 架构学习，而功能语言则由 PubMedBERT 提供语义理解。三者通过双向对比学习进行联合优化，这种“多声部合奏”让模型真正具备了跨模态理解的能力。
+从图1a可以看到，ProTrek 在训练过程中并非单向映射，而是让三种模态彼此对齐：序列对结构、结构对功能、功能对序列。这样一来，模型不仅能在三者之间进行互查（sequence↔structure↔text），还可以在单一模态内部完成高精度的搜索（sequence↔sequence 或 structure↔structure）。图1b展示了这种九种检索任务的全景——ProTrek 实际上成了一个面向蛋白宇宙的“通用搜索引擎”。
+更有意思的是，图1d展示的结果让人第一次看到一个“语言化的蛋白宇宙”。在经过三模态对齐后，ProTrek 能够根据功能而非序列，将不同蛋白聚类到同一个语义空间中。图中那些颜色分布的点簇，并不是传统意义上的同源家族，而是被模型判定为“功能相似”的分子。换句话说，ProTrek 已经学会了用“语义”来组织蛋白世界。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <blockquote>
+<p>蓝极说：</p>
+<p>说说话就能了解一个蛋白质功能的时代，真的要来了。</p>
+</blockquote>
+<hr>
+<h2 id="一从序列比对到理解蛋白语言"><strong>一：从“序列比对”到“理解蛋白语言”</strong></h2>
+<p>在蛋白质研究的历史里，“比对”几乎是所有探索的起点。无论是 BLAST、MMseqs2 还是 Foldseek，这些工具让我们能够在浩瀚的数据库中迅速找到序列或结构上相似的分子。它们推动了蛋白质组学的发展，也奠定了生物信息学的底层逻辑——<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">通过相似性来推测关系</span></strong>。</p>
+<p>但“比对”始终是一种浅层的理解。它回答的是“<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">这个序列像谁</span></strong>”，却无法回答“<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">这个蛋白想做什么</span></strong>”。在序列相似性不高、进化距离遥远的情况下，这种局限被放大。如今，UniProt 中仍有约三分之一的蛋白没有明确的功能注释——它们已经有了预测结构，却依然是“无名者”。问题不在算力，而在方法。传统工具只能在单一模态中比较：序列对序列，结构对结构。这种“模态内”的封闭视角，让我们难以看见那些跨越形式相似性的深层功能联系。</p>
+<p>而在近几年，大语言模型改变了人们对“<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">理解</span></strong>”的定义。它们在语言中学会了抽象与语义，能够把复杂信息映射到一个可以计算的空间。如果语言可以被学习，蛋白质是否也有自己的“语言学”？<strong>序列、结构与功能之间的关系，是否也能被编码、被理解？</strong></p>
+<p>这正是西湖大学原发杰团队提出的问题。原老师在最新发表在《Nature Biotechnology》上的文章《A trimodal protein language model enables advanced protein searches》中，并没有把蛋白质看作一串序列，而是看作一个能“说三种语言”的存在：<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">氨基酸的语言、折叠结构的语言，以及自然语言中的功能描述</span></strong>。他们提出的模型——<strong>ProTrek</strong>，尝试让这三种语言在同一个语义空间里互相对齐。</p>
+<p><img src="images/image-9.png" alt=""></p>
+<p>如果说传统工具是在寻找“形似”的蛋白，ProTrek 想要找到的，是“<strong>神似</strong>”的蛋白。</p>
+<p><img src="images/image-8.png" alt=""></p>
+<hr>
+<h2 id="二核心机制三模态的语言共振"><strong>二、核心机制：三模态的语言共振</strong></h2>
+<p>ProTrek 的核心思想，其实是一次“<strong>翻译</strong>”的尝试。它让蛋白的三种模态——<strong>序列、结构与功能语言</strong>——在同一个语义空间中建立映射关系。对研究者而言，这意味着无论输入的是氨基酸序列、一段功能描述，还是三维结构，模型都能理解它们属于同一个生物学对象，只是被不同的语言描述而已。</p>
+<p>这种“理解”的基础在于<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">对比学习（contrastive learning）</span></strong>。模型在训练时被迫去判断哪一对数据是正确对应的，哪一对是无关的。具体而言，它会同时接收三种信息：一个蛋白的序列、它的结构，以及它在数据库中对应的功能文本。ProTrek 学会通过嵌入（embedding）把它们投射到同一个空间中，让真正属于同一个蛋白的三模态样本距离更近，而随机配对的样本被推得更远。经过大规模训练后，模型便形成了一个“通用语义地图”，能自动捕捉蛋白之间深层次的结构与功能关联。</p>
+<p>在实现上，ProTrek 由三个独立的编码器组成：<strong>序列由预训练的 ESM 模型处理</strong>，<strong>结构信息通过 Foldseek 转换成离散的三维“语句”，再交给 BERT 架构学习</strong>，而<strong>功能语言则由 PubMedBERT 提供语义理解</strong>。三者通过双向对比学习进行联合优化，这种“多声部合奏”让模型真正具备了跨模态理解的能力。</p>
+<p><img src="images/image-5.png" alt=""></p>
+<p>从图1a可以看到，ProTrek 在训练过程中并非单向映射，而是让三种模态彼此对齐：序列对结构、结构对功能、功能对序列。这样一来，模型不仅能在三者之间进行互查（sequence↔structure↔text），还可以在单一模态内部完成高精度的搜索（sequence↔sequence 或 structure↔structure）。图1b展示了这种九种检索任务的全景——ProTrek 实际上成了一个面向蛋白宇宙的“通用搜索引擎”。</p>
+<p>更有意思的是，图1d展示的结果让人第一次看到一个<span style="color: inherit; background-color: rgba(205,178,250,0.7)">“</span><strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">语言化的蛋白宇宙</span></strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">”</span>。在经过三模态对齐后，ProTrek 能够根据功能而非序列，将不同蛋白聚类到同一个语义空间中。图中那些颜色分布的点簇，并不是传统意义上的同源家族，而是被模型判定为“功能相似”的分子。换句话说，ProTrek 已经学会了用“语义”来组织蛋白世界。</p>
+<p><img src="images/image-3.png" alt=""></p>
+<p>这种做法解决了一个长期存在的难题：<strong>如何跨越形式的差异去发现功能的共性</strong>。传统的比对方法往往依赖序列局部相似，而 ProTrek 的全局嵌入能捕捉到“<strong>神似而不形似</strong>”的关系，比如结构不同但功能收敛的酶类。</p>
+<blockquote>
+<p><strong>模型在概念上把“比对”转变成了“理解”，这是它最根本的突破。</strong></p>
+</blockquote>
+<hr>
+<h2 id="三性能表现超越比对的边界"><strong>三、性能表现：超越比对的边界</strong></h2>
+<p>ProTrek 的效果几乎在所有维度上都超过了现有方法。研究团队用它在四种标准检索任务上进行了评估：<strong>序列对文本、结构对文本、文本对序列、以及文本对结构</strong>。与 ProteinDT 和 ProtST 这两种当前领先的多模态模型相比，ProTrek 的平均检索精度（MAP）提升了一个数量级以上——在序列到文本的任务中，精度比 ProtST 高出三十倍，在文本到序列的任务中更是提升了六十倍。这种差距已经不只是参数规模或数据集大小带来的，而是源于三模态对齐本身带来的语义整合能力。</p>
+<p><img src="images/image-6.png" alt=""></p>
+<p>从另一个角度看，ProTrek 的强项不在于“识别相似”，而在于“<strong>理解相关</strong>”。传统的 BLAST 或 Foldseek，只能在结构或序列相似的区域内找到邻居；一旦进入“进化暮光区”（<strong>twilight zone</strong>），它们的判断几乎失效。而 ProTrek 的全局语义空间能跨越这种表层的差异，<strong>找到那些结构和序列差异巨大、但功能趋同的蛋白</strong>。</p>
+<p>图2b中的案例几乎是对这一能力的直接证明。研究者以“zinc ion binding”这一功能描述作为检索输入。对于传统的结构比对工具 Foldseek，找到的结果里只有 18 个是真实具备锌离子结合功能的蛋白；而 ProTrek 的检索结果中，198 个是真实的命中。更令人印象深刻的是，当这些结果被投射到结构相似性空间中时，可以看到：<strong>许多具备相同功能的蛋白在结构上几乎毫不相似</strong>。换句话说，ProTrek 能够透过结构形式，捕捉到功能的语义。</p>
+<p><img src="images/image-4.png" alt=""></p>
+<p>这类结果说明了一个关键变化：模型已经不再依赖进化或物理相似性去推断功能，而是从数据中学习到了一种<strong><span style="color: inherit; background-color: rgba(205,178,250,0.7)">更抽象的“生物学语言”</span></strong>。图2c 的性能对比进一步支持了这一点。在不同模态的搜索任务中，无论是序列对序列还是结构对结构，ProTrek 都显著超越了 MMseqs2、DIAMOND 和 Foldseek，尤其是在那些低 TM-score 的区域，它依然能正确地识别出功能相近的蛋白。这种能力意味着它不只是“更快的搜索工具”，而是开始具备了功能层面的泛化理解。</p>
+<p><img src="images/image-7.png" alt=""></p>
+<p>这种泛化让 ProTrek 具备了新的研究用途。它不仅能作为功能检索引擎，还能被用作蛋白嵌入空间的基础模型。研究者可以在这个空间中进行相似性推断、功能聚类，甚至进一步的下游预测任务。</p>
+<blockquote>
+<p><strong>换句话说，它不只是改进了搜索算法，而是在重新定义“相似性”的概念</strong>。</p>
+</blockquote>
+<hr>
+<h2 id="四实验验证ai-启发的功能发现"><strong>四、实验验证：AI 启发的功能发现</strong></h2>
+<p>ProTrek 的强大不只体现在数据上的指标，更在于它能启发新的实验发现。研究团队选择了一个非常具体、也非常有挑战性的目标：寻找与人源 UDG（Uracil DNA Glycosylase）功能相似的蛋白。UDG 是一种经典的碱基修复酶，能够从 DNA 中切除尿嘧啶。近几年，科研界基于它开发出一类新的碱基编辑系统——TBE（Thymine Base Editor）。然而，这些系统普遍存在编辑效率低的问题，核心瓶颈正是人源 UDG 变体的活性不足。</p>
+<p>如果要寻找新的 UDG 替代品，传统的方法几乎行不通。UDG 在不同物种中的序列差异极大，单靠比对工具很难识别到功能等价的远缘同源体。于是团队把任务交给了 ProTrek：一方面用人源 UDG 的序列作为查询，另一方面输入一句自然语言描述——“UDGs remove uracil from DNA”。模型在 2 亿条蛋白的数据库中进行双模态搜索，返回了若干候选蛋白。这些候选在序列层面与人源 UDG 几乎没有相似性，但在语义空间中却被模型判定为“功能一致”。</p>
+<p><img src="images/image-1.png" alt=""></p>
+<p>接下来，研究者对这些候选进行分析，重点关注它们的活性中心。结果发现，虽然整体序列不同，但它们在关键催化残基附近都保留了类似的构象特征。团队进一步借鉴 UDG-Y147A 突变体的原理，对这些新蛋白的活性位点进行了同源替换，使其理论上具备识别并切除胸腺嘧啶（T）的能力。经过优化并与 Cas9 融合后，他们构建出一系列新的碱基编辑酶。</p>
+<p>实验验证的结果印证了 ProTrek 的判断。几乎所有候选蛋白在细胞实验中都表现出不同程度的胸腺嘧啶编辑活性，而其中排名第一的变体——V1，编辑效率在多个位点上明显超过了现有的 TSBE3 EK 和 gTBE 系统，并且伴随更低的插入缺失（indel）比例。换句话说，ProTrek 不仅找到了功能相似的蛋白，还帮助研究者设计出一个性能更好的编辑工具。</p>
+<p><img src="images/image.png" alt=""></p>
+<p>图3的实验流程图很好地体现了这种“AI 启发 + 实验验证”的闭环。模型在语义空间中完成“假设生成”，实验室则在细胞层面完成“假设验证”。这种结合的意义在于，它把蛋白功能发现的起点从传统的比对或随机筛选，转向了基于语义理解的智能检索。</p>
+<blockquote>
+<p>ProTrek 的这一案例展示了一个重要方向：蛋白语言模型不仅能复述生物知识，还能提出新的科学问题。它帮助研究者从“<strong>数据驱动”</strong>走向“<strong>语义驱动</strong>”，把功能假设的生成变成一种系统化、可探索的过程。</p>
+</blockquote>
+<hr>
+<h2 id="五应用与前景让蛋白世界被读懂"><strong>五、应用与前景：让蛋白世界被“读懂”</strong></h2>
+<p>在完成实验验证之后，ProTrek 的意义变得更加清晰。它不仅仅是一个模型，更是一种新的科学工具，一种重新组织生物知识的方式。研究团队搭建了在线平台 <a href="http://www.search-protrek.com">search-protrek.com</a>，预计算并存储了<strong>超过五十亿个蛋白</strong>的向量表征。这一规模大约是 UniProt 的十倍，整个平台整合了 SWISS-PROT、UniRef50、PDB、MGnify 以及全球海洋宏基因组等多个数据库，耗费了超过五年的 GPU 计算时间。这样的基础设施使得 ProTrek 成为<strong>目前最全面的蛋白语义检索系统。</strong></p>
+<p><img src="images/image-2.png" alt=""></p>
+<p>它的用途也非常广。对于功能注释而言，研究者可以<strong>直接用自然语言描述去检索可能具备某种活性的蛋白</strong>；对于蛋白设计领域，<strong>ProTrek 的嵌入空间可以作为“语义参考”</strong>，辅助生成模型判断目标序列的功能趋向；在进化生物学中，它能揭示<strong>不同物种中功能收敛但结构分化的酶类</strong>，从而帮助我们重新认识趋同进化的普遍性。更长远的意义是，它让蛋白世界进入了一种<strong>“可对话”的状态</strong>——<strong>从此我们不必总是通过对齐序列去理解分子，而是可以直接用语言去提问。</strong></p>
+<p>当然，ProTrek 也有它的边界。它的训练数据几乎全部来自天然蛋白，因此在处理人工设计或突变微调的序列时仍有局限；它无法给出精确的物理预测，比如荧光波长或热稳定性等。这些问题需要基于任务的微调或与其他专用模型的结合。研究团队也意识到了这一点，他们开发了 <strong>ColabProTrek</strong>，一个便于用户在自定义数据上微调的交互式平台，使模型能够在特定问题上获得更高的敏感度。</p>
+<p>在更宏观的层面上，ProTrek 代表了一种趋势：<strong>生物学的研究正从“数据比对”走向“语义建模”</strong>。它不是取代实验，而是重新定义实验的起点——<strong>从语言出发，生成假设，再由实验去验证</strong>。这样的范式意味着，我们可能正在进入一个新的阶段：在这个阶段里，理解蛋白质的关键，不再是找到它“像谁”，而是理解它“意味着什么”。</p>
+<p>原文链接：https://www.nature.com/articles/s41587-025-02836-0</p>
+<p>代码链接：https://github.com/westlake-repl/ProTrek</p>
+<p>server链接：http://www.search-protrek.com/</p>
+<p>ColabProTrek链接：https://colab.research.google.com/github/westlake-repl/SaprotHub/blob/main/colab/ColabProTrek.ipynb</p>
+<p>Huggingface模型权重：https://huggingface.co/westlake-repl/ProTrek_650M， <a href="https://huggingface.co/westlake-repl/ProTrek">https://huggingface.co/westlake-repl/ProTrek</a>_35M</p>
+<p>向原老师的开源精神致敬！</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/" class="link dim">
+                结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

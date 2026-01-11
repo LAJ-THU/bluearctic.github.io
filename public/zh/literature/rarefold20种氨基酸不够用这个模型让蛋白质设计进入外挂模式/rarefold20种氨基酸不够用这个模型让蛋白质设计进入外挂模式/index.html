@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+过去，像 AlphaFold2 这样的蛋白质结构预测软件只能处理20种天然氨基酸，这就像厨师只能使用20种食材做菜，难免受限。而在自然界和实验室中，其实还存在大量“非天然氨基酸”（Noncanonical Amino Acids，简称 NCAAs），它们拥有更丰富的化学性质，比如更稳定、不易被人体分解，甚至不容易引起免疫反应，非常适合用来设计药物。
+但问题是——这些“新食材”之前缺乏合适的建模工具，使用起来非常困难。
+今天要介绍的这篇论文《RareFold: Structure prediction and design of proteins with noncanonical amino acids》（发表于 2025 年 5 月23日）带来了全新的解决方案：作者开发出一个可以预测并设计含非天然氨基酸蛋白结构的深度学习模型，叫做 RareFold，它不仅精准，而且效率远超前人。
+接下来，我们就一起来看看 RareFold 是如何打破蛋白设计的边界的！
+
+
+背景
+在生命科学中，蛋白质是执行各种生物功能的“主力军”，从酶催化、信号传导，到免疫应答，几乎无所不在。而蛋白质的功能，很大程度上取决于它们的三维结构——就像工具的形状决定了用途。因此，预测蛋白质结构是理解生命机制和开发新药物的关键步骤。
+
+过去几年，Google DeepMind 推出的 AlphaFold2 实现了蛋白质结构预测的巨大突破，精度接近实验测量，引发全球轰动。但它有一个重要局限：只能处理自然界常见的20种天然氨基酸。而在实际生物系统中，还有数百种“非天然氨基酸”（Noncanonical Amino Acids, 简称 NCAAs），它们可以带来更强的稳定性、更高的特异性，甚至更好的免疫逃逸能力，非常适合用于药物设计。
+然而，由于 NCAAs 数据稀少、结构多样、现有模型无法识别，它们长期处于“有潜力但难应用”的尴尬状态。这正是本文所解决的问题 —— 如何突破传统模型的限制，把 NCAAs 纳入蛋白质结构预测与设计的工具链中。
+
+🔬 技术亮点
+
+
+RareFold 模型设计
+
+
+基于 AlphaFold2 的 EvoFormer 架构扩展，支持 20 种天然氨基酸 &#43; 29 种 NCAAs。
+
+
+每种氨基酸被编码为独立“token”（包括NCAAs），使模型能学习残基特异的原子交互模式。
+
+
+支持结构预测和序列-结构共同优化（即可用于蛋白设计）。
+
+
+
+
+
+
+
+EvoBindRare 设计平台
+
+
+该平台反向使用 RareFold，用于设计线性或环状肽类结合剂，并结合多种NCAAs。
+
+
+成功设计出对核糖核酸酶（ribonuclease）有 μM 级亲和力的肽类（线性和环状各一），且包含非天然氨基酸。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="过去，像 AlphaFold2 这样的蛋白质结构预测软件只能处理20种天然氨基酸，这就像厨师只能使用20种食材做菜，难免受限。而在自然界和实验室中，其实还存在大量“非天然氨基酸”（Noncanonical Amino Acids，简称 NCAAs），它们拥有更丰富的化学性质，比如更稳定、不易被人体分解，甚至不容易引起免疫反应，非常适合用来设计药物。
+但问题是——这些“新食材”之前缺乏合适的建模工具，使用起来非常困难。
+今天要介绍的这篇论文《RareFold: Structure prediction and design of proteins with noncanonical amino acids》（发表于 2025 年 5 月23日）带来了全新的解决方案：作者开发出一个可以预测并设计含非天然氨基酸蛋白结构的深度学习模型，叫做 RareFold，它不仅精准，而且效率远超前人。
+接下来，我们就一起来看看 RareFold 是如何打破蛋白设计的边界的！
+背景 在生命科学中，蛋白质是执行各种生物功能的“主力军”，从酶催化、信号传导，到免疫应答，几乎无所不在。而蛋白质的功能，很大程度上取决于它们的三维结构——就像工具的形状决定了用途。因此，预测蛋白质结构是理解生命机制和开发新药物的关键步骤。
+过去几年，Google DeepMind 推出的 AlphaFold2 实现了蛋白质结构预测的巨大突破，精度接近实验测量，引发全球轰动。但它有一个重要局限：只能处理自然界常见的20种天然氨基酸。而在实际生物系统中，还有数百种“非天然氨基酸”（Noncanonical Amino Acids, 简称 NCAAs），它们可以带来更强的稳定性、更高的特异性，甚至更好的免疫逃逸能力，非常适合用于药物设计。
+然而，由于 NCAAs 数据稀少、结构多样、现有模型无法识别，它们长期处于“有潜力但难应用”的尴尬状态。这正是本文所解决的问题 —— 如何突破传统模型的限制，把 NCAAs 纳入蛋白质结构预测与设计的工具链中。
+🔬 技术亮点 RareFold 模型设计
+基于 AlphaFold2 的 EvoFormer 架构扩展，支持 20 种天然氨基酸 &#43; 29 种 NCAAs。
+每种氨基酸被编码为独立“token”（包括NCAAs），使模型能学习残基特异的原子交互模式。
+支持结构预测和序列-结构共同优化（即可用于蛋白设计）。
+EvoBindRare 设计平台
+该平台反向使用 RareFold，用于设计线性或环状肽类结合剂，并结合多种NCAAs。
+成功设计出对核糖核酸酶（ribonuclease）有 μM 级亲和力的肽类（线性和环状各一），且包含非天然氨基酸。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="过去，像 AlphaFold2 这样的蛋白质结构预测软件只能处理20种天然氨基酸，这就像厨师只能使用20种食材做菜，难免受限。而在自然界和实验室中，其实还存在大量“非天然氨基酸”（Noncanonical Amino Acids，简称 NCAAs），它们拥有更丰富的化学性质，比如更稳定、不易被人体分解，甚至不容易引起免疫反应，非常适合用来设计药物。
+但问题是——这些“新食材”之前缺乏合适的建模工具，使用起来非常困难。
+今天要介绍的这篇论文《RareFold: Structure prediction and design of proteins with noncanonical amino acids》（发表于 2025 年 5 月23日）带来了全新的解决方案：作者开发出一个可以预测并设计含非天然氨基酸蛋白结构的深度学习模型，叫做 RareFold，它不仅精准，而且效率远超前人。
+接下来，我们就一起来看看 RareFold 是如何打破蛋白设计的边界的！
+背景 在生命科学中，蛋白质是执行各种生物功能的“主力军”，从酶催化、信号传导，到免疫应答，几乎无所不在。而蛋白质的功能，很大程度上取决于它们的三维结构——就像工具的形状决定了用途。因此，预测蛋白质结构是理解生命机制和开发新药物的关键步骤。
+过去几年，Google DeepMind 推出的 AlphaFold2 实现了蛋白质结构预测的巨大突破，精度接近实验测量，引发全球轰动。但它有一个重要局限：只能处理自然界常见的20种天然氨基酸。而在实际生物系统中，还有数百种“非天然氨基酸”（Noncanonical Amino Acids, 简称 NCAAs），它们可以带来更强的稳定性、更高的特异性，甚至更好的免疫逃逸能力，非常适合用于药物设计。
+然而，由于 NCAAs 数据稀少、结构多样、现有模型无法识别，它们长期处于“有潜力但难应用”的尴尬状态。这正是本文所解决的问题 —— 如何突破传统模型的限制，把 NCAAs 纳入蛋白质结构预测与设计的工具链中。
+🔬 技术亮点 RareFold 模型设计
+基于 AlphaFold2 的 EvoFormer 架构扩展，支持 20 种天然氨基酸 &#43; 29 种 NCAAs。
+每种氨基酸被编码为独立“token”（包括NCAAs），使模型能学习残基特异的原子交互模式。
+支持结构预测和序列-结构共同优化（即可用于蛋白设计）。
+EvoBindRare 设计平台
+该平台反向使用 RareFold，用于设计线性或环状肽类结合剂，并结合多种NCAAs。
+成功设计出对核糖核酸酶（ribonuclease）有 μM 级亲和力的肽类（线性和环状各一），且包含非天然氨基酸。">
+  <meta itemprop="wordCount" content="996">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="过去，像 AlphaFold2 这样的蛋白质结构预测软件只能处理20种天然氨基酸，这就像厨师只能使用20种食材做菜，难免受限。而在自然界和实验室中，其实还存在大量“非天然氨基酸”（Noncanonical Amino Acids，简称 NCAAs），它们拥有更丰富的化学性质，比如更稳定、不易被人体分解，甚至不容易引起免疫反应，非常适合用来设计药物。
+但问题是——这些“新食材”之前缺乏合适的建模工具，使用起来非常困难。
+今天要介绍的这篇论文《RareFold: Structure prediction and design of proteins with noncanonical amino acids》（发表于 2025 年 5 月23日）带来了全新的解决方案：作者开发出一个可以预测并设计含非天然氨基酸蛋白结构的深度学习模型，叫做 RareFold，它不仅精准，而且效率远超前人。
+接下来，我们就一起来看看 RareFold 是如何打破蛋白设计的边界的！
+背景 在生命科学中，蛋白质是执行各种生物功能的“主力军”，从酶催化、信号传导，到免疫应答，几乎无所不在。而蛋白质的功能，很大程度上取决于它们的三维结构——就像工具的形状决定了用途。因此，预测蛋白质结构是理解生命机制和开发新药物的关键步骤。
+过去几年，Google DeepMind 推出的 AlphaFold2 实现了蛋白质结构预测的巨大突破，精度接近实验测量，引发全球轰动。但它有一个重要局限：只能处理自然界常见的20种天然氨基酸。而在实际生物系统中，还有数百种“非天然氨基酸”（Noncanonical Amino Acids, 简称 NCAAs），它们可以带来更强的稳定性、更高的特异性，甚至更好的免疫逃逸能力，非常适合用于药物设计。
+然而，由于 NCAAs 数据稀少、结构多样、现有模型无法识别，它们长期处于“有潜力但难应用”的尴尬状态。这正是本文所解决的问题 —— 如何突破传统模型的限制，把 NCAAs 纳入蛋白质结构预测与设计的工具链中。
+🔬 技术亮点 RareFold 模型设计
+基于 AlphaFold2 的 EvoFormer 架构扩展，支持 20 种天然氨基酸 &#43; 29 种 NCAAs。
+每种氨基酸被编码为独立“token”（包括NCAAs），使模型能学习残基特异的原子交互模式。
+支持结构预测和序列-结构共同优化（即可用于蛋白设计）。
+EvoBindRare 设计平台
+该平台反向使用 RareFold，用于设计线性或环状肽类结合剂，并结合多种NCAAs。
+成功设计出对核糖核酸酶（ribonuclease）有 μM 级亲和力的肽类（线性和环状各一），且包含非天然氨基酸。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p><img src="images/image-10.png" alt=""></p>
+<p>过去，像 AlphaFold2 这样的蛋白质结构预测软件只能处理20种天然氨基酸，这就像厨师只能使用20种食材做菜，难免受限。而在自然界和实验室中，其实还存在大量“非天然氨基酸”（Noncanonical Amino Acids，简称 NCAAs），它们拥有更丰富的化学性质，比如更稳定、不易被人体分解，甚至不容易引起免疫反应，非常适合用来设计药物。</p>
+<p>但问题是——这些“新食材”之前缺乏合适的建模工具，使用起来非常困难。</p>
+<p>今天要介绍的这篇论文《RareFold: Structure prediction and design of proteins with noncanonical amino acids》（发表于 2025 年 5 月23日）带来了全新的解决方案：作者开发出一个可以预测并设计<strong>含非天然氨基酸蛋白结构</strong>的深度学习模型，叫做 <strong>RareFold</strong>，它不仅精准，而且效率远超前人。</p>
+<p>接下来，我们就一起来看看 <strong>RareFold </strong>是如何打破蛋白设计的边界的！</p>
+<p><img src="images/image-11.png" alt=""></p>
+<hr>
+<h3 id="背景">背景</h3>
+<p>在生命科学中，蛋白质是执行各种生物功能的“主力军”，从酶催化、信号传导，到免疫应答，几乎无所不在。而蛋白质的功能，很大程度上取决于它们的三维结构——就像工具的形状决定了用途。因此，<strong>预测蛋白质结构</strong>是理解生命机制和开发新药物的关键步骤。</p>
+<p><img src="images/image-14.png" alt=""></p>
+<p>过去几年，Google DeepMind 推出的 <strong>AlphaFold2</strong> 实现了蛋白质结构预测的巨大突破，精度接近实验测量，引发全球轰动。但它有一个重要局限：<strong>只能处理自然界常见的20种天然氨基酸</strong>。而在实际生物系统中，还有数百种“非天然氨基酸”（Noncanonical Amino Acids, 简称 NCAAs），它们可以带来更强的稳定性、更高的特异性，甚至更好的免疫逃逸能力，非常适合用于药物设计。</p>
+<p>然而，由于 NCAAs 数据稀少、结构多样、现有模型无法识别，它们长期处于“有潜力但难应用”的尴尬状态。这正是本文所解决的问题 —— <strong>如何突破传统模型的限制，把 NCAAs 纳入蛋白质结构预测与设计的工具链中</strong>。</p>
+<hr>
+<h3 id="-技术亮点"><strong>🔬 技术亮点</strong></h3>
+<ol>
+<li>
+<p><strong>RareFold 模型设计</strong></p>
+<ul>
+<li>
+<p>基于 AlphaFold2 的 EvoFormer 架构扩展，支持 20 种天然氨基酸 + 29 种 NCAAs。</p>
+</li>
+<li>
+<p>每种氨基酸被编码为独立“token”（包括NCAAs），使模型能学习残基特异的原子交互模式。</p>
+</li>
+<li>
+<p>支持结构预测和序列-结构共同优化（即可用于蛋白设计）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="images/image-9.png" alt=""></p>
+<ul>
+<li>
+<p><strong>EvoBindRare 设计平台</strong></p>
+<ul>
+<li>
+<p>该平台反向使用 RareFold，用于设计<strong>线性或环状肽类结合剂</strong>，并结合多种NCAAs。</p>
+</li>
+<li>
+<p>成功设计出对核糖核酸酶（ribonuclease）有 μM 级亲和力的肽类（线性和环状各一），且包含非天然氨基酸。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/image-13.png" alt=""></p>
+<ul>
+<li>
+<p><strong>准确性与效率</strong></p>
+<ul>
+<li>
+<p>与 AlphaFold3 相比，在部分非天然氨基酸（如 MSE, SAH）上表现更优，能避免AF3中因扩散模块导致的不自然原子结构冲突。</p>
+</li>
+<li>
+<p>使用 token 表示法而非原子层级操作，计算更高效：在40GB内存下可运行 AF3 无法处理的结构。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>RareFold相比AF3的核心改动</strong></p>
+</li>
+</ul>
+<p><strong>1.</strong> <strong>将氨基酸表示为离散 token</strong></p>
+<ul>
+<li>
+<p>RareFold 不再依赖 AF3 的原子层级构建模块，而是将<strong>每种氨基酸（天然或非天然）都编码为一个 token</strong>，包括 20 种天然氨基酸 + 29 种 NCAAs。</p>
+</li>
+<li>
+<p>这意味着每种残基都有独立的结构表示形式，允许模型学会其特定的结构和几何分布，而无需预定义原子坐标模板。</p>
+</li>
+</ul>
+<p><strong>2.</strong> <strong>调整原子映射模块</strong></p>
+<ul>
+<li>
+<p>在预测结构坐标后，RareFold 使用<strong>残基特异性的原子映射规则</strong>来确定每种氨基酸的原子布局，适应非标准侧链。</p>
+</li>
+<li>
+<p>AF3 的原子生成依赖模板/轨迹回归（如diffusion），但 RareFold 的方式更稳健，<strong>避免了如 MSE 残基中出现的原子冲突问题</strong>。</p>
+</li>
+</ul>
+<p><strong>3.</strong> <strong>简化模型架构，移除扩散模块</strong></p>
+<ul>
+<li>
+<p>AF3 的生成式模块（如结构扩散）虽然强大，但对训练和推理资源要求极高，也容易在复杂化学结构中出错。</p>
+</li>
+<li>
+<p>RareFold 去除了这些复杂部分，改为<strong>端到端结构回归 + token 解码器机制</strong>，<strong>显著降低显存需求并提高稳定性</strong>。</p>
+</li>
+</ul>
+<p><strong>4.</strong> <strong>加入支持蛋白-肽复合物建模（用于设计）</strong></p>
+<ul>
+<li>RareFold 进一步调整了 AF3 的多链建模机制，允许预测<strong>含NCAA的蛋白-肽复合结构</strong>（特别用于 EvoBindRare 平台的设计任务）。</li>
+</ul>
+<p><strong>5.</strong> <strong>可扩展表示结构（支持更多AA）</strong></p>
+<ul>
+<li>AF3 中氨基酸是静态定义的，RareFold 则可以根据训练数据动态加入新的NCAA，<strong>具备更强的扩展性与迁移能力</strong>。</li>
+</ul>
+<hr>
+<h3 id="rarefold预测模型架构">RareFold预测模型架构</h3>
+<p>RareFold整体的模型架构和AF2非常类似：</p>
+<ol>
+<li>
+<p><strong>输入序列</strong>：输入的是包含“Rare”氨基酸的蛋白质序列。这些稀有氨基酸用新的 token 编码表示，打破了传统模型只支持20种天然氨基酸的限制。</p>
+</li>
+<li>
+<p><strong>共进化信息提取</strong>：</p>
+<ul>
+<li>
+<p>通过多序列比对（MSA）获得进化相关性。</p>
+</li>
+<li>
+<p>同时构建“残基对表示”（Pair representation）用于提取结构间接关系。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>结构信息建模</strong>：</p>
+<ul>
+<li>
+<p>依赖 AlphaFold2 中的核心注意力模块，如行/列注意力和三角注意力（Triangle Attention）来捕捉三维空间关系。</p>
+</li>
+<li>
+<p>使用 IPA（Invariant Point Attention）实现蛋白质“共折叠”结构预测。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>回收机制（Recycling）</strong>：模型会多次迭代优化预测结果，提高准确性。</p>
+</li>
+<li>
+<p><strong>结构输出</strong>：每种氨基酸（包括非天然的）都会被分配独立的几何坐标系，从而在最终3D结构中实现精准定位和原子映射（右上图）。</p>
+</li>
+</ol>
+<p><img src="images/image-12.png" alt="RareFold network architecture and evaluation."></p>
+<p>这张图详细说明了 RareFold 模型的架构、性能评估方法以及与 AlphaFold3 (AF3) 的对比，重点是对<strong>非天然氨基酸（NCAAs）</strong>结构预测的能力。</p>
+<p>展示 RareFold 的结构预测流程：</p>
+<ol>
+<li>
+<p><strong>输入蛋白质序列</strong>（包含 Rare 氨基酸）</p>
+</li>
+<li>
+<p>通过 <strong>MSA（多序列比对）</strong> 和 <strong>对位表示（pair representation）</strong> 构建共演化信息</p>
+</li>
+<li>
+<p>应用 <strong>行/列注意力</strong> 和 <strong>三角注意力（triangle attention）</strong> 提取结构关系</p>
+</li>
+<li>
+<p>最后通过 IPA（Invariant Point Attention）对蛋白进行共折叠预测，得到3D结构</p>
+</li>
+<li>
+<p>每种氨基酸（包括 NCAAs）都分配独立坐标系，确保结构精确映射</p>
+</li>
+<li>
+<p><strong>支持结构回收（Recycling）</strong> 多次迭代优化结构输出</p>
+</li>
+</ol>
+<p>📌 <strong>关键点</strong>：RareFold 将非天然氨基酸视为独立 token，从而学习其特定的结构模式，增强泛化能力</p>
+<p><strong>和alphafold2非常相似</strong></p>
+<p><img src="images/image-5.png" alt=""></p>
+<p><img src="images/image-8.png" alt=""></p>
+<h3 id="alphafold3-和-rarefold谁更强">AlphaFold3 和 RareFold谁更强？</h3>
+<p>AlphaFold3能够预测全原子结构，已经在结构预测任务中已经引入了对某些“修饰残基”的支持，例如 MSE（硒代蛋氨酸）等。因此和AlphaFold3做对比，也是RareFold 必须要做的事情。下表展示了AlphaFold3和RareFold的对比：</p>
+<p><img src="images/image-3.png" alt=""></p>
+<p>虽然 AF3 能在一定程度上处理非天然氨基酸，但它的核心设计依然是基于<strong>原子级建模 + 扩散生成模块</strong>，在处理复杂化学结构时容易出现原子冲突、建模不稳定、资源开销大等问题。而 RareFold 采用了完全不同的思路：<strong>把每个氨基酸（包括 NCAAs）看作独立 token</strong>，通过学习它们的整体结构与几何特征，实现预测过程的“抽象化”和“轻量化”。</p>
+<p><img src="images/image-7.png" alt="Limitations of AlphaFold3 and RareFold in Predicting Modified Amino Acids"></p>
+<p>这张图主要展示了 RareFold 相比 AlphaFold3 在预测<strong>非天然氨基酸（NCAA）</strong>结构时的表现，具体包括结构准确性、预测置信度和蛋白长度对结构预测精度的影响。</p>
+<h5 id="图-ararefold-vs-alphafold3-对-mse-残基的结构预测"><strong>图 a：RareFold vs AlphaFold3 对 MSE 残基的结构预测</strong></h5>
+<ul>
+<li>
+<p>展示的是蛋白 8VJ1 和 9J6M 中的 <strong>MSE（硒代蛋氨酸）</strong> 的结构预测比较。</p>
+</li>
+<li>
+<p><strong>绿色为主链结构</strong>，<strong>粉色/青色棒状为 MSE 残基的侧链原子</strong>。</p>
+</li>
+<li>
+<p>上排是 RareFold 的预测，<strong>MSE 结构合理且无冲突</strong>；</p>
+</li>
+<li>
+<p>下排是 AlphaFold3 的预测，可以看到<strong>存在原子间重叠（冲突）</strong>，尤其是 MSE 中的硒原子与相邻原子过于接近，导致物理结构不合理。</p>
+</li>
+</ul>
+<p>📌 <strong>结论</strong>：RareFold 相较于 AlphaFold3 能更好地处理 MSE 这类NCAA，预测出的结构更物理合理，避免了常见的原子间冲突问题。</p>
+<h5 id="图-brarefold-的预测准确度cα-lddt-vs-蛋白长度"><strong>图 b：RareFold 的预测准确度（Cα lDDT） vs 蛋白长度</strong></h5>
+<ul>
+<li>
+<p>X轴为蛋白序列长度（对数刻度），Y轴为预测结构的 <strong>Cα lDDT 分数</strong>（预测结构与真实结构的相似度，越高越好）。</p>
+</li>
+<li>
+<p>数据显示：<strong>随着蛋白长度增加，预测准确度略有下降</strong>，但并无明显断崖式下降。</p>
+</li>
+</ul>
+<p>📌 <strong>结论</strong>：RareFold 在预测较长序列时会面临一定挑战，但整体仍维持较高准确度，说明模型具有较强的泛化能力。</p>
+<h5 id="图-crarefold-的-ncaa-侧链预测误差rmsd-vs-iddt"><strong>图 c：RareFold 的 NCAA 侧链预测误差（RMSD） vs IDDT</strong></h5>
+<ul>
+<li>
+<p>横轴是 NCAA 的侧链 RMSD（预测与真实之间的误差，越小越好），纵轴是 IDDT（全局结构准确度）。</p>
+</li>
+<li>
+<p>图像是一个 <strong>密度图</strong>，深蓝区域表示数据点密度高。</p>
+</li>
+<li>
+<p>可以看到，在 <strong>结构整体准确（高 IDDT）时，侧链误差也通常更小</strong>。</p>
+</li>
+</ul>
+<p>📌 <strong>结论</strong>：整体结构预测质量（IDDT）与局部侧链精度（RMSD）之间存在正相关关系；即当结构整体预测得好时，非天然氨基酸的预测也更准确。</p>
+<h3 id="-rarefold-能预测得准吗看准度也要看自信心氨基酸准确性和置信度"><strong>✅ RareFold 能预测得准吗？看准度也要看“自信心”（氨基酸准确性和置信度）</strong></h3>
+<p>AI 模型不仅要预测准，还要知道“自己预测得准不准”——也就是说，它的<strong>置信度得分（plDDT）</strong>要能真实反映结构质量。RareFold 在这方面表现如何？这张图给出了非常直观的答案：</p>
+<p><img src="images/image-4.png" alt="Relationship between confidence metrics and structural accuracy on the validation set"></p>
+<p><strong>核心结论：</strong></p>
+<ul>
+<li>
+<p><strong>图 a 总结</strong>：plDDT 越高，非天然氨基酸的结构预测误差（RMSD）越低，说明模型能判断预测是否可靠。</p>
+</li>
+<li>
+<p><strong>图 b 总结</strong>：整个蛋白结构的平均置信度（plDDT）与真实结构相似度（IDDT）高度相关，R=0.872，反映整体预测可信度高。</p>
+</li>
+<li>
+<p><strong>图 c 总结</strong>：高 IDDT 的预测结构与真实结构几乎重合，低 IDDT 则偏差明显，视觉上验证了模型置信度与准确度的一致性。</p>
+</li>
+</ul>
+<h5 id="图-a-plddt-vs-rmsd单个氨基酸层面"><strong>图 a: plDDT vs RMSD（单个氨基酸层面）</strong></h5>
+<ul>
+<li>
+<p><strong>横轴：</strong> plDDT（模型对每个残基的预测置信度，0–100）</p>
+</li>
+<li>
+<p><strong>纵轴：</strong> RMSD（预测与真实结构的误差，log尺度）</p>
+</li>
+<li>
+<p><strong>每个点表示一个 NCAA 残基</strong></p>
+</li>
+</ul>
+<p>🔍 <strong>观察结果：</strong></p>
+<ul>
+<li>
+<p>plDDT 越高，RMSD 趋势越低：说明 <strong>plDDT 可以用来判断预测是否准确</strong>。</p>
+</li>
+<li>
+<p>大多数预测位于 90–100 的高置信区间，共有 896 个点，RMSD 也较低，表示预测可信。</p>
+</li>
+</ul>
+<p>📌 <strong>结论：</strong> RareFold 能够通过 plDDT 成功识别哪些残基预测得准、哪些不准。</p>
+<hr>
+<h5 id="图-b-plddt-vs-cα-iddt全蛋白层面"><strong>图 b: plDDT vs Cα IDDT（全蛋白层面）</strong></h5>
+<ul>
+<li>
+<p><strong>横轴：</strong> 平均 plDDT 分数（整个结构）</p>
+</li>
+<li>
+<p><strong>纵轴：</strong> Cα IDDT（预测结构与真实结构在主链 α-碳原子上的相似性）</p>
+</li>
+<li>
+<p><strong>每个点代表一个完整蛋白结构</strong></p>
+</li>
+</ul>
+<p>🔍 <strong>观察结果：</strong></p>
+<ul>
+<li>
+<p>两者呈高度正相关，<strong>相关系数 R = 0.872</strong>，即置信度高的结构预测也更精确。</p>
+</li>
+<li>
+<p>大多数结构分布在高区间（右上角），说明整体预测质量高。</p>
+</li>
+</ul>
+<p>📌 <strong>结论：</strong> RareFold 的置信度评分不仅在单个氨基酸层面有效，也在整链结构层面准确反映预测质量。</p>
+<hr>
+<h5 id="图-c-可视化展示不同-iddt-水平下的结构预测"><strong>图 c: 可视化展示不同 IDDT 水平下的结构预测</strong></h5>
+<p>展示了几个具有代表性的蛋白质预测与原始结构的对比（绿色为预测结构，灰色为真实结构）：</p>
+<ul>
+<li>
+<p><strong>8YJJ (IDDT=0.96)</strong>：几乎完美预测</p>
+</li>
+<li>
+<p><strong>5SDW (0.87)</strong>、<strong>7DL6 (0.76)</strong>：较好预测</p>
+</li>
+<li>
+<p><strong>7QUW (0.55)</strong>、<strong>7OUJ (0.65)</strong>：预测效果下降，误差明显</p>
+</li>
+</ul>
+<p>📌 <strong>结论：</strong> 高 IDDT 的预测结果与真实结构非常接近，进一步验证 RareFold 的置信度评分与预测精度高度一致。</p>
+<hr>
+<h3 id="-rarefold-对非天然氨基酸的预测到底准不准"><strong>🔍 RareFold 对非天然氨基酸的预测到底准不准？</strong></h3>
+<p>既然 RareFold 主打“能看懂非天然氨基酸”，那它在实际预测中表现如何？作者通过大规模测试，把 RareFold 在不同氨基酸上的预测结果做了统计，从侧链误差（RMSD）和整体结构准确度（IDDT）两个维度，分别和天然氨基酸进行了对比。</p>
+<p><img src="images/image-6.png" alt="Comparison between proteinogenic and NCAAs on the validation set."></p>
+<p>结果很令人安心：</p>
+<ul>
+<li>
+<p>在预测精度上，<strong>像 MSE、SEP、PTR 等常见的非天然氨基酸，其 RMSD 表现和 LEU、ALA 等天然氨基酸几乎处于同一水平线</strong>，误差非常小，说明模型对这些结构“非常熟”。</p>
+</li>
+<li>
+<p>即便从整条蛋白质的角度看，RareFold 在这些 NCAAs 上也能预测出高 IDDT 的主链结构，和天然氨基酸一样靠谱。</p>
+</li>
+<li>
+<p>虽然一些极其稀有、样本极少的 NCAAs（比如 CAF、PFF 等）会存在波动，但这属于“训练数据稀缺”的客观现象，并不影响整体可靠性。</p>
+</li>
+</ul>
+<p>📌 <strong>一句话总结</strong>：RareFold 预测大多数非天然氨基酸的精度，已经足以和天然氨基酸一较高下，不再是“AI 看不懂的稀有语言”。这为后续结构设计和药物开发打下了坚实基础。</p>
+<p>这张图（图4）展示了 RareFold 在结构预测中对<strong>天然氨基酸（proteinogenic AAs）和非天然氨基酸（NCAAs）</strong>的表现比较，重点分析的是结构预测误差（<strong>RMSD</strong>）和准确度（<strong>lDDT</strong>）在不同氨基酸类型上的分布情况。</p>
+<h5 id="-图-a不同氨基酸侧链-rmsd结构误差分布"><strong>📊 图 a：不同氨基酸侧链 RMSD（结构误差）分布</strong></h5>
+<ul>
+<li>
+<p><strong>横轴</strong>：氨基酸类型（从左到右依次为天然 → 非天然）</p>
+</li>
+<li>
+<p><strong>括号内数字</strong>：该氨基酸在验证集中的出现次数</p>
+</li>
+<li>
+<p><strong>纵轴</strong>：侧链 RMSD（sc RMSD），越低表示预测越精确</p>
+</li>
+</ul>
+<p><strong>🔍 解读：</strong></p>
+<ul>
+<li>
+<p>天然氨基酸（如 LEU, ARG, THR）通常 RMSD 较低，但也有一定波动。</p>
+</li>
+<li>
+<p>非天然氨基酸（如 CME, SEP, PCA）整体误差稍大，但差异可接受。</p>
+</li>
+<li>
+<p>某些非天然氨基酸样本数很少（如 CAF 仅3个），误差波动较大。</p>
+</li>
+</ul>
+<p>📌 <strong>结论：</strong></p>
+<p>RareFold 对非天然氨基酸的预测误差在可接受范围，<strong>如 CME 与 ARG 的 RMSD 分布范围类似</strong>，说明该模型能较好地泛化到NCAAs。</p>
+<hr>
+<h3 id="-用-rarefold-来反向设计蛋白evobindrare-是怎么做到的"><strong>🧬 用 RareFold 来反向设计蛋白：EvoBindRare 是怎么做到的？</strong></h3>
+<p>结构预测只是第一步，更激动人心的是——RareFold 不只“看懂”了非天然氨基酸（NCAAs），它还能反过来参与<strong>设计</strong>！这就是本文提出的 EvoBindRare 系统。</p>
+<p>其实 EvoBindRare 本质上是之前工具 EvoBind2 的一次“插件升级”——原本使用 AlphaFold 作为预测模块，现在换成了 RareFold，因此就具备了处理 NCAAs 的能力，实现了对线性和环状肽结合剂的设计支持。</p>
+<p><img src="images/image-2.png" alt="EvoBindRare"></p>
+<p>这张图（图5）展示了 RareFold 模型在蛋白质设计中的应用，特别是其子系统 <strong>EvoBindRare（EBR）</strong> <strong>用于设计含非天然氨基酸（NCAAs）的肽类结合剂（peptide binders）</strong>的完整流程、性能评估和实验验证。</p>
+<hr>
+<h5 id="-图-aevobindrare-的设计流程流程图"><strong>🧬 图 a：EvoBindRare 的设计流程（流程图）</strong></h5>
+<p>展示了 EBR 的逆向设计架构：</p>
+<ol>
+<li>
+<p><strong>输入目标蛋白质序列</strong> → 使用 HHblits 生成 MSA（多序列比对）</p>
+</li>
+<li>
+<p><strong>初始化肽序列</strong>（包含天然和非天然氨基酸） → 随机起始序列</p>
+</li>
+<li>
+<p>结构预测模型 <strong>RareFold（改为预测蛋白-肽复合物）</strong>对该序列进行结构预测</p>
+</li>
+<li>
+<p>计算结构评分（loss）→ 用于指导序列的突变优化</p>
+</li>
+</ol>
+<p>$$\text{Loss}<em>1 = \text{peptide } plDDT^{-1} \cdot \left( \frac{1}{n} \sum</em>{j=1}^{n} d_j \right) + % \text{clashes}
+$$</p>
+<ul>
+<li>不断迭代突变并打分，优化出具有高亲和力的肽结合剂</li>
+</ul>
+<p>📌 <strong>亮点</strong>：该流程允许引入 <strong>NCAAs</strong>，拓展设计空间，最终实现高效肽类药物设计。</p>
+<hr>
+<h5 id="-图-b设计性能评估设计损失与置信度"><strong>📊 图 b：设计性能评估（设计损失与置信度）</strong></h5>
+<ul>
+<li>
+<p><strong>左图</strong>：设计损失（越低越好）随肽长度变化（X轴：10–20肽长）</p>
+</li>
+<li>
+<p><strong>右图</strong>：预测置信度（plDDT）随肽长度变化（Y轴越高越可靠）</p>
+</li>
+</ul>
+<p>颜色区分：</p>
+<ul>
+<li>
+<p><strong>蓝色</strong>为线性肽</p>
+</li>
+<li>
+<p><strong>橙色</strong>为环状肽（更难设计）</p>
+</li>
+</ul>
+<p><strong>🔍 结论：</strong></p>
+<ul>
+<li>
+<p>大多数肽长都能设计出低loss且高plDDT的结构；</p>
+</li>
+<li>
+<p>环状肽的plDDT略低，说明结构约束更复杂；</p>
+</li>
+<li>
+<p>多数设计超越了置信度阈值（plDDT &gt; 85）和损失阈值（loss &lt; 0.05）。</p>
+</li>
+</ul>
+<p>📌 <strong>亮点</strong>：EvoBindRare 可以系统性生成可靠的多种肽结构设计。</p>
+<hr>
+<h5 id="-图-c成功设计并验证的两个结合肽线性--环状"><strong>🧪 图 c：成功设计并验证的两个结合肽（线性 &amp; 环状）</strong></h5>
+<p>展示了两个结合肽的设计、预测结构和实验结合验证：</p>
+<ul>
+<li>
+<p><strong>左侧为线性肽（17肽长）</strong>：包含多个 NCAAs（如 MSE, MLZ, HIC），plDDT=86，<strong>Kd = 2.13 μM</strong></p>
+</li>
+<li>
+<p><strong>右侧为环状肽（14肽长）</strong>：也包含 NCAAs，plDDT=86，<strong>Kd = 8.77 μM</strong></p>
+</li>
+<li>
+<p><strong>底部为 SPR 实验曲线</strong>，验证肽与目标蛋白结合的亲和力（μM 级）</p>
+</li>
+</ul>
+<p>📌 <strong>亮点</strong>：设计的肽不仅在结构上可靠，还在实验中表现出有效结合活性，证明 RareFold+EBR 的功能性。</p>
+<hr>
+<h5 id="-图-d预测结构与已知结构比对wt-vs-设计肽"><strong>🧬 图 d：预测结构与已知结构比对（WT vs 设计肽）</strong></h5>
+<ul>
+<li>
+<p>左：线性肽 L17 与已知天然肽（WT）叠加比较 → 二者结构相似但结合方式不同；</p>
+</li>
+<li>
+<p>右：环状肽 C14 与 WT 比较 → 呈现出不同但合理的结合构象；</p>
+</li>
+</ul>
+<p>📌 <strong>亮点</strong>：EBR 不依赖模板，能设计出与天然结合肽结构不同但功能等效的新型肽。</p>
+<hr>
+<h5 id="-总结"><strong>✅ 总结</strong></h5>
+<p>这张图展示了 RareFold 的设计模块 EvoBindRare：</p>
+<ul>
+<li>
+<p>能设计含NCAAs的高亲和力肽；</p>
+</li>
+<li>
+<p>成功生成线性和环状结合肽；</p>
+</li>
+<li>
+<p>并通过实验验证了其预测的功能性。</p>
+</li>
+<li>
+<p>Data Availability： <a href="https://zenodo.org/uploads/14892196">https://zenodo.org/uploads/14892196</a>.  </p>
+</li>
+<li>
+<p>Code Availability：https://github.com/patrickbryant1/RareFold</p>
+</li>
+</ul>
+<hr>
+<h3 id="方法细节">方法细节：</h3>
+<h4 id="数据">数据：</h4>
+<ol>
+<li>
+<p><strong>数据来源</strong>：</p>
+<ul>
+<li>
+<p>所有蛋白质结构均来自 PDB 数据库，提取时间为 <strong>2024年12月10日</strong></p>
+</li>
+<li>
+<p>仅选择通过 <strong>X射线衍射或电子显微镜（EM）测定，分辨率 ≤ 5 Å 的单体蛋白结构</strong></p>
+</li>
+<li>
+<p>总共选取了 <strong>75,232 条结构</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>筛选标准</strong>：</p>
+<ul>
+<li>
+<p>每个结构文件只提取 <strong>第一个蛋白链</strong></p>
+</li>
+<li>
+<p>保留序列中<strong>非规则氨基酸（包含NCAAs）比例小于80%</strong>，<strong>序列长度大于50</strong></p>
+</li>
+<li>
+<p>满足以上条件的样本数为 <strong>74,882 条</strong>（占总数 99.5%）</p>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="-序列聚类处理"><strong>🧪 序列聚类处理</strong></h5>
+<ul>
+<li>
+<p>为了降低冗余度，使用 <strong>MMseqs2 工具</strong> 对序列按 <strong>20% 相似性</strong> 进行聚类</p>
+</li>
+<li>
+<p>最终得到 <strong>9,031 个代表性簇</strong></p>
+</li>
+</ul>
+<h4 id="非天然氨基酸的描述">非天然氨基酸的描述</h4>
+<p>RareFold 需要对这些 NCAAs 进行结构预测，但 AlphaFold2 仅支持标准的 20 种天然氨基酸，因此作者扩展了结构表示框架，引入了新的残基原子坐标模板。</p>
+<p><img src="images/image-1.png" alt=""></p>
+<p><img src="images/image.png" alt=""></p>
+<h4 id="多序列比对">多序列比对</h4>
+<h5 id="ncaas-无法用于标准-msa-编码"><strong>NCAAs 无法用于标准 MSA 编码</strong></h5>
+<ul>
+<li>
+<p>多数非天然氨基酸没有<strong>标准的一字母代码</strong>，因此<strong>无法直接参与多序列比对（MSA）</strong>。</p>
+</li>
+<li>
+<p>只有极少数 NCAAs 被编码为特殊字符：</p>
+<ul>
+<li>
+<p>SEC (硒代半胱氨酸) → &lsquo;U&rsquo;</p>
+</li>
+<li>
+<p>PYL (吡咯赖氨酸) → &lsquo;O&rsquo;</p>
+</li>
+<li>
+<p>GLX (模糊的谷氨酰/天冬酰胺) → &lsquo;X&rsquo;（等价于未知/UNK）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>🔍 <strong>但问题在于</strong>：</p>
+<ul>
+<li>
+<p>&lsquo;X&rsquo; 会被解读为“未知残基”（UNK），信息价值几乎为零</p>
+</li>
+<li>
+<p>&lsquo;U&rsquo; 和 &lsquo;O&rsquo; 出现在实际蛋白数据中非常少（不在前50常见残基中）</p>
+</li>
+</ul>
+<h5 id="-解决方法将所有非标准氨基酸替换为-"><strong>✅ 解决方法：将所有非标准氨基酸替换为</strong> <strong>&lsquo;X&rsquo;</strong></h5>
+<p>为进行 MSA 构建：</p>
+<ul>
+<li>
+<p>所有非标准残基（NCAAs）都被统一替换为 &lsquo;X&rsquo;</p>
+</li>
+<li>
+<p>这样虽然牺牲了特异性，但保留了比对流程的兼容性</p>
+</li>
+</ul>
+<h5 id="msa-计算的瓶颈与加速策略"><strong>MSA 计算的瓶颈与加速策略</strong></h5>
+<ul>
+<li>
+<p>RareFold 仅使用 <strong>uniclust30_2018_08 数据库</strong></p>
+</li>
+<li>
+<p>工具为 <strong>HHblits</strong>（HH-suite v3.1.0）</p>
+</li>
+<li>
+<p>使用的命令行为：</p>
+</li>
+</ul>
+<h4 id="训练与验证集">训练与验证集</h4>
+<p>为比较 RareFold 与 AlphaFold3 在预测非天然氨基酸结构方面的性能，作者构建了一个包含修改残基（NCAA）的训练和评估数据集。</p>
+<ol>
+<li>
+<p><strong>划分标准</strong>：</p>
+<ul>
+<li>
+<p>将 PDB 中的数据以 <strong>2021-09-30 为时间界限</strong>，这一天也是 AF3 的训练数据截止时间。</p>
+</li>
+<li>
+<p>所有早于此日期的结构用于训练；</p>
+</li>
+<li>
+<p>晚于此日期且未出现在AF3训练集中的结构用于测试；</p>
+</li>
+<li>
+<p>其余用于验证。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>训练集</strong>：</p>
+<ul>
+<li>
+<p>总计 62,530 个结构</p>
+</li>
+<li>
+<p>其中 <strong>6,679 个包含非天然氨基酸（包含10个 SNN）</strong></p>
+</li>
+<li>
+<p>覆盖 8,125 个 20% 相似性聚类</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>测试集</strong>：</p>
+<ul>
+<li>
+<p>从时间分割后新出现的结构中选出 <strong>177 个包含非天然氨基酸的结构</strong></p>
+</li>
+<li>
+<p>这些结构不在 AF3 训练集中，适合作为独立对比基准</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>验证集</strong>：</p>
+<ul>
+<li>
+<p>包含 12,175 个结构</p>
+</li>
+<li>
+<p>其中 743 个含有 NCAA</p>
+</li>
+<li>
+<p>用于训练中模型性能监控</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="images/image-18.png" alt=""></p>
+<p><img src="images/image-19.png" alt=""></p>
+<h4 id="训练">训练</h4>
+<ol>
+<li>
+<p><strong>训练数据构成（非天然氨基酸优先）</strong>：</p>
+<ul>
+<li>
+<p>每个训练 batch 的一半样本<strong>必须包含非天然氨基酸</strong>。</p>
+</li>
+<li>
+<p>这些样本根据其在数据集中出现的“稀有程度”采样，确保模型能学习到罕见NCAAs的结构特征。</p>
+</li>
+<li>
+<p>另一半样本来自代表性蛋白序列（基于 20% 序列相似度簇），以增强模型泛化能力。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>训练配置</strong>：</p>
+<ul>
+<li>
+<p><strong>batch size = 24</strong></p>
+</li>
+<li>
+<p>在 8 张 A100 GPU（每张80GB显存）上进行训练</p>
+</li>
+<li>
+<p>总训练步数：40,000步（前20,000步标准训练，后5,000步加上额外loss进行精调）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>损失函数定义：</strong></p>
+</li>
+</ol>
+<p>总损失由以下项加权组成：</p>
+<p>$$\text{Loss} = 0.5 \cdot \text{FAPE} + 0.5 \cdot \text{AUX} + 0.3 \cdot \text{Distance} + 0.2 \cdot \text{MSA} + 0.01 \cdot \text{Confidence}$$</p>
+<p>其中：</p>
+<ul>
+<li>
+<p><strong>FAPE</strong>：结构原子对齐误差（核心结构损失）</p>
+</li>
+<li>
+<p><strong>AUX</strong>：由 FAPE 和角度误差组成的辅助损失</p>
+</li>
+<li>
+<p><strong>Distance</strong>：残基间距离损失</p>
+</li>
+<li>
+<p><strong>MSA</strong>：掩码多序列比对预测误差</p>
+</li>
+<li>
+<p><strong>Confidence</strong>：预测 lDDT 与真实值之间的差异</p>
+</li>
+</ul>
+<p>这些损失项完全复用自 AlphaFold2 的定义。</p>
+<p><img src="images/image-20.png" alt=""></p>
+<h4 id="微调">微调</h4>
+<p><strong>精调（Fine-tuning）阶段的</strong>目的是进一步优化模型输出结构的物理合理性，减少<strong>原子冲突和结构违规</strong>，使得模型更适合反复调用的蛋白质设计任务。</p>
+<h5 id="-为什么要精调"><strong>❗ 为什么要精调？</strong></h5>
+<ul>
+<li>
+<p>模型初步训练后，可能存在结构中的<strong>冲突或物理违规</strong>，例如：</p>
+<ul>
+<li>
+<p>残基之间的键长异常</p>
+</li>
+<li>
+<p>主链 Cα–Cα 距离过远或过近</p>
+</li>
+<li>
+<p>残基间原子发生碰撞（clashes）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>这些问题在设计场景中必须避免，否则每次调用都要额外执行能量松弛（relaxation），计算开销巨大。</p>
+<h5 id="-rarefold-的精调策略"><strong>✅ RareFold 的精调策略</strong></h5>
+<ul>
+<li>
+<p>使用与 AlphaFold2 相同的损失函数与权重，<strong>专注于以下违规类型</strong>：</p>
+<ol>
+<li>
+<p>残基级违规（violations per residue）</p>
+</li>
+<li>
+<p>残基之间键长违规（between-residue bond violations）</p>
+</li>
+<li>
+<p>Cα–Cα 距离违规（extreme Cα–Cα distance violations）</p>
+</li>
+<li>
+<p>残基间原子冲突（between-residue clashes）</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>不包括残基内部（intra-residue）违规的精调</strong>（因为这类错误影响相对较小或更难优化）</p>
+</li>
+<li>
+<p>精调共进行 <strong>5,000 步</strong>，加上之前的 20,000 步总计 <strong>25,000 步训练</strong>，训练样本数为 600,000</p>
+</li>
+</ul>
+<p><img src="images/image-16.png" alt=""></p>
+<h4 id="结构松弛">结构松弛</h4>
+<h5 id="-什么是-relaxation"><strong>🌿 什么是 Relaxation？</strong></h5>
+<p>Relaxation 是一种 <strong>分子动力学（MD）模拟</strong> 技术，用于：</p>
+<ul>
+<li>
+<p>缓解残基间的原子冲突（inter-residue clashes）</p>
+</li>
+<li>
+<p>改善局部几何结构，使预测结果更加物理合理</p>
+</li>
+</ul>
+<h5 id="-技术细节"><strong>🛠 技术细节</strong></h5>
+<ul>
+<li>
+<p>使用工具：<strong>OpenMM</strong>（开源分子模拟平台）</p>
+</li>
+<li>
+<p>力场参数：<strong>CHARMM36 力场</strong></p>
+</li>
+<li>
+<p>积分方法：<strong>Langevin middle integrator</strong>（适用于温控条件下的分子模拟）</p>
+</li>
+</ul>
+<h5 id="-非天然氨基酸如何处理"><strong>🔄 非天然氨基酸如何处理？</strong></h5>
+<p>由于 OpenMM 不原生支持非天然氨基酸（NCAAs）：</p>
+<ol>
+<li>
+<p>模拟时，<strong>将NCAAs暂时替换为最相近的天然氨基酸（canonical analogues）</strong></p>
+</li>
+<li>
+<p>结构优化完成后，再将这些残基换回原始的 NCAAs</p>
+</li>
+</ol>
+<h5 id="-影响评估"><strong>⚠️ 影响评估</strong></h5>
+<ul>
+<li>
+<p><strong>结构形状不会显著变化</strong>（即 relaxation 不会破坏原始预测结构）</p>
+</li>
+<li>
+<p>但 <strong>部分评估指标（如 RMSD、IDDT）会轻微下降</strong></p>
+<ul>
+<li>因为模拟优化的微小移动可能让预测值略偏离原始 ground truth</li>
+</ul>
+</li>
+</ul>
+<h4 id="验证方法和结果">验证方法和结果</h4>
+<h5 id="-验证流程"><strong>✅ 验证流程</strong></h5>
+<ul>
+<li>
+<p>每隔 <strong>10,000 步</strong>在训练过程中进行一次模型验证：</p>
+<ul>
+<li>评估点包括训练步数 20,000、30,000、40,000 和 fine-tuning 后</li>
+</ul>
+</li>
+<li>
+<p>验证使用的是 <strong>743 个包含修饰氨基酸的样本</strong>（来源于 Table 1）</p>
+</li>
+</ul>
+<p>📌 <strong>评分成功率</strong>：</p>
+<ul>
+<li>
+<p>成功打分的结构有 <strong>731 个（98.3%）</strong></p>
+</li>
+<li>
+<p>有 12 个样本因结构不一致被排除</p>
+</li>
+</ul>
+<p>📌 <strong>松弛（relaxation）后表现</strong>：</p>
+<ul>
+<li>
+<p>在 step 20,000 应用的结构松弛步骤<strong>对整体准确性影响不大</strong></p>
+</li>
+<li>
+<p>但由于 OpenMM 中缺乏部分非天然氨基酸的原子力场定义，只有 <strong>679 个结构（93%）</strong> 成功完成松弛</p>
+</li>
+</ul>
+<p><img src="images/image-17.png" alt=""></p>
+<h4 id="打分">打分</h4>
+<h5 id="-结构对齐与-rmsd-计算"><strong>🔹</strong> <strong>结构对齐与 RMSD 计算</strong></h5>
+<ul>
+<li>
+<p>首先将预测结构与真实结构在 <strong>Cα 原子（主链核心）上对齐</strong></p>
+</li>
+<li>
+<p>然后对每一个<strong>被修改的氨基酸（mod AA，即非天然氨基酸）</strong>：</p>
+<ul>
+<li>
+<p><strong>整体 RMSD</strong>：考虑该残基的所有原子（包括主链和侧链）</p>
+</li>
+<li>
+<p><strong>侧链 RMSD（RMSD sc）</strong>：主链原子（N, Cα, C）对齐后，仅计算侧链原子的 RMSD</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="-全局结构评分"><strong>🔹</strong> <strong>全局结构评分</strong></h5>
+<ul>
+<li>使用 <strong>Cα IDDT 分数（lDDT CA）</strong> 衡量整个结构的准确性（分数越高表示与真实结构更接近）</li>
+</ul>
+<h4 id="rarefold-的反向设计inverse-design流程"><strong>RareFold 的反向设计（inverse design）流程</strong></h4>
+<p>创建了一个名为 <strong>EvoBindRare</strong> 的平台，通过 RareFold 的结构预测能力，设计能与特定蛋白结合的肽（binder）。</p>
+<ol>
+<li>
+<p><strong>使用的氨基酸集合</strong>：</p>
+<ul>
+<li>
+<p>包含<strong>20种天然氨基酸</strong></p>
+</li>
+<li>
+<p>加上<strong>12种实验上可合成的非天然氨基酸（NCAAs）</strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="images/image-15.png" alt=""></p>
+<ul>
+<li>
+<p><strong>初始化与优化过程</strong>：</p>
+<ul>
+<li>
+<p>每条肽从<strong>随机序列初始化</strong>；</p>
+</li>
+<li>
+<p>使用下面这个 loss 函数对肽结构进行迭代优化（1000次迭代）：</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>$$\text{Loss}1 = \text{peptide } plDDT^{-1} \cdot \left( \frac{1}{n} \sum{j=1}^{n} d_j \right) + % \text{clashes}
+$$</p>
+<ul>
+<li>
+<p>每次设计任务运行 <strong>1000次迭代，使用24种不同初始化序列</strong></p>
+</li>
+<li>
+<p>支持<strong>10~20残基长度</strong>，设计<strong>线性或环状肽</strong></p>
+</li>
+<li>
+<p>每个设计使用 <strong>3次结构回收（recycle）</strong></p>
+</li>
+<li>
+<p>使用改写后的 RareFold 模型，可以<strong>并行设计24种肽</strong>，只需一张 <strong>NVIDIA A100 GPU（40GB 显存）</strong></p>
+</li>
+</ul>
+<hr>
+<h3 id="使用简介">使用简介</h3>
+<p><strong>RareFold</strong> 能够预测包含稀有非天然氨基酸的单链蛋白质结构，并通过 <strong>EvoBindRare</strong> 框架实现新型肽类结合剂的设计。</p>
+<p>RareFold 支持共 <strong>49 种氨基酸类型</strong>，包括：</p>
+<ul>
+<li>
+<p>20 种常见天然氨基酸；</p>
+</li>
+<li>
+<p>29 种稀有非天然氨基酸，包括：</p>
+</li>
+</ul>
+<p><strong>MSE、TPO、MLY、CME、PTR、SEP、SAH、CSO、PCA、KCX、CAS、CSD、MLZ、OCS、ALY、CSS、CSX、HIC、HYP、YCM、YOF、M3L、PFF、CGU、FTR、LLP、CAF、CMH、MHO</strong></p>
+<p><strong>EvoBindRare</strong> 可直接从目标蛋白序列设计线性或环状结合肽，无需预先知道结合位点（但可选提供）。该框架通过引入非天然氨基酸，显著拓展了可用于设计的化学多样性，支持快速且灵活的肽类分子设计。</p>
+<p>Prediction:</p>
+<p>Input:</p>
+<ul>
+<li>
+<p>fasta</p>
+</li>
+<li>
+<p>num_recycles</p>
+</li>
+<li>
+<p>outdir</p>
+</li>
+</ul>
+<p>Output: </p>
+<ul>
+<li>pdb</li>
+</ul>
+<p>Design:</p>
+<p>Input:</p>
+<ul>
+<li>
+<p>num_recycle</p>
+</li>
+<li>
+<p>binder_length</p>
+</li>
+<li>
+<p>num_iterations</p>
+</li>
+<li>
+<p>resample_every_n</p>
+</li>
+<li>
+<p>batch_size</p>
+</li>
+<li>
+<p>rare_AA</p>
+</li>
+<li>
+<p>cyclic_offset</p>
+</li>
+<li>
+<p>save_best_only</p>
+</li>
+<li>
+<p>outdir</p>
+</li>
+</ul>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/icml2025unimomo%E5%A4%9A%E8%82%BD%E5%B0%8F%E5%88%86%E5%AD%90%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6/" class="link dim">
+                ICML 2025｜UniMoMo：多肽、小分子与抗体设计的统一生成框架
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/protein-hunter%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BB%E8%AE%A9%E5%B9%BB%E8%A7%89%E7%99%BB%E5%B3%B0%E9%80%A0%E6%9E%81%E7%9A%84%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%A1%86%E6%9E%B6/" class="link dim">
+                Protein Hunter 深度解读：利用结构预测模型“幻觉”构建通用蛋白设计引擎
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

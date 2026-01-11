@@ -6,8 +6,15 @@
     <description>Recent content in RFdiffusion on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 20 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Dec 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh/tags/rfdiffusion/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型</title>
+      <link>http://localhost:1313/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/</link>
+      <pubDate>Thu, 04 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/</guid>
+      <description>RFdiffusion3（RFD3）正式开源，首次实现原子级扩散建模的通用分子生成框架，可统一支持蛋白–蛋白、蛋白–DNA、蛋白–小分子与酶设计等多类任务，在速度上较 RFD2 提升约 10 倍，并在多个真实设计任务中取得实验验证结果。</description>
+    </item>
     <item>
       <title>是妥协，也是突破｜RFdiffusion3：RFdiffusion进入全原子设计时代</title>
       <link>http://localhost:1313/zh/literature/%E6%98%AF%E5%A6%A5%E5%8D%8F%E4%B9%9F%E6%98%AF%E7%AA%81%E7%A0%B4rfdiffusion3rfdiffusion%E8%BF%9B%E5%85%A5%E5%85%A8%E5%8E%9F%E5%AD%90%E8%AE%BE%E8%AE%A1%E6%97%B6%E4%BB%A3/</link>
@@ -16,11 +23,25 @@
       <description>RFdiffusion3 将扩散建模从残基级提升到原子级，标志着蛋白设计真正进入全原子分辨率时代。</description>
     </item>
     <item>
+      <title>Nature 重磅综述｜合成生物学教父剖析 AI 如何重写蛋白质设计的逻辑</title>
+      <link>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</guid>
+      <description>一篇来自 Cell 旗下 Structure 杂志的高质量综述，系统梳理了蛋白质设计从理性设计、能量优化到 AI 生成模型的完整演化路径，深入解析 hallucination、RFdiffusion、BindCraft 等关键技术，并展示 de novo binder 在免疫、抗毒、诊断等真实应用场景中的突破。</description>
+    </item>
+    <item>
       <title>蛋白质 Binder 设计的三代演进：从 Rosetta 到 RFdiffusion</title>
       <link>http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/</link>
       <pubDate>Mon, 01 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E4%B8%89%E4%BB%A3%E6%BC%94%E8%BF%9B%E4%BB%8E-rosetta-%E5%88%B0-rfdiffusion/</guid>
       <description>系统梳理蛋白质 binder 设计从 Rosetta 到 ProteinMPNN / AlphaFold，再到 RFdiffusion 的三代方法学演进。</description>
+    </item>
+    <item>
+      <title>Science三篇齐发：AI蛋白设计实现免疫识别，或将重塑免疫疗法？</title>
+      <link>http://localhost:1313/zh/literature/tcr-mhc/</link>
+      <pubDate>Thu, 14 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/tcr-mhc/</guid>
+      <description>Science 同期发表三项突破性研究，首次系统展示利用 AI 从头设计高特异性 pMHC 识别蛋白，并完成结构解析、功能验证与脱靶评估的完整闭环。这些超小型人工蛋白可嵌入 CAR-T / TCE 系统中，实现对肿瘤抗原与新抗原的精准识别与杀伤，标志着免疫治疗正式迈入“可编程识别”时代。</description>
     </item>
     <item>
       <title>David Baker 新作！针对柔性 IDP 设计高亲和力结合蛋白</title>

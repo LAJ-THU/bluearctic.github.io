@@ -23,11 +23,39 @@
       <description>西湖大学卢培龙团队在 Cell 报道首个完全从零设计、具备电压响应能力的人工离子通道蛋白，在结构、电生理与神经元系统中均获得功能验证，展示了“可感知、可响应”蛋白的可编程设计能力。</description>
     </item>
     <item>
+      <title>Nature Nanotechnology｜从头设计可对 pH 响应的自组装螺旋蛋白丝</title>
+      <link>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</guid>
+      <description>Nature Nanotechnology 报道一种完全从头设计的螺旋蛋白丝，可在不同 pH 条件下实现可逆自组装与解聚，并通过 cryo-EM 精确解析其原子结构，展示了蛋白质作为“可编程纳米材料”的巨大潜力。</description>
+    </item>
+    <item>
+      <title>腾讯提出 IgGM：一站式解决抗体设计难题</title>
+      <link>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</link>
+      <pubDate>Fri, 19 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</guid>
+      <description>腾讯 AI for Life Sciences Lab 提出生成式抗体基础模型 IgGM，首次将结构预测、逆向设计、亲和力成熟、人源化、框架区优化与 de novo 设计统一进单一模型框架。在 PD-L1、新冠 RBD、IL-33 等多个真实体系中完成体外实验验证，并成功设计出具备 nM–pM 级亲和力的全新抗体分子。</description>
+    </item>
+    <item>
+      <title>Nature 重磅综述｜合成生物学教父剖析 AI 如何重写蛋白质设计的逻辑</title>
+      <link>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</guid>
+      <description>一篇来自 Cell 旗下 Structure 杂志的高质量综述，系统梳理了蛋白质设计从理性设计、能量优化到 AI 生成模型的完整演化路径，深入解析 hallucination、RFdiffusion、BindCraft 等关键技术，并展示 de novo binder 在免疫、抗毒、诊断等真实应用场景中的突破。</description>
+    </item>
+    <item>
       <title>ICML 2025 Spotlight｜力文所 Pallatom 开启全原子蛋白设计新范式</title>
       <link>http://localhost:1313/zh/literature/icml-2025-spotlight%E5%8A%9B%E6%96%87%E6%89%80pallatom-%E5%BC%80%E5%90%AF%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%96%B0%E8%8C%83%E5%BC%8F/</link>
       <pubDate>Fri, 05 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/icml-2025-spotlight%E5%8A%9B%E6%96%87%E6%89%80pallatom-%E5%BC%80%E5%90%AF%E5%85%A8%E5%8E%9F%E5%AD%90%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%96%B0%E8%8C%83%E5%BC%8F/</guid>
       <description>ICML 2025 Spotlight 工作 Pallatom 提出直接建模 P(all-atom) 的蛋白生成框架，通过 atom14 表示与双轨道架构，实现序列与结构的端到端耦合生成，在设计性、多样性与新颖性上全面超越现有方法，开启全原子蛋白设计新范式。</description>
+    </item>
+    <item>
+      <title>Nature Chemistry｜从头设计光响应蛋白：实现可逆组装的分子“光开关”</title>
+      <link>http://localhost:1313/zh/literature/nature-chemistry--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%85%89%E5%93%8D%E5%BA%94%E8%9B%8B%E7%99%BD%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%80%86%E7%BB%84%E8%A3%85%E7%9A%84%E5%88%86%E5%AD%90%E5%85%89%E5%BC%80%E5%85%B3/</link>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/nature-chemistry--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%85%89%E5%93%8D%E5%BA%94%E8%9B%8B%E7%99%BD%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%80%86%E7%BB%84%E8%A3%85%E7%9A%84%E5%88%86%E5%AD%90%E5%85%89%E5%BC%80%E5%85%B3/</guid>
+      <description>研究团队在 Nature Chemistry 报道一种全新的从头设计光控蛋白策略：通过引入光响应非天然氨基酸 AzoF，在设计阶段即内置“分子开关”，实现蛋白复合体在不同波长光照下的可逆组装与解离，并完成结构解析与多场景功能验证。</description>
     </item>
     <item>
       <title>Nature｜BindCraft 正式见刊：最适合新手的蛋白质设计工具？</title>
@@ -51,6 +79,13 @@
       <description>Cell 报道一种从零设计的 21 aa 多肽 ELIXIR，可选择性修复病态钠通道的晚钠电流异常，在细胞、动物模型及患者来源细胞中实现功能级逆转，为通道病治疗提供全新范式。</description>
     </item>
     <item>
+      <title>Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证</title>
+      <link>http://localhost:1313/zh/literature/pepmlm/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepmlm/</guid>
+      <description>PepMLM 提出一种完全基于序列的结合肽设计框架，仅输入靶蛋白序列即可生成高特异性肽分子。在多项任务中命中率超过结构驱动方法，并通过 ELISA、细胞降解与病毒感染实验验证其真实功能。</description>
+    </item>
+    <item>
       <title>Click Fusion：基于人工设计融合蛋白的 GPCR 非活化态结构解析新策略</title>
       <link>http://localhost:1313/zh/literature/click-fusion%E5%9F%BA%E4%BA%8E%E4%BA%BA%E5%B7%A5%E8%AE%BE%E8%AE%A1%E8%9E%8D%E5%90%88%E8%9B%8B%E7%99%BD%E7%9A%84-gpcr-%E9%9D%9E%E6%B4%BB%E5%8C%96%E6%80%81%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90%E6%96%B0%E7%AD%96%E7%95%A5/</link>
       <pubDate>Tue, 12 Aug 2025 00:00:00 +0000</pubDate>
@@ -70,13 +105,6 @@
       <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/evobind2-%E5%9F%BA%E4%BA%8E%E8%9B%8B%E7%99%BD%E8%B4%A8%E5%BA%8F%E5%88%97%E4%BF%A1%E6%81%AF%E8%AE%BE%E8%AE%A1%E4%B8%8D%E5%90%8C%E9%95%BF%E5%BA%A6%E7%9A%84%E7%BA%BF%E6%80%A7%E5%92%8C%E7%8E%AF%E7%8A%B6%E8%82%BD%E7%BB%93%E5%90%88%E7%89%A9/</guid>
       <description>EvoBind2 提出一种完全无需结构与位点信息的“盲设计”框架，仅基于靶蛋白序列即可设计出不同长度的线性与环状肽结合物，在 SPR 实验中获得最高 19 nM 亲和力，并通过对抗性过滤显著提升成功率。</description>
-    </item>
-    <item>
-      <title>Nature Nanotechnology｜从头设计可对 pH 响应的自组装螺旋蛋白丝</title>
-      <link>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</link>
-      <pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</guid>
-      <description>Nature Nanotechnology 报道一种完全从头设计的螺旋蛋白丝，可在不同 pH 条件下实现可逆自组装与解聚，并通过 cryo-EM 精确解析其原子结构，展示了蛋白质作为“可编程纳米材料”的巨大潜力。</description>
     </item>
   </channel>
 </rss>

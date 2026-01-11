@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+
+Paper: https://www.nature.com/articles/s41586-025-08598-8
+
+
+正文：
+1. 引言
+本节概述了跨膜蛋白在物质、能量和信息传输中的关键作用，并指出尽管已有水溶性蛋白的配体结合设计成功案例，但精确设计能结合小分子的跨膜蛋白仍是挑战。目前的设计多集中在通过共价方式（如血红素–组氨酸）结合配体，尚未实现在膜中通过非共价方式特异性结合小分子。
+2. wFAP（水溶性荧光激活蛋白）设计
+
+
+
+使用参数化方法生成四螺旋束骨架，借助RIFdock定位HBC类荧光小分子，并通过Rosetta与AlphaFold2（AF2）交替优化骨架与序列。
+
+
+早期设计活性较低，后通过严格筛选口袋结构与AF2模型一致性（Cα r.m.s.d. &lt; 0.8 Å），结合电荷设计和侧链优化，成功筛选出活跃设计“wFAP0”。
+
+
+经过定向进化，得到了高亮度和高亲和力的变体wFAP1.1（Kd = 58 nM）和wFAP1.2，其亮度超过常用的EGFP。
+
+
+
+
+wFAPs对目标配体HBC599特异性极高，仅对结构接近的HBC620也有较好响应，而对其他类似物几乎无活性。
+
+
+3. tmFAP（跨膜FAP）设计
+
+
+
+目标是将wFAP转化为跨膜形式，保留配体结合口袋结构。
+
+
+最初尝试基于Rosetta重设计表面氨基酸失败，原因是对结构扰动过大。
+
+
+使用ColabDesign（AF2-based hallucination方法），锁定核心区域序列，仅优化面向膜的残基，并加入AF2置信度和口袋不变性作为损失项，成功设计出一批tmFAP。
+
+
+tmFAP1 和 tmFAP2 均可激活HBC599荧光；通过核心序列调整和进一步进化获得tmFAP1.2，Kd 达18 nM，亮度和量子效率优于已知所有自然膜荧光蛋白。
+
+
+
+4. 结构验证
+
+
+wFAP1.1 通过X-ray测定，解析了apo和配体结合结构（解析度分别为2.3 Å和2.1 Å），与设计模型高度一致（Cα r.m.s.d. ~0.4–0.6 Å）。
+
+
+
+
+tmFAP1.1则通过cryo-EM解析其BRIL融合形式，与设计模型也非常接近（Cα r.m.s.d. = 0.74 Å）。
+
+
+突变实验进一步验证关键残基对配体结合和激活的重要性。
+
+
+5. 细胞内活性验证
+
+
+
+在大肠杆菌和CHO细胞中表达wFAP1.1和tmFAPs，添加HBC599后观察到强烈荧光，未表达者无背景。
+
+
+tmFAP通过调整膜穿越区域长度和表面电荷，优化至适配哺乳动物质膜，成功开发出tmFAP3，其在CHO细胞和非洲爪蟾卵母细胞中均表现出质膜定位和亮度。
+
+
+
+6. 结论
+该研究首次展示了从头设计的跨膜蛋白可在膜内通过非共价方式高亲和力结合小分子。设计出的tmFAPs亮度远超天然荧光膜蛋白（如Archaerhodopsin），并开辟了设计新型膜蛋白传感器、通道、酶等功能蛋白的可能。
+方法：
+Computational design of soluble HBC-binding proteins
+1. Parametric scaffold generation（参数化骨架生成）
+
+
+利用 Rosetta BundleGridSampler 工具，通过控制一些几何参数（如螺旋的扭转、半径等），生成理想的 四螺旋束骨架结构。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/transmembrane-protein-design/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/transmembrane-protein-design/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="Paper: https://www.nature.com/articles/s41586-025-08598-8 正文： 1. 引言 本节概述了跨膜蛋白在物质、能量和信息传输中的关键作用，并指出尽管已有水溶性蛋白的配体结合设计成功案例，但精确设计能结合小分子的跨膜蛋白仍是挑战。目前的设计多集中在通过共价方式（如血红素–组氨酸）结合配体，尚未实现在膜中通过非共价方式特异性结合小分子。
+2. wFAP（水溶性荧光激活蛋白）设计 使用参数化方法生成四螺旋束骨架，借助RIFdock定位HBC类荧光小分子，并通过Rosetta与AlphaFold2（AF2）交替优化骨架与序列。
+早期设计活性较低，后通过严格筛选口袋结构与AF2模型一致性（Cα r.m.s.d. &lt; 0.8 Å），结合电荷设计和侧链优化，成功筛选出活跃设计“wFAP0”。
+经过定向进化，得到了高亮度和高亲和力的变体wFAP1.1（Kd = 58 nM）和wFAP1.2，其亮度超过常用的EGFP。
+wFAPs对目标配体HBC599特异性极高，仅对结构接近的HBC620也有较好响应，而对其他类似物几乎无活性。 3. tmFAP（跨膜FAP）设计 目标是将wFAP转化为跨膜形式，保留配体结合口袋结构。
+最初尝试基于Rosetta重设计表面氨基酸失败，原因是对结构扰动过大。
+使用ColabDesign（AF2-based hallucination方法），锁定核心区域序列，仅优化面向膜的残基，并加入AF2置信度和口袋不变性作为损失项，成功设计出一批tmFAP。
+tmFAP1 和 tmFAP2 均可激活HBC599荧光；通过核心序列调整和进一步进化获得tmFAP1.2，Kd 达18 nM，亮度和量子效率优于已知所有自然膜荧光蛋白。
+4. 结构验证 wFAP1.1 通过X-ray测定，解析了apo和配体结合结构（解析度分别为2.3 Å和2.1 Å），与设计模型高度一致（Cα r.m.s.d. ~0.4–0.6 Å）。 tmFAP1.1则通过cryo-EM解析其BRIL融合形式，与设计模型也非常接近（Cα r.m.s.d. = 0.74 Å）。
+突变实验进一步验证关键残基对配体结合和激活的重要性。
+5. 细胞内活性验证 在大肠杆菌和CHO细胞中表达wFAP1.1和tmFAPs，添加HBC599后观察到强烈荧光，未表达者无背景。
+tmFAP通过调整膜穿越区域长度和表面电荷，优化至适配哺乳动物质膜，成功开发出tmFAP3，其在CHO细胞和非洲爪蟾卵母细胞中均表现出质膜定位和亮度。
+6. 结论 该研究首次展示了从头设计的跨膜蛋白可在膜内通过非共价方式高亲和力结合小分子。设计出的tmFAPs亮度远超天然荧光膜蛋白（如Archaerhodopsin），并开辟了设计新型膜蛋白传感器、通道、酶等功能蛋白的可能。
+方法： Computational design of soluble HBC-binding proteins 1. Parametric scaffold generation（参数化骨架生成） 利用 Rosetta BundleGridSampler 工具，通过控制一些几何参数（如螺旋的扭转、半径等），生成理想的 四螺旋束骨架结构。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="Paper: https://www.nature.com/articles/s41586-025-08598-8 正文： 1. 引言 本节概述了跨膜蛋白在物质、能量和信息传输中的关键作用，并指出尽管已有水溶性蛋白的配体结合设计成功案例，但精确设计能结合小分子的跨膜蛋白仍是挑战。目前的设计多集中在通过共价方式（如血红素–组氨酸）结合配体，尚未实现在膜中通过非共价方式特异性结合小分子。
+2. wFAP（水溶性荧光激活蛋白）设计 使用参数化方法生成四螺旋束骨架，借助RIFdock定位HBC类荧光小分子，并通过Rosetta与AlphaFold2（AF2）交替优化骨架与序列。
+早期设计活性较低，后通过严格筛选口袋结构与AF2模型一致性（Cα r.m.s.d. &lt; 0.8 Å），结合电荷设计和侧链优化，成功筛选出活跃设计“wFAP0”。
+经过定向进化，得到了高亮度和高亲和力的变体wFAP1.1（Kd = 58 nM）和wFAP1.2，其亮度超过常用的EGFP。
+wFAPs对目标配体HBC599特异性极高，仅对结构接近的HBC620也有较好响应，而对其他类似物几乎无活性。 3. tmFAP（跨膜FAP）设计 目标是将wFAP转化为跨膜形式，保留配体结合口袋结构。
+最初尝试基于Rosetta重设计表面氨基酸失败，原因是对结构扰动过大。
+使用ColabDesign（AF2-based hallucination方法），锁定核心区域序列，仅优化面向膜的残基，并加入AF2置信度和口袋不变性作为损失项，成功设计出一批tmFAP。
+tmFAP1 和 tmFAP2 均可激活HBC599荧光；通过核心序列调整和进一步进化获得tmFAP1.2，Kd 达18 nM，亮度和量子效率优于已知所有自然膜荧光蛋白。
+4. 结构验证 wFAP1.1 通过X-ray测定，解析了apo和配体结合结构（解析度分别为2.3 Å和2.1 Å），与设计模型高度一致（Cα r.m.s.d. ~0.4–0.6 Å）。 tmFAP1.1则通过cryo-EM解析其BRIL融合形式，与设计模型也非常接近（Cα r.m.s.d. = 0.74 Å）。
+突变实验进一步验证关键残基对配体结合和激活的重要性。
+5. 细胞内活性验证 在大肠杆菌和CHO细胞中表达wFAP1.1和tmFAPs，添加HBC599后观察到强烈荧光，未表达者无背景。
+tmFAP通过调整膜穿越区域长度和表面电荷，优化至适配哺乳动物质膜，成功开发出tmFAP3，其在CHO细胞和非洲爪蟾卵母细胞中均表现出质膜定位和亮度。
+6. 结论 该研究首次展示了从头设计的跨膜蛋白可在膜内通过非共价方式高亲和力结合小分子。设计出的tmFAPs亮度远超天然荧光膜蛋白（如Archaerhodopsin），并开辟了设计新型膜蛋白传感器、通道、酶等功能蛋白的可能。
+方法： Computational design of soluble HBC-binding proteins 1. Parametric scaffold generation（参数化骨架生成） 利用 Rosetta BundleGridSampler 工具，通过控制一些几何参数（如螺旋的扭转、半径等），生成理想的 四螺旋束骨架结构。">
+  <meta itemprop="wordCount" content="283">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="Paper: https://www.nature.com/articles/s41586-025-08598-8 正文： 1. 引言 本节概述了跨膜蛋白在物质、能量和信息传输中的关键作用，并指出尽管已有水溶性蛋白的配体结合设计成功案例，但精确设计能结合小分子的跨膜蛋白仍是挑战。目前的设计多集中在通过共价方式（如血红素–组氨酸）结合配体，尚未实现在膜中通过非共价方式特异性结合小分子。
+2. wFAP（水溶性荧光激活蛋白）设计 使用参数化方法生成四螺旋束骨架，借助RIFdock定位HBC类荧光小分子，并通过Rosetta与AlphaFold2（AF2）交替优化骨架与序列。
+早期设计活性较低，后通过严格筛选口袋结构与AF2模型一致性（Cα r.m.s.d. &lt; 0.8 Å），结合电荷设计和侧链优化，成功筛选出活跃设计“wFAP0”。
+经过定向进化，得到了高亮度和高亲和力的变体wFAP1.1（Kd = 58 nM）和wFAP1.2，其亮度超过常用的EGFP。
+wFAPs对目标配体HBC599特异性极高，仅对结构接近的HBC620也有较好响应，而对其他类似物几乎无活性。 3. tmFAP（跨膜FAP）设计 目标是将wFAP转化为跨膜形式，保留配体结合口袋结构。
+最初尝试基于Rosetta重设计表面氨基酸失败，原因是对结构扰动过大。
+使用ColabDesign（AF2-based hallucination方法），锁定核心区域序列，仅优化面向膜的残基，并加入AF2置信度和口袋不变性作为损失项，成功设计出一批tmFAP。
+tmFAP1 和 tmFAP2 均可激活HBC599荧光；通过核心序列调整和进一步进化获得tmFAP1.2，Kd 达18 nM，亮度和量子效率优于已知所有自然膜荧光蛋白。
+4. 结构验证 wFAP1.1 通过X-ray测定，解析了apo和配体结合结构（解析度分别为2.3 Å和2.1 Å），与设计模型高度一致（Cα r.m.s.d. ~0.4–0.6 Å）。 tmFAP1.1则通过cryo-EM解析其BRIL融合形式，与设计模型也非常接近（Cα r.m.s.d. = 0.74 Å）。
+突变实验进一步验证关键残基对配体结合和激活的重要性。
+5. 细胞内活性验证 在大肠杆菌和CHO细胞中表达wFAP1.1和tmFAPs，添加HBC599后观察到强烈荧光，未表达者无背景。
+tmFAP通过调整膜穿越区域长度和表面电荷，优化至适配哺乳动物质膜，成功开发出tmFAP3，其在CHO细胞和非洲爪蟾卵母细胞中均表现出质膜定位和亮度。
+6. 结论 该研究首次展示了从头设计的跨膜蛋白可在膜内通过非共价方式高亲和力结合小分子。设计出的tmFAPs亮度远超天然荧光膜蛋白（如Archaerhodopsin），并开辟了设计新型膜蛋白传感器、通道、酶等功能蛋白的可能。
+方法： Computational design of soluble HBC-binding proteins 1. Parametric scaffold generation（参数化骨架生成） 利用 Rosetta BundleGridSampler 工具，通过控制一些几何参数（如螺旋的扭转、半径等），生成理想的 四螺旋束骨架结构。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p><img src="/zh/literature/transmembrane-protein-design/images/image-4.png" alt=""></p>
+<ul>
+<li>Paper: <a href="https://www.nature.com/articles/s41586-025-08598-8">https://www.nature.com/articles/s41586-025-08598-8</a></li>
+</ul>
+<hr>
+<h2 id="正文">正文：</h2>
+<h3 id="1-引言">1. 引言</h3>
+<p>本节概述了跨膜蛋白在物质、能量和信息传输中的关键作用，并指出尽管已有<strong>水溶性蛋白的配体结合</strong>设计成功案例，但精确设计能<strong>结合小分子的跨膜蛋白</strong>仍是挑战。目前的设计多集中在通过共价方式（如血红素–组氨酸）结合配体，尚未实现在膜中通过<strong>非共价方式</strong>特异性结合小分子。</p>
+<h3 id="2-wfap水溶性荧光激活蛋白设计">2. <strong>wFAP（水溶性荧光激活蛋白）设计</strong></h3>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-8.png" alt=""></p>
+<ul>
+<li>
+<p>使用参数化方法生成<strong>四螺旋束骨架</strong>，借助<strong>RIFdock</strong>定位<strong>HBC</strong>类荧光小分子，并通过Rosetta与AlphaFold2（AF2）交替优化骨架与序列。</p>
+</li>
+<li>
+<p>早期设计活性较低，后通过严格筛选<strong>口袋结构</strong>与AF2模型一致性（Cα r.m.s.d. &lt; 0.8 Å），结合<strong>电荷设计</strong>和<strong>侧链优化</strong>，成功筛选出活跃设计“wFAP0”。</p>
+</li>
+<li>
+<p>经过<strong>定向进化</strong>，得到了高亮度和高亲和力的变体wFAP1.1（Kd = 58 nM）和wFAP1.2，其亮度超过常用的EGFP。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-3.png" alt=""></p>
+<ul>
+<li>wFAPs对目标配体HBC599特异性极高，仅对结构接近的HBC620也有较好响应，而对其他类似物几乎无活性。</li>
+</ul>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-7.png" alt=""></p>
+<h3 id="3-tmfap跨膜fap设计">3. tmFAP（跨膜FAP）设计</h3>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-1.png" alt=""></p>
+<ul>
+<li>
+<p>目标是将wFAP转化为跨膜形式，保留配体结合口袋结构。</p>
+</li>
+<li>
+<p>最初尝试基于Rosetta重设计表面氨基酸失败，原因是对结构扰动过大。</p>
+</li>
+<li>
+<p>使用<strong>ColabDesign</strong>（AF2-based hallucination方法），<strong>锁定核心区域序列</strong>，仅优化面向膜的残基，并加入<strong>AF2置信度</strong>和<strong>口袋不变性</strong>作为损失项，成功设计出一批tmFAP。</p>
+</li>
+<li>
+<p>tmFAP1 和 tmFAP2 均可激活HBC599荧光；通过核心序列调整和进一步进化获得tmFAP1.2，Kd 达18 nM，亮度和量子效率优于已知所有自然膜荧光蛋白。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image.png" alt=""></p>
+<h3 id="4-结构验证">4. 结构验证</h3>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-6.png" alt=""></p>
+<ul>
+<li>wFAP1.1 通过X-ray测定，解析了apo和配体结合结构（解析度分别为2.3 Å和2.1 Å），与设计模型高度一致（Cα r.m.s.d. ~0.4–0.6 Å）。</li>
+</ul>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-9.png" alt=""></p>
+<ul>
+<li>
+<p>tmFAP1.1则通过cryo-EM解析其BRIL融合形式，与设计模型也非常接近（Cα r.m.s.d. = 0.74 Å）。</p>
+</li>
+<li>
+<p>突变实验进一步验证关键残基对配体结合和激活的重要性。</p>
+</li>
+</ul>
+<h3 id="5-细胞内活性验证">5. <strong>细胞内活性验证</strong></h3>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-2.png" alt=""></p>
+<ul>
+<li>
+<p>在大肠杆菌和CHO细胞中表达wFAP1.1和tmFAPs，添加HBC599后观察到强烈荧光，未表达者无背景。</p>
+</li>
+<li>
+<p>tmFAP通过调整膜穿越区域长度和表面电荷，优化至适配哺乳动物质膜，成功开发出tmFAP3，其在CHO细胞和非洲爪蟾卵母细胞中均表现出质膜定位和亮度。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/transmembrane-protein-design/images/image-5.png" alt=""></p>
+<h3 id="6-结论">6. <strong>结论</strong></h3>
+<p>该研究首次展示了<strong>从头设计的跨膜蛋白可在膜内通过非共价方式高亲和力结合小分子</strong>。设计出的tmFAPs亮度远超天然荧光膜蛋白（如Archaerhodopsin），并开辟了设计新型膜蛋白传感器、通道、酶等功能蛋白的可能。</p>
+<h2 id="方法">方法：</h2>
+<h3 id="computational-design-of-soluble-hbc-binding-proteins">Computational design of soluble HBC-binding proteins</h3>
+<h4 id="1-parametric-scaffold-generation参数化骨架生成">1. <strong>Parametric scaffold generation（参数化骨架生成）</strong></h4>
+<ul>
+<li>
+<p>利用 <strong>Rosetta BundleGridSampler</strong> 工具，通过控制一些几何参数（如螺旋的扭转、半径等），生成理想的 <strong>四螺旋束骨架结构</strong>。</p>
+</li>
+<li>
+<p>通过C2对称性拼接出四个螺旋，螺旋长度为35个氨基酸，可支持跨膜长度（~30 Å）——虽然此处设计的是水溶性蛋白，但构架为后续跨膜设计做准备。</p>
+</li>
+<li>
+<p>这些螺旋通过短的loop连接为一个完整的蛋白骨架。</p>
+</li>
+</ul>
+<h4 id="62-rif-dockingrotamer-interaction-field-配体打分与定位">6.2 <strong>RIF docking（Rotamer Interaction Field 配体打分与定位）</strong></h4>
+<ul>
+<li>
+<p>使用 <strong>RIFgen + RIFdock</strong> 组合：</p>
+<ul>
+<li>
+<p>为小分子 <strong>HBC599</strong>（包括 cis/trans 构象）设计潜在的<strong>氨基酸侧链</strong>相互作用位点；</p>
+</li>
+<li>
+<p>针对HBC的<strong>小分子功能团</strong>（如羟基、氰基），设计与之形成<strong>氢键或静电作用</strong>的氨基酸（如Glu和Asp）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>模拟过程中：</p>
+<ul>
+<li>
+<p>保持HBC共轭体系平面构型；</p>
+</li>
+<li>
+<p>替换掉部分配体不兼容的化学基团（例如将–CN暂时替换为–C=O）来避免RIFdock崩溃；</p>
+</li>
+<li>
+<p>用 <strong>HBNet</strong> 检查是否所有极性原子都满足氢键网络要求。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="63-sequence-design序列设计">6.3 <strong>Sequence design（序列设计）</strong></h4>
+<ul>
+<li>
+<p>分两步：</p>
+<ol>
+<li>
+<p><strong>初始化</strong>：在固定骨架基础上进行一次“快速序列设计”，主要目标是初始化口袋<strong>侧链构型</strong>和评估<strong>形状互补性</strong>与<strong>界面能量</strong>；</p>
+</li>
+<li>
+<p><strong>柔性骨架设计</strong>：进行<strong>模拟退火采样</strong>，分两部分交替优化：</p>
+<ul>
+<li>
+<p><strong>口袋区</strong>：固定其他区域，<strong>只优化配体周围的氨基酸</strong>；</p>
+</li>
+<li>
+<p><strong>整体结构</strong>：固定口袋残基，只优化螺旋束其他部分；</p>
+</li>
+<li>
+<p>所有设计中要求保持配体–氨基酸之间<strong>关键氢键或接触</strong>。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>所有设计模型通过 Rosetta 打分函数筛选（界面能、形状互补性、不满足极性原子的数量等）。</p>
+</li>
+</ul>
+<h4 id="64-af2-prediction--iterative-optimization结构预测与迭代优化">6.4 <strong>AF2 prediction &amp; Iterative optimization（结构预测与迭代优化）</strong></h4>
+<ul>
+<li>
+<p>将设计好的蛋白序列输入 <strong>AlphaFold2 (AF2)</strong>，预测其三维结构：</p>
+<ul>
+<li>若预测结构与设计模型中配体结合口袋的Cα原子偏差小于0.8 Å，则认为该模型“可信”。</li>
+</ul>
+</li>
+<li>
+<p>若不满足条件，进行如下迭代：</p>
+<ul>
+<li>
+<p>用AF2模型的<strong>骨架替换</strong>原设计骨架；</p>
+</li>
+<li>
+<p>使用Rosetta<strong>重新设计侧链</strong>（尤其是配体口袋区域）以修正结构冲突；</p>
+</li>
+<li>
+<p>继续迭代直到AF2模型<strong>结构稳定、口袋成型</strong>；</p>
+</li>
+<li>
+<p>最后选择收敛的模型进行实验测试（如wFAP0就是这样得到的）。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="computational-design-of-transmembrane-hbc-binding-proteins">Computational design of transmembrane HBC-binding proteins</h3>
+<p>这部分解决的核心问题是：<strong>如何把已经设计好的水溶性HBC结合蛋白（wFAP），变成能够嵌入细胞膜的跨膜蛋白（tmFAP）</strong>，同时保留它的配体结合能力和结构稳定性。</p>
+<h4 id="-面临的五大挑战"><strong>✅ 面临的五大挑战：</strong></h4>
+<ol>
+<li>
+<p><strong>水溶性蛋白本身就很难设计</strong>，更别说高亲和力、高选择性的；</p>
+</li>
+<li>
+<p>跨膜蛋白必须有<strong>固定的结构构型和膜跨越长度</strong>（通常为全α或全β）；</p>
+</li>
+<li>
+<p>在膜中形成“结合口袋”很容易让蛋白不稳定，因为：</p>
+<ul>
+<li>
+<p>口袋引入空腔 → 降低疏水内核密度；</p>
+</li>
+<li>
+<p>极性配体结合残基埋入疏水膜内 → 非常不利；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>需要将蛋白表面大量残基（约1/3）换成疏水氨基酸，<strong>很容易破坏结构</strong>；</p>
+</li>
+<li>
+<p>膜环境复杂（脂质、强电场）→ 可能影响构象或阻碍配体进入。</p>
+</li>
+</ol>
+<h4 id="-设计流程概览"><strong>🧬 设计流程概览：</strong></h4>
+<h4 id="1-初始尝试传统rosetta方法">1. <strong>初始尝试：传统Rosetta方法</strong></h4>
+<ul>
+<li>
+<p>基于之前的跨膜设计方法（Lu et al., 2018）：</p>
+<ul>
+<li>
+<p>将wFAP模型定位于膜的垂直方向；</p>
+</li>
+<li>
+<p>手动定义疏水跨膜区（30 Å）、正电RK环、芳香WY环；</p>
+</li>
+<li>
+<p>使用 Rosetta 的 fix-backbone 设计跨膜区序列（限制氨基酸种类及比例）；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>结果：虽然AF2能预测结构，但口袋偏离目标过远、实验不活跃 ❌。</p>
+</li>
+</ul>
+<h4 id="62-正式设计colabdesign--alphafold2-部分幻觉策略partial-hallucination">6.2 <strong>正式设计：ColabDesign + AlphaFold2 “部分幻觉”策略（partial hallucination）</strong></h4>
+<blockquote>
+<p>这是本文的关键创新！</p>
+</blockquote>
+<ul>
+<li>
+<p>使用 <strong>ColabDesign v1.1.1</strong> 框架，以 <strong>“部分幻觉（partial hallucination）”</strong>方式设计膜表面序列：</p>
+<ul>
+<li>
+<p>输入为wFAP结构模板；</p>
+</li>
+<li>
+<p>将<strong>配体口袋残基设为“锚定motif”</strong>，保持不变；</p>
+</li>
+<li>
+<p><strong>仅膜朝向残基可变</strong>，其余序列保持固定；</p>
+</li>
+<li>
+<p>网络通过梯度下降迭代更新序列，目标是：</p>
+<ul>
+<li>
+<p>保持口袋结构一致（低r.m.s.d.）；</p>
+</li>
+<li>
+<p>提高AF2预测可信度（高pLDDT）；</p>
+</li>
+<li>
+<p>生成合理的跨膜结构（例如疏水性合适、膜长合理）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="63-序列限制与控制">6.3 <strong>序列限制与控制</strong></h4>
+<ul>
+<li>
+<p>为帮助网络快速收敛，作者引入一些“经验性氨基酸偏好”：</p>
+<ul>
+<li>
+<p><strong>跨膜段</strong>：多用Leu, Ile, Val等非极性氨基酸；</p>
+</li>
+<li>
+<p><strong>极性氨酸（如Ser、Thr）和Cys、Pro禁止</strong>；</p>
+</li>
+<li>
+<p>控制 Met、Gly 数量（过多影响稳定）；</p>
+</li>
+<li>
+<p>设计符合<strong>正电在细胞内侧（positive-inside rule）</strong>的序列；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>使用 AF2 模型1–4 进行训练，模型5用于验证；</p>
+</li>
+<li>
+<p>设置的 loss function 权重：</p>
+<ul>
+<li>
+<p><strong>distogram_cce</strong> = 1；</p>
+</li>
+<li>
+<p><strong>r.m.s.d</strong> = 1；</p>
+</li>
+<li>
+<p><strong>pLDDT</strong> = 1；</p>
+</li>
+<li>
+<p><strong>contacts</strong> = 0。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="64-设计策略的灵活性">6.4 <strong>设计策略的灵活性</strong></h4>
+<ul>
+<li>
+<p>尽管初始使用了失败的Rosetta设计序列作为起点，但作者发现：</p>
+<ul>
+<li>
+<p>从<strong>任意水溶性蛋白序列直接hallucinate</strong>也能得到好设计；</p>
+</li>
+<li>
+<p>这说明网络能很好地搜索跨膜结构空间。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="-最终成果"><strong>🎯 最终成果</strong></h4>
+<p>这种方法成功生成了多个高质量的tmFAP设计：</p>
+<ul>
+<li>
+<p>结构预测和实验测试都表明它们能维持口袋结构；</p>
+</li>
+<li>
+<p>能高效激活HBC荧光；</p>
+</li>
+<li>
+<p>tmFAP1.2 的Kd值达18 nM，亮度超过所有已知天然荧光膜蛋白。</p>
+</li>
+</ul>
+<h3 id="computational-design-of-rigid-fusion-linkers">Computational design of rigid fusion linkers</h3>
+<p>讲述如何将 <strong>tmFAP（跨膜荧光激活蛋白）与 BRIL（一个稳定的小型膜蛋白结构域）</strong> 通过一个 <strong>刚性连接肽段（rigid linker）</strong> 连接起来，从而帮助后续使用 cryo-EM 成功解析 tmFAP 的结构。</p>
+<p><strong>🧬 为什么要设计 fusion linker？</strong></p>
+<ul>
+<li>
+<p><strong>背景目的：</strong></p>
+<ul>
+<li>
+<p>tmFAP 太小，难以直接进行 cryo-EM 成像；</p>
+</li>
+<li>
+<p>所以将它和一个大而稳定的蛋白（BRIL）融合，以便形成更大复合物便于解析；</p>
+</li>
+<li>
+<p><strong>关键要求是连接肽段（linker）必须“刚性稳定”，不能干扰两边结构。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>采样linker长度 + 构建初始结构：</strong></li>
+</ol>
+<ul>
+<li>
+<p>使用 <a href="https://github.com/RosettaCommons/RFdiffusion"><strong>RFDiffusion</strong></a>：</p>
+<ul>
+<li>
+<p>一个基于扩散模型的蛋白质骨架生成工具；</p>
+</li>
+<li>
+<p>它允许用户在两个固定蛋白结构之间“生成合理的中间连接结构”；</p>
+</li>
+<li>
+<p>他们对linker长度做了不同尝试，并生成两个初始构架。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>设计linker序列：</strong></li>
+</ul>
+<ul>
+<li>
+<p>使用 <a href="https://github.com/dauparas/ProteinMPNN"><strong>ProteinMPNN</strong></a>：</p>
+<ul>
+<li>
+<p>一个强大的蛋白序列设计网络；</p>
+</li>
+<li>
+<p>给定蛋白质的骨架结构，它可以预测出稳定的氨基酸序列；</p>
+</li>
+<li>
+<p>在这个步骤中，<strong>BRIL和tmFAP的序列保持不变</strong>，只设计中间linker的序列。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>用AlphaFold2评估结构稳定性：</strong></li>
+</ul>
+<ul>
+<li>
+<p>将设计出的融合蛋白序列送入 <strong>AlphaFold2</strong> 预测结构；</p>
+</li>
+<li>
+<p>挑选出预测结果最可信（结构折叠良好，口袋保持不变）的作为下一轮输入。</p>
+</li>
+</ul>
+<ul>
+<li><strong>迭代优化：</strong></li>
+</ul>
+<ul>
+<li>
+<p>重复以上过程2–3轮（即先结构设计再序列优化，再评估）；</p>
+</li>
+<li>
+<p>最终得到的融合蛋白序列：</p>
+<ul>
+<li>
+<p>能准确折叠出 <strong>原始tmFAP1.1的配体结合口袋</strong>；</p>
+</li>
+<li>
+<p>同时也能保持 <strong>BRIL结构域的完整性</strong>；</p>
+</li>
+<li>
+<p>整个融合结构可用于高分辨率 cryo-EM 成像。</p>
+</li>
+</ul>
+</li>
+</ul>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/" class="link dim">
+                RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

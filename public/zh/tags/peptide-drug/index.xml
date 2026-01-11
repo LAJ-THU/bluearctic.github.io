@@ -6,14 +6,35 @@
     <description>Recent content in Peptide Drug on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 21 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh/tags/peptide-drug/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PepCCD：用对比学习与扩散模型实现序列驱动的多肽设计</title>
+      <link>http://localhost:1313/zh/literature/pepccd/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepccd/</guid>
+      <description>PepCCD 提出一种融合对比学习与条件扩散模型的端到端框架，仅凭蛋白序列即可生成靶点特异性多肽。该方法在结合能力、多样性、生物活性预测与推理效率上全面优于现有序列方法，并在多项任务中可与结构驱动模型媲美。</description>
+    </item>
     <item>
       <title>Cell｜de novo 设计多肽，实现对病态钠通道的特异性调控</title>
       <link>http://localhost:1313/zh/literature/cellde-novo-%E8%AE%BE%E8%AE%A1%E5%A4%9A%E8%82%BD%E5%AE%9E%E7%8E%B0%E5%AF%B9%E7%97%85%E6%80%81%E9%92%A0%E9%80%9A%E9%81%93%E7%9A%84%E7%89%B9%E5%BC%82%E6%80%A7%E8%B0%83%E6%8E%A7/</link>
       <pubDate>Thu, 21 Aug 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/cellde-novo-%E8%AE%BE%E8%AE%A1%E5%A4%9A%E8%82%BD%E5%AE%9E%E7%8E%B0%E5%AF%B9%E7%97%85%E6%80%81%E9%92%A0%E9%80%9A%E9%81%93%E7%9A%84%E7%89%B9%E5%BC%82%E6%80%A7%E8%B0%83%E6%8E%A7/</guid>
       <description>Cell 报道一种从零设计的 21 aa 多肽 ELIXIR，可选择性修复病态钠通道的晚钠电流异常，在细胞、动物模型及患者来源细胞中实现功能级逆转，为通道病治疗提供全新范式。</description>
+    </item>
+    <item>
+      <title>Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证</title>
+      <link>http://localhost:1313/zh/literature/pepmlm/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepmlm/</guid>
+      <description>PepMLM 提出一种完全基于序列的结合肽设计框架，仅输入靶蛋白序列即可生成高特异性肽分子。在多项任务中命中率超过结构驱动方法，并通过 ELISA、细胞降解与病毒感染实验验证其真实功能。</description>
+    </item>
+    <item>
+      <title>NCFlow：面向非天然氨基酸多肽设计的新策略</title>
+      <link>http://localhost:1313/zh/literature/ncflow/</link>
+      <pubDate>Tue, 05 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/ncflow/</guid>
+      <description>NCFlow 提出一个面向非天然氨基酸（ncAA）的原子级构象生成模型，能够在蛋白 pocket 环境中预测任意 ncAA 的合理三维构象，并结合深度打分与分子动力学模拟，构建出一套可系统性设计高亲和力 ncAA 多肽的端到端流程。</description>
     </item>
     <item>
       <title>从结构出发设计肽药，BindCraft 可行吗？</title>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="1. 背景介绍
+蛋白质-肽段相互作用在细胞内至关重要，调控了从信号转导到细胞周期的多种核心生物过程。然而，与稳定的蛋白-蛋白复合物不同，蛋白-肽复合物通常短、柔性、亲和力低，这使得它们的结构很难通过实验手段解析。事实上，尽管蛋白-肽相互作用非常普遍，但在蛋白质结构数据库（PDB）中，它们的代表性远低于实际生物系统中发生的频率。
+
+近年来，AlphaFold2（AF2）及其扩展版本AF2-Multimer、AF3等深度学习模型为结构生物学带来了革命性的变化，尤其是在蛋白质复合物结构预测方面。初步研究已经表明，这些模型在一定条件下也能预测蛋白-肽复合物的结构，例如通过Gly linker“拼接”蛋白和肽后输入AF2。
+但问题在于：
+
+
+这些模型是否真的能泛化到未见过的蛋白-肽复合物？
+
+
+它们预测成功依赖于哪些信息来源？是MSA？协同进化？还是结构模板？
+
+
+我们是否能信任它们来指导肽药物设计或界面工程？
+
+
+为了解答这些问题，2025年6月24日MIT 的 Lindsey Guan 和 Amy Keating 等人系统评估了AF2-Multimer、AF3、Boltz-1 和 Chai-1四种主流结构预测模型在蛋白-肽复合物上的表现，不仅量化了预测精度，还剖析了信息输入的作用机制。
+
+
+2. 构建基准数据集：631 个高质量蛋白-肽复合结构
+研究人员从 PDB 中筛选了符合以下标准的蛋白-肽复合结构：
+
+
+肽的长度适中（5-50AA，确保不是过短的片段或过大的亚结构）；
+
+
+没有辅因子干扰结合口袋；
+
+
+结合界面足够大（ $$&gt;100Å^2$$)；
+
+
+不包含非天然氨基酸；
+
+
+排除晶体接触导致的假阳性结合；
+
+
+对蛋白和肽分别进行95%序列聚类去冗余。
+
+
+
+这个测试集共包括 631 个复合物结构，可用于系统性 benchmark。
+
+3. 主流模型预测性能“令人惊喜”
+研究首先使用 AF2（单体版）、AF2-Multimer、AF3、Boltz-1、Chai-1 对上述测试集进行 blind prediction。结果表明：
+
+
+大多数模型都能给出高质量预测，很多 DockQ 分数大于 0.8；
+
+
+AF3 表现最为优异，在原子分辨率精度（all-atom RMSD）上也更胜一筹；
+
+
+DockQ 分数与模型预测置信度（ipTM&#43;pTM）之间相关性较高（r &gt; 0.73）；
+
+
+结论：蛋白-肽结构预测，在多数情形下是“可解”的问题。
+
+
+
+然而，也有一部分结构预测失败，包括：
+
+
+错误的结合位点；
+
+
+正确口袋但肽姿态错；
+
+
+高置信度却绑定在错误位置（例如 Boltz-1 错误预测 6ICV_AC）；
+
+
+
+这些不同预测质量的案例在上图中具体展示，形成研究后续机制探究的起点。
+4. 预测结果强烈依赖“训练集中是否见过”
+尽管当前的深度学习结构预测模型在蛋白-肽复合物预测任务中展现出了令人惊艳的准确性，但研究发现，这种准确性很大程度上是建立在模型“见过类似结构”的基础上。换句话说，这些模型的成功，很多时候更像是“记忆的召回”而非真正的泛化预测。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="1. 背景介绍 蛋白质-肽段相互作用在细胞内至关重要，调控了从信号转导到细胞周期的多种核心生物过程。然而，与稳定的蛋白-蛋白复合物不同，蛋白-肽复合物通常短、柔性、亲和力低，这使得它们的结构很难通过实验手段解析。事实上，尽管蛋白-肽相互作用非常普遍，但在蛋白质结构数据库（PDB）中，它们的代表性远低于实际生物系统中发生的频率。
+近年来，AlphaFold2（AF2）及其扩展版本AF2-Multimer、AF3等深度学习模型为结构生物学带来了革命性的变化，尤其是在蛋白质复合物结构预测方面。初步研究已经表明，这些模型在一定条件下也能预测蛋白-肽复合物的结构，例如通过Gly linker“拼接”蛋白和肽后输入AF2。
+但问题在于：
+这些模型是否真的能泛化到未见过的蛋白-肽复合物？
+它们预测成功依赖于哪些信息来源？是MSA？协同进化？还是结构模板？
+我们是否能信任它们来指导肽药物设计或界面工程？
+为了解答这些问题，2025年6月24日MIT 的 Lindsey Guan 和 Amy Keating 等人系统评估了AF2-Multimer、AF3、Boltz-1 和 Chai-1四种主流结构预测模型在蛋白-肽复合物上的表现，不仅量化了预测精度，还剖析了信息输入的作用机制。
+2. 构建基准数据集：631 个高质量蛋白-肽复合结构 研究人员从 PDB 中筛选了符合以下标准的蛋白-肽复合结构：
+肽的长度适中（5-50AA，确保不是过短的片段或过大的亚结构）；
+没有辅因子干扰结合口袋；
+结合界面足够大（ $$&gt;100Å^2$$)；
+不包含非天然氨基酸；
+排除晶体接触导致的假阳性结合；
+对蛋白和肽分别进行95%序列聚类去冗余。
+这个测试集共包括 631 个复合物结构，可用于系统性 benchmark。
+3. 主流模型预测性能“令人惊喜” 研究首先使用 AF2（单体版）、AF2-Multimer、AF3、Boltz-1、Chai-1 对上述测试集进行 blind prediction。结果表明：
+大多数模型都能给出高质量预测，很多 DockQ 分数大于 0.8；
+AF3 表现最为优异，在原子分辨率精度（all-atom RMSD）上也更胜一筹；
+DockQ 分数与模型预测置信度（ipTM&#43;pTM）之间相关性较高（r &gt; 0.73）；
+结论：蛋白-肽结构预测，在多数情形下是“可解”的问题。
+然而，也有一部分结构预测失败，包括：
+错误的结合位点；
+正确口袋但肽姿态错；
+高置信度却绑定在错误位置（例如 Boltz-1 错误预测 6ICV_AC）；
+这些不同预测质量的案例在上图中具体展示，形成研究后续机制探究的起点。
+4. 预测结果强烈依赖“训练集中是否见过” 尽管当前的深度学习结构预测模型在蛋白-肽复合物预测任务中展现出了令人惊艳的准确性，但研究发现，这种准确性很大程度上是建立在模型“见过类似结构”的基础上。换句话说，这些模型的成功，很多时候更像是“记忆的召回”而非真正的泛化预测。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="1. 背景介绍 蛋白质-肽段相互作用在细胞内至关重要，调控了从信号转导到细胞周期的多种核心生物过程。然而，与稳定的蛋白-蛋白复合物不同，蛋白-肽复合物通常短、柔性、亲和力低，这使得它们的结构很难通过实验手段解析。事实上，尽管蛋白-肽相互作用非常普遍，但在蛋白质结构数据库（PDB）中，它们的代表性远低于实际生物系统中发生的频率。
+近年来，AlphaFold2（AF2）及其扩展版本AF2-Multimer、AF3等深度学习模型为结构生物学带来了革命性的变化，尤其是在蛋白质复合物结构预测方面。初步研究已经表明，这些模型在一定条件下也能预测蛋白-肽复合物的结构，例如通过Gly linker“拼接”蛋白和肽后输入AF2。
+但问题在于：
+这些模型是否真的能泛化到未见过的蛋白-肽复合物？
+它们预测成功依赖于哪些信息来源？是MSA？协同进化？还是结构模板？
+我们是否能信任它们来指导肽药物设计或界面工程？
+为了解答这些问题，2025年6月24日MIT 的 Lindsey Guan 和 Amy Keating 等人系统评估了AF2-Multimer、AF3、Boltz-1 和 Chai-1四种主流结构预测模型在蛋白-肽复合物上的表现，不仅量化了预测精度，还剖析了信息输入的作用机制。
+2. 构建基准数据集：631 个高质量蛋白-肽复合结构 研究人员从 PDB 中筛选了符合以下标准的蛋白-肽复合结构：
+肽的长度适中（5-50AA，确保不是过短的片段或过大的亚结构）；
+没有辅因子干扰结合口袋；
+结合界面足够大（ $$&gt;100Å^2$$)；
+不包含非天然氨基酸；
+排除晶体接触导致的假阳性结合；
+对蛋白和肽分别进行95%序列聚类去冗余。
+这个测试集共包括 631 个复合物结构，可用于系统性 benchmark。
+3. 主流模型预测性能“令人惊喜” 研究首先使用 AF2（单体版）、AF2-Multimer、AF3、Boltz-1、Chai-1 对上述测试集进行 blind prediction。结果表明：
+大多数模型都能给出高质量预测，很多 DockQ 分数大于 0.8；
+AF3 表现最为优异，在原子分辨率精度（all-atom RMSD）上也更胜一筹；
+DockQ 分数与模型预测置信度（ipTM&#43;pTM）之间相关性较高（r &gt; 0.73）；
+结论：蛋白-肽结构预测，在多数情形下是“可解”的问题。
+然而，也有一部分结构预测失败，包括：
+错误的结合位点；
+正确口袋但肽姿态错；
+高置信度却绑定在错误位置（例如 Boltz-1 错误预测 6ICV_AC）；
+这些不同预测质量的案例在上图中具体展示，形成研究后续机制探究的起点。
+4. 预测结果强烈依赖“训练集中是否见过” 尽管当前的深度学习结构预测模型在蛋白-肽复合物预测任务中展现出了令人惊艳的准确性，但研究发现，这种准确性很大程度上是建立在模型“见过类似结构”的基础上。换句话说，这些模型的成功，很多时候更像是“记忆的召回”而非真正的泛化预测。">
+  <meta itemprop="wordCount" content="546">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="1. 背景介绍 蛋白质-肽段相互作用在细胞内至关重要，调控了从信号转导到细胞周期的多种核心生物过程。然而，与稳定的蛋白-蛋白复合物不同，蛋白-肽复合物通常短、柔性、亲和力低，这使得它们的结构很难通过实验手段解析。事实上，尽管蛋白-肽相互作用非常普遍，但在蛋白质结构数据库（PDB）中，它们的代表性远低于实际生物系统中发生的频率。
+近年来，AlphaFold2（AF2）及其扩展版本AF2-Multimer、AF3等深度学习模型为结构生物学带来了革命性的变化，尤其是在蛋白质复合物结构预测方面。初步研究已经表明，这些模型在一定条件下也能预测蛋白-肽复合物的结构，例如通过Gly linker“拼接”蛋白和肽后输入AF2。
+但问题在于：
+这些模型是否真的能泛化到未见过的蛋白-肽复合物？
+它们预测成功依赖于哪些信息来源？是MSA？协同进化？还是结构模板？
+我们是否能信任它们来指导肽药物设计或界面工程？
+为了解答这些问题，2025年6月24日MIT 的 Lindsey Guan 和 Amy Keating 等人系统评估了AF2-Multimer、AF3、Boltz-1 和 Chai-1四种主流结构预测模型在蛋白-肽复合物上的表现，不仅量化了预测精度，还剖析了信息输入的作用机制。
+2. 构建基准数据集：631 个高质量蛋白-肽复合结构 研究人员从 PDB 中筛选了符合以下标准的蛋白-肽复合结构：
+肽的长度适中（5-50AA，确保不是过短的片段或过大的亚结构）；
+没有辅因子干扰结合口袋；
+结合界面足够大（ $$&gt;100Å^2$$)；
+不包含非天然氨基酸；
+排除晶体接触导致的假阳性结合；
+对蛋白和肽分别进行95%序列聚类去冗余。
+这个测试集共包括 631 个复合物结构，可用于系统性 benchmark。
+3. 主流模型预测性能“令人惊喜” 研究首先使用 AF2（单体版）、AF2-Multimer、AF3、Boltz-1、Chai-1 对上述测试集进行 blind prediction。结果表明：
+大多数模型都能给出高质量预测，很多 DockQ 分数大于 0.8；
+AF3 表现最为优异，在原子分辨率精度（all-atom RMSD）上也更胜一筹；
+DockQ 分数与模型预测置信度（ipTM&#43;pTM）之间相关性较高（r &gt; 0.73）；
+结论：蛋白-肽结构预测，在多数情形下是“可解”的问题。
+然而，也有一部分结构预测失败，包括：
+错误的结合位点；
+正确口袋但肽姿态错；
+高置信度却绑定在错误位置（例如 Boltz-1 错误预测 6ICV_AC）；
+这些不同预测质量的案例在上图中具体展示，形成研究后续机制探究的起点。
+4. 预测结果强烈依赖“训练集中是否见过” 尽管当前的深度学习结构预测模型在蛋白-肽复合物预测任务中展现出了令人惊艳的准确性，但研究发现，这种准确性很大程度上是建立在模型“见过类似结构”的基础上。换句话说，这些模型的成功，很多时候更像是“记忆的召回”而非真正的泛化预测。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <h3 id="1-背景介绍">1. 背景介绍</h3>
+<p>蛋白质-肽段相互作用在细胞内至关重要，调控了从信号转导到细胞周期的多种核心生物过程。然而，与稳定的蛋白-蛋白复合物不同，蛋白-肽复合物通常<strong>短、柔性、亲和力低</strong>，这使得它们的结构很难通过实验手段解析。事实上，尽管蛋白-肽相互作用非常普遍，但在蛋白质结构数据库（PDB）中，它们的代表性远低于实际生物系统中发生的频率。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-14.png" alt=""></p>
+<p>近年来，<strong>AlphaFold2（AF2）及其扩展版本AF2-Multimer、AF3</strong>等深度学习模型为结构生物学带来了革命性的变化，尤其是在蛋白质复合物结构预测方面。初步研究已经表明，这些模型<strong>在一定条件下也能预测蛋白-肽复合物的结构</strong>，例如通过Gly linker“拼接”蛋白和肽后输入AF2。</p>
+<p><strong>但问题在于：</strong></p>
+<ul>
+<li>
+<p>这些模型是否真的能泛化到<strong>未见过的蛋白-肽复合物</strong>？</p>
+</li>
+<li>
+<p>它们预测成功依赖于哪些<strong>信息来源</strong>？是MSA？协同进化？还是结构模板？</p>
+</li>
+<li>
+<p>我们是否能<strong>信任</strong>它们来指导肽药物设计或界面工程？</p>
+</li>
+</ul>
+<p>为了解答这些问题，2025年6月24日MIT 的 Lindsey Guan 和 Amy Keating 等人系统评估了<strong>AF2-Multimer、AF3、Boltz-1 和 Chai-1</strong>四种主流结构预测模型在蛋白-肽复合物上的表现，<strong>不仅量化了预测精度，还剖析了信息输入的作用机制</strong>。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-12.png" alt=""></p>
+<hr>
+<h3 id="2-构建基准数据集631-个高质量蛋白-肽复合结构">2. <strong>构建基准数据集：631 个高质量蛋白-肽复合结构</strong></h3>
+<p>研究人员从 PDB 中筛选了符合以下标准的蛋白-肽复合结构：</p>
+<ul>
+<li>
+<p>肽的长度适中（5-50AA，确保不是过短的片段或过大的亚结构）；</p>
+</li>
+<li>
+<p>没有辅因子干扰结合口袋；</p>
+</li>
+<li>
+<p>结合界面足够大（ $$&gt;100Å^2$$)；</p>
+</li>
+<li>
+<p>不包含非天然氨基酸；</p>
+</li>
+<li>
+<p>排除晶体接触导致的假阳性结合；</p>
+</li>
+<li>
+<p>对蛋白和肽分别进行95%序列聚类去冗余。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-11.png" alt=""></p>
+<p>这个测试集共包括 <strong>631 个复合物结构</strong>，可用于系统性 benchmark。</p>
+<hr>
+<h3 id="3-主流模型预测性能令人惊喜">3. <strong>主流模型预测性能“令人惊喜”</strong></h3>
+<p>研究首先使用 AF2（单体版）、AF2-Multimer、AF3、Boltz-1、Chai-1 对上述测试集进行 blind prediction。结果表明：</p>
+<ul>
+<li>
+<p><strong>大多数模型都能给出高质量预测</strong>，很多 DockQ 分数大于 0.8；</p>
+</li>
+<li>
+<p><strong>AF3 表现最为优异</strong>，在原子分辨率精度（all-atom RMSD）上也更胜一筹；</p>
+</li>
+<li>
+<p>DockQ 分数与模型预测置信度（ipTM+pTM）之间相关性较高（r &gt; 0.73）；</p>
+</li>
+<li>
+<p><strong>结论：蛋白-肽结构预测，在多数情形下是“可解”的问题</strong>。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-10.png" alt=""></p>
+<p>然而，也有一部分结构预测失败，包括：</p>
+<ul>
+<li>
+<p>错误的结合位点；</p>
+</li>
+<li>
+<p>正确口袋但肽姿态错；</p>
+</li>
+<li>
+<p>高置信度却绑定在错误位置（例如 Boltz-1 错误预测 6ICV_AC）；</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-13.png" alt=""></p>
+<p>这些不同预测质量的案例在<strong>上图</strong>中具体展示，形成研究后续机制探究的起点。</p>
+<h3 id="4-预测结果强烈依赖训练集中是否见过">4. <strong>预测结果强烈依赖“训练集中是否见过”</strong></h3>
+<p>尽管当前的深度学习结构预测模型在蛋白-肽复合物预测任务中展现出了令人惊艳的准确性，但研究发现，这种准确性<strong>很大程度上是建立在模型“见过类似结构”的基础上</strong>。换句话说，这些模型的成功，很多时候更像是“记忆的召回”而非真正的泛化预测。</p>
+<p>为了验证这一点，作者设计了两个层次的分析，精确揭示了“见过”与“预测成功”之间的因果关联。</p>
+<h4 id="训练前-vs-训练后结构的性能对比"><strong>训练前 vs 训练后结构的性能对比</strong></h4>
+<p>作者首先将测试集中的蛋白-肽复合物，按照其是否在模型训练截止日期之前就已发布（即是否<strong>可能被训练数据涵盖</strong>），分为两类：<strong>训练前（pre-cutoff）与训练后（post-cutoff）</strong>。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-9.png" alt=""></p>
+<p>进一步地，如图2C所示，研究团队还开发了一种结构比对流程来识别“是否见过类似口袋”：</p>
+<ul>
+<li>
+<p>首先比对目标蛋白结构是否在训练集前的 PDB 中有匹配；</p>
+</li>
+<li>
+<p>再确认是否有 ≥5 个绑定位点残基重叠；</p>
+</li>
+<li>
+<p>最后检查肽构象是否相似（主链RMSD &lt; 10 Å）。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-8.png" alt=""></p>
+<p>通过在训练前和训练后的结构上进行评测，得到了以下结论：</p>
+<h5 id="a-使用训练后数据进行结构预测的效果显著下降"><strong>A. 使用训练后数据进行结构预测的效果显著下降</strong></h5>
+<p>图2B 展示了不同模型在 pre-cutoff 与 post-cutoff 数据上的 DockQ 分布：</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-5.png" alt=""></p>
+<ul>
+<li>
+<p>对 AF3、Boltz-1 和 Chai-1 而言，<strong>post-cutoff 结构的预测准确性显著下降</strong>，均值和中位数都有所降低；</p>
+</li>
+<li>
+<p>对 AF2-Multimer 来说，下降也存在但较轻微；</p>
+</li>
+<li>
+<p>单体版 AlphaFold（AF2 Monomer）作为对照组，对 pre/post 无显著差异，进一步说明它本身并非为复合物建模设计。</p>
+</li>
+</ul>
+<hr>
+<h5 id="b-如果训练集含有类似口袋预测性能显著提升"><strong>B. 如果训练集含有类似口袋，预测性能显著提升</strong></h5>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-7.png" alt=""></p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-4.png" alt=""></p>
+<p>图2D 将复合物进一步划分为：</p>
+<ul>
+<li>
+<p>左侧（绿色）：训练集中存在相似的结合口袋（&gt;0 matches）；</p>
+</li>
+<li>
+<p>右侧（紫色）：训练集中找不到类似口袋（no matches）。</p>
+</li>
+</ul>
+<p>观察结果非常清晰：</p>
+<ul>
+<li>
+<p>所有多链模型（AF2-Multimer, AF3, Boltz-1, Chai-1）都表现出<strong>显著更高的 DockQ 分数</strong>，当目标结合口袋在训练集中出现过；</p>
+</li>
+<li>
+<p>例如 AF3 在“seen-site”上平均 DockQ 超过 0.7，而在“novel-site”上明显下降；</p>
+</li>
+<li>
+<p>AF2 Monomer 则几乎没有受此影响，进一步验证它本不擅长处理蛋白-肽对接任务。</p>
+</li>
+</ul>
+<h5 id="综合结论模型做的更像结构匹配而非泛化推理"><strong>综合结论：模型做的更像“结构匹配”而非“泛化推理”</strong></h5>
+<p>从图2的实验设计与数据中可以看出，当前的深度学习结构预测模型在蛋白-肽对接任务中，主要是通过<strong>匹配训练集中见过的结构模式</strong>来完成预测的：</p>
+<ul>
+<li>
+<p>一旦目标结构中肽结合位点在训练集中有代表性，模型能做出非常准确的预测；</p>
+</li>
+<li>
+<p>相反，如果是结构新颖、从未出现过的结合方式，模型预测就显著退化；</p>
+</li>
+<li>
+<p>这说明它们并不真正“理解”肽如何结合蛋白，而是在“记忆”中找最相似的模式来填空。</p>
+</li>
+</ul>
+<h3 id="5-模型预测错误常源于记错了位置">5. <strong>模型预测错误常源于“记错了位置”</strong></h3>
+<p>在前面我们看到，深度学习结构预测模型在蛋白-肽复合物预测中表现优异，尤其是在训练集中曾见过类似结构的情况下表现更佳。然而，作者进一步提出了一个更深入的问题：</p>
+<blockquote>
+<p><strong>如果模型预测错误，它是随机猜错？还是因为它“记错了”？</strong></p>
+</blockquote>
+<p>这个问题的本质是：<strong>模型在错误预测时有没有某种“偏好”？</strong>如果有，这种偏好是否与训练集的结构分布有关？</p>
+<p>结果显示，答案是<strong>肯定的</strong>。</p>
+<h4 id="模型不是随机猜错而是倾向于结合在训练集中最常见的位置"><strong>模型不是随机猜错，而是倾向于“结合在训练集中最常见的位置”</strong></h4>
+<p>作者统计了多个模型在失败预测（低 DockQ）中的口袋使用偏好，问的是：<strong>模型预测的口袋，是否比真实口袋在训练集中出现得更频繁？</strong></p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-3.png" alt=""></p>
+<p>图3A中的柱状图给出清晰答案：</p>
+<ul>
+<li>
+<p>对于大多数模型（如 AF3、Boltz-1、Chai-1），<strong>超过一半的错误预测中，模型选择的结合口袋比真实口袋在训练集中更常见</strong>；</p>
+</li>
+<li>
+<p>比如 Chai-1 有 73% 的失败案例中，模型选择的错误位点在训练集结构中代表性更强；</p>
+</li>
+<li>
+<p>相反，只有少部分错误预测是“预测位点更少见”（黄色部分）。</p>
+</li>
+</ul>
+<blockquote>
+<p>当模型预测错误时，它们往往选择了“最熟悉的错”。换句话说，<strong>不是乱猜，而是“太信自己记住的经验了”。</strong></p>
+</blockquote>
+<hr>
+<h4 id="个案分析-18v8e_ac模型记住了错误的口袋"><strong>个案分析 1——8V8E_AC，模型记住了错误的“口袋”</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-6.png" alt=""></p>
+<ul>
+<li>
+<p><strong>左上角</strong>为真实结构（绿色肽）；</p>
+</li>
+<li>
+<p><strong>右上角</strong>为 AF2-Multimer 和 Boltz-1 的预测，肽绑定在错误位置（橙/蓝色）；</p>
+</li>
+<li>
+<p>这个位置其实是另一个小分子配体的结合口袋，而不是肽的真实位置；</p>
+</li>
+<li>
+<p>即使把小分子也输入模型（右下），Boltz-1 能正确预测小分子结合，但肽仍被放入“熟悉”的错位上。</p>
+</li>
+</ul>
+<blockquote>
+<p>模型将肽绑定到了一个“已知的、常见的结合热点”，而非当前任务中的合理位点——<strong>它记住了错误的“老路”</strong></p>
+</blockquote>
+<hr>
+<h4 id="个案分析-26tyx_ac多个结合口袋中模型选择了更常见的那个"><strong>个案分析 2——6TYX_AC，多个结合口袋中模型选择了“更常见的那个”</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-1.png" alt=""></p>
+<ul>
+<li>
+<p>真实肽结合在较少见的位点（左图绿色）；</p>
+</li>
+<li>
+<p>AF2-Multimer 的 rank1 预测错误，将肽放在另一个位置；</p>
+</li>
+<li>
+<p>但 rank2、rank4、rank5 模型预测的是正确口袋，说明两种位置都是潜在合理的。</p>
+</li>
+</ul>
+<p>结合右图可见：</p>
+<ul>
+<li>
+<p>模型预测的错误位置，在训练集里有多个类似复合物（即“Match for predicted”更多）；</p>
+</li>
+<li>
+<p>说明模型在<strong>多个合理答案中选择了统计上“更常见”的那个</strong>，哪怕它在此特定案例中是错误的。</p>
+</li>
+</ul>
+<hr>
+<h4 id="个案分析-34b8p_ac主次口袋的训练偏好主导预测"><strong>个案分析 3——4B8P_AC，主/次口袋的“训练偏好”主导预测</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image.png" alt=""></p>
+<ul>
+<li>
+<p>Importin α 蛋白有两个已知肽结合位点：一个“主口袋”（major site）和一个“次口袋”（minor site）；</p>
+</li>
+<li>
+<p>在 PDB 结构中（左图），真实肽（绿色）绑定在次口袋；</p>
+</li>
+<li>
+<p>但 AF3 模型预测肽（紫色）绑定到了主口袋；</p>
+</li>
+<li>
+<p>更离谱的是：蛋白自身的 N 端片段（黄色）“占据”了正确口袋，使得肽“被挤到”错误位点。</p>
+</li>
+</ul>
+<blockquote>
+<p>模型默认“常见的主口袋”是绑定点，即便这与实际结构矛盾。这是一种<strong>由训练集主导的偏见错误</strong></p>
+</blockquote>
+<hr>
+<h4 id="总结错误预测源自记忆偏倚而非缺乏能力"><strong>总结：错误预测源自“记忆偏倚”而非缺乏能力</strong></h4>
+<p>这些案例清晰表明，模型预测失败时并非毫无依据。它们的错误其实反映了<strong>对训练集中结合模式的高度记忆依赖</strong>：</p>
+<ul>
+<li>
+<p>模型通过高维模式识别，<strong>形成了对常见口袋的偏好</strong>；</p>
+</li>
+<li>
+<p>当遇到未见过的复合物时，它<strong>将肽“安置”到最熟悉的位置</strong>；</p>
+</li>
+<li>
+<p>即便这个位置不是正确答案，它仍然“自信地”给出高置信度预测。</p>
+</li>
+</ul>
+<hr>
+<h4 id="启示理解模型失败的合理性有助于提升使用策略"><strong>启示：理解模型失败的“合理性”有助于提升使用策略</strong></h4>
+<ul>
+<li>
+<p>当预测结果与已知功能或实验结果冲突时，<strong>不要简单认为模型错了</strong>，而要检查是否是“记忆驱动的错误”；</p>
+</li>
+<li>
+<p>若目标蛋白存在多个潜在结合口袋，应警惕模型是否自动偏向“主流结合位点”；</p>
+</li>
+<li>
+<p>建议交叉使用多个模型 + 分析训练集代表性 + 结合结构保守性辅助判断预测可信度</p>
+</li>
+</ul>
+<h3 id="6-深度学习模型是否真正利用了肽的协同进化信息">6. <strong>深度学习模型是否真正利用了肽的协同进化信息？</strong></h3>
+<p>在前面的分析中，我们发现结构预测模型表现出强烈的“记忆性”，即依赖于训练集中见过的结构。但另一个关键问题是：</p>
+<blockquote>
+<p><strong>这些模型是否能利用蛋白和肽之间的协同进化信息？</strong></p>
+<p>也就是说，是否会从蛋白和肽的<strong>配对多序列比对（paired MSA）</strong>中学到真实的互作信号？</p>
+</blockquote>
+<p><strong>Figure 4 的核心目的</strong>，就是测试模型是否真正使用了肽-蛋白之间的协同进化信息，以及这种信息对结构预测准确性的影响。</p>
+<hr>
+<h4 id="a-实验设计通过打乱配对测试协同信号作用"><strong>A. 实验设计——通过打乱配对，测试“协同信号”作用</strong></h4>
+<p>研究者从每对蛋白-肽复合物的<strong>全序列</strong>中截取不同长度的上下文片段（+50 或 +100 个氨基酸）来生成 MSA。然后，他们构建两种配对方式：</p>
+<ul>
+<li>
+<p><strong>Paired MSA</strong>：标准做法，即正确匹配蛋白-肽来源序列；</p>
+</li>
+<li>
+<p><strong>Pairing shuffled MSA</strong>：将肽的配对随机打乱，使蛋白和肽不再成对。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-2.png" alt=""></p>
+<p>对比这两种方式的目的，是检测配对关系是否提供了跨链协同进化信息（inter-chain mutual information, MI），并评估这种信息是否真的被模型利用。</p>
+<hr>
+<h4 id="b-配对确实提供了协同信息但模型几乎不使用"><strong>B. 配对确实提供了协同信息，但模型几乎不使用</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-22.png" alt=""></p>
+<p>左两图展示了配对情况对互信息的影响：</p>
+<ul>
+<li>
+<p>无论是 +50 还是 +100 context，<strong>正确配对的 MSA 显著高于打乱后的 MSA</strong>；</p>
+</li>
+<li>
+<p>说明正确配对确实携带了更多跨链协同信号，尤其是肽-蛋白残基之间的信息联系。</p>
+</li>
+</ul>
+<p>但右两图揭示了一个令人惊讶的现象：</p>
+<ul>
+<li>
+<p>尽管互信息下降明显，<strong>模型的结构预测准确性（DockQ）几乎没有变化</strong>；</p>
+</li>
+<li>
+<p>无论是哪种模型（AF2-Multimer、AF3、Boltz-1、Chai-1），在 paired 与 shuffled MSA 条件下，预测结果都几乎相同；</p>
+</li>
+<li>
+<p>p 值均为非显著（n.s.）。</p>
+</li>
+</ul>
+<blockquote>
+<p>虽然配对提供了协同进化信息，但这些模型<strong>在预测过程中几乎没有使用这些信号</strong></p>
+</blockquote>
+<hr>
+<h4 id="c-可视化验证互信息矩阵清晰展现肽的消失"><strong>C. 可视化验证——互信息矩阵清晰展现“肽的消失”</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-20.png" alt=""></p>
+<p>上图展示的是互信息矩阵（mutual information heatmap）：</p>
+<ul>
+<li>
+<p><strong>上图（Paired MSA）</strong>中，肽与蛋白之间形成清晰的交互区，说明彼此之间有跨链信息流；</p>
+</li>
+<li>
+<p><strong>下图（Shuffled MSA）</strong>中，这些交互信号几乎完全消失，只剩蛋白自身的保守性信息；</p>
+</li>
+<li>
+<p>图中肽的位置几乎成了“信息盲区”。</p>
+</li>
+</ul>
+<p>这说明打乱配对成功摧毁了肽-蛋白之间的进化相关性——但预测模型似乎对此完全不敏感。</p>
+<hr>
+<h4 id="这说明了什么"><strong>这说明了什么？</strong></h4>
+<ul>
+<li>
+<p>当前的蛋白-肽结构预测模型，<strong>几乎不依赖配对 MSA 中的肽相关信号</strong>；</p>
+</li>
+<li>
+<p>对于许多肽序列（尤其是非结构域肽），本身在数据库中就缺乏进化深度，导致 MSA 信号弱；</p>
+</li>
+<li>
+<p>模型预测更多依赖蛋白 MSA 及结构模式记忆，而不是蛋白-肽联合进化数据。</p>
+</li>
+</ul>
+<hr>
+<h4 id="启示对建模新肽或人工设计肽时msa质量对性能影响可能极小"><strong>启示：对建模“新肽”或人工设计肽时，MSA质量对性能影响可能极小</strong></h4>
+<ul>
+<li>
+<p>用户无需太过纠结是否构建“深度肽MSA”或配对 MSA；</p>
+</li>
+<li>
+<p>相反，更值得注意的是：是否存在结构先验（即训练集中是否有类似结构）；</p>
+</li>
+<li>
+<p>这也解释了为何模型在处理“非标准肽”（如片段疫苗、短信号肽）时仍有不错表现——它根本没用 MSA。</p>
+</li>
+</ul>
+<hr>
+<h3 id="7-模型是否真正理解肽的氨基酸序列">7. <strong>模型是否真正“理解”肽的氨基酸序列？</strong></h3>
+<p>在前面的分析中我们看到，结构预测模型在很大程度上依赖训练中“见过”的结构模板，也不怎么使用蛋白-肽 MSA 中的协同信号。这就引出了一个关键疑问：</p>
+<blockquote>
+<p><strong>模型是否真正“理解”了肽的氨基酸序列？它知道一个肽由什么氨基酸组成吗？</strong></p>
+</blockquote>
+<p>也就是说：如果我们把肽的序列信息遮蔽掉（mask），模型预测的结构是否会受到影响？或者反过来问：<strong>肽序列本身是否被结构模型当作重要信息来使用？</strong></p>
+<p><strong>Figure 5 就通过序列掩码实验系统性地回答了这个问题。</strong></p>
+<hr>
+<p><strong>A. 实验设计——掩码序列 vs 保留序列</strong></p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-21.png" alt=""></p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-23.png" alt=""></p>
+<p>作者构建了三种输入条件（图5A）：</p>
+<ol>
+<li>
+<p><strong>真实肽序列</strong>：正常输入肽序列（例如 AVPIAQK）；</p>
+</li>
+<li>
+<p><strong>掩码序列（mask）</strong>：将肽序列替换成同长度的“X”（即未知残基）；</p>
+</li>
+<li>
+<p><strong>原生结构</strong>：用于对比预测精度。</p>
+</li>
+</ol>
+<p>为了评估结构差异，作者使用一种基于距离矩阵的 RMSD 变体：<strong>RMSDmap</strong> 和 <strong>scaled peptide RMSD</strong>。这可以更全面地捕捉结构全局偏差，而非仅局部重叠。</p>
+<p>图5B示例展示：不同输入条件下，AF2-Multimer 对同一蛋白-肽复合物的结构预测结果。</p>
+<h4 id="b-模型对掩码肽的反应揭示其是否理解氨基酸信息"><strong>B. 模型对“掩码肽”的反应揭示其是否理解氨基酸信息</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-18.png" alt=""></p>
+<p>每一列是一个模型（AF2-Multimer, Boltz-1, Chai-1），每行是不同的掩码策略：</p>
+<p><strong>➤ Row 1：完全掩码（X）</strong></p>
+<ul>
+<li>
+<p>对 AF2-Multimer 和 Chai-1 而言，有一半以上的样本在掩码情况下依然预测出几乎相同的肽结构（右上角密集）；</p>
+</li>
+<li>
+<p>Boltz-1 表现更依赖序列（右下偏离点多）；</p>
+</li>
+<li>
+<p><strong>说明：模型很多时候并不依赖肽序列，而是根据蛋白结合口袋来“决定肽的形状”</strong>。</p>
+</li>
+</ul>
+<p><strong>➤ Row 2：弱掩码（G）：用 Glycine 替代所有残基</strong></p>
+<ul>
+<li>
+<p>趋势与全掩码类似，进一步验证了结论；</p>
+</li>
+<li>
+<p>肽序列改变很大，但结构预测差别小。</p>
+</li>
+</ul>
+<p><strong>➤ Row 3：随机肽序列（shuffle）</strong></p>
+<ul>
+<li>
+<p>明显不同了：这次大部分模型预测结果发生了结构性变化；</p>
+</li>
+<li>
+<p>特别是 Boltz-1 和 Chai-1，预测结构严重偏离原始构象；</p>
+</li>
+<li>
+<p><strong>说明：当肽序列信息被严重篡改时，模型才会真正“改变预测”</strong>，即只有当输入变得无法与训练数据匹配时，模型才“意识到问题”。</p>
+</li>
+</ul>
+<h4 id="c-案例分析不同模型在掩码下的行为差异"><strong>C. 案例分析——不同模型在掩码下的行为差异</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-19.png" alt=""></p>
+<p>图5D展示了三个典型复合物在“序列提供”与“序列掩码”下的预测结果：</p>
+<ol>
+<li>
+<p><strong>AF2-Multimer：1XB0_AG</strong></p>
+<ul>
+<li>
+<p>提供与掩码下的结构几乎一致（RMSDmap 仅差 0.01）；</p>
+</li>
+<li>
+<p>DockQ 接近满分；</p>
+</li>
+<li>
+<p>说明：模型预测几乎完全不受肽序列影响。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Chai-1：8CZG_AE</strong></p>
+<ul>
+<li>
+<p>掩码后结构略有偏移，但整体位置不变；</p>
+</li>
+<li>
+<p>scaled peptide RMSD 从 0.10 → 0.92；</p>
+</li>
+<li>
+<p>说明模型部分使用了序列信息，但主要结构由蛋白决定。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Boltz-1：8S6U_AC</strong></p>
+<ul>
+<li>
+<p>掩码后肽结构严重偏离（RMSD 3.5+）；</p>
+</li>
+<li>
+<p>DockQ 分数虽高，但实际构象不同；</p>
+</li>
+<li>
+<p>表明 Boltz-1 可能更依赖序列输入进行预测。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="总结大多数模型不关心肽的氨基酸内容"><strong>总结：大多数模型“不关心”肽的氨基酸内容</strong></h4>
+<p>这一系列掩码实验清楚揭示：</p>
+<ul>
+<li>
+<p>多数情况下，模型<strong>并不会根据肽序列决定其空间构象</strong>；</p>
+</li>
+<li>
+<p>肽绑定构象往往由蛋白结构驱动，而不是由肽本身的物理属性推导；</p>
+</li>
+<li>
+<p>模型更像是在“从蛋白口袋出发，猜一个看起来合理的肽结构”，而不是从肽序列出发进行结构折叠。</p>
+</li>
+</ul>
+<h4 id="x20实际应用提醒"><strong> 实际应用提醒</strong></h4>
+<ul>
+<li>
+<p>对于低序列保守性或未有结构先验的新肽，模型预测不一定可信；</p>
+</li>
+<li>
+<p>对肽突变敏感性分析（如药物肽优化）时，需谨慎：<strong>模型可能无法正确反映“点突变”对结构的影响</strong>；</p>
+</li>
+<li>
+<p>可考虑加入物理建模、MD模拟、实验验证等手段作为补充。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>大多数模型不是根据肽序列“算出”结构，而是根据蛋白口袋“选出”一个最有可能的结构模板。</strong></p>
+</blockquote>
+<h3 id="8-模型真的在使用肽的多序列比对信息msa吗">8. <strong>模型真的在使用肽的多序列比对信息（MSA）吗？</strong></h3>
+<p>在之前的 Figure 4 中我们已经发现，虽然配对 MSA 确实包含跨链协同进化信息，但模型几乎不依赖这些信息来提升预测性能。这引出了本文最后一部分的核心问题：</p>
+<blockquote>
+<p><strong>如果直接把肽的 MSA 移除，模型预测结果会变差吗？</strong></p>
+</blockquote>
+<p><strong>Figure 6 就系统性地分析了“移除肽 MSA”对结构预测的影响，并探索了模型注意力机制和其他补救策略的效果。</strong></p>
+<hr>
+<h4 id="a-移除肽-msa-会显著降低预测准确性但影响因模型而异"><strong>A. 移除肽 MSA 会显著降低预测准确性，但影响因模型而异</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-16.png" alt=""></p>
+<p>左图是四个模型的散点图，对比 <strong>正常使用肽 MSA</strong> 和 <strong>完全移除肽 MSA</strong> 两种预测结果（每个点表示一个蛋白-肽复合物）：</p>
+<ul>
+<li>
+<p>趋势清晰：多数点分布在对角线下方，说明<strong>移除 MSA 会使 DockQ 值下降</strong>；</p>
+</li>
+<li>
+<p>DockQ 越低表示预测越不准确；</p>
+</li>
+<li>
+<p>点的颜色反映了肽 MSA 的深度，颜色越深表示 MSA 越丰富；</p>
+</li>
+<li>
+<p>效果在 Boltz-1 和 Chai-1 上尤其明显：<strong>它们对肽 MSA 的依赖更强</strong>。</p>
+</li>
+</ul>
+<p>右侧的柱状图进一步统计了 DockQ 分布的总体下降情况：</p>
+<ul>
+<li>
+<p>所有模型在去除肽 MSA 后表现均显著下降；</p>
+</li>
+<li>
+<p>差异具统计学显著性（<strong>p &lt; 0.001</strong>）；</p>
+</li>
+<li>
+<p>说明<strong>肽 MSA 虽不是决定性因素，但确实能带来可测的增益</strong>。</p>
+</li>
+</ul>
+<blockquote>
+<p>尽管之前的分析显示模型并不总能用好配对信息，但 MSA 的存在仍能在一定程度上增强预测准确性，尤其是 MSA 丰富的肽。</p>
+</blockquote>
+<hr>
+<h4 id="b-模型能否通过引导策略弥补肽-msa-的缺失"><strong>B. 模型能否通过“引导策略”弥补肽 MSA 的缺失</strong></h4>
+<p>研究者进一步提出两个策略：在肽 MSA 被移除的情况下，<strong>加入结构先验信息</strong>，测试是否能补偿性能损失。</p>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-15.png" alt=""></p>
+<p><strong>🟢 方案1：Pocket input</strong></p>
+<ul>
+<li>
+<p>给模型明确输入肽结合口袋（图中红色残基）；</p>
+</li>
+<li>
+<p>Boltz-1 模型中加入此信息后，<strong>性能明显改善</strong>（右图中大多数点上升，p = 2.2e-4）；</p>
+</li>
+<li>
+<p>表明模型可通过“引导口袋定位”来补偿 MSA 缺失。</p>
+</li>
+</ul>
+<p><strong>🔵 方案2：Restraint input</strong></p>
+<ul>
+<li>
+<p>给 Chai-1 加入约束（如肽和蛋白之间小于 10Å 的交互对）；</p>
+</li>
+<li>
+<p>效果同样显著（p = 2.18e-3）；</p>
+</li>
+<li>
+<p>模型因此“被提示”肽的位置，从而优化预测。</p>
+</li>
+</ul>
+<h4 id="c-深入机制模型注意力层真的使用了跨链信息吗"><strong>C. 深入机制——模型注意力层真的使用了跨链信息吗？</strong></h4>
+<p><img src="/zh/literature/%E8%9B%8B%E7%99%BD%E8%B4%A8-%E5%A4%9A%E8%82%BD%E9%A2%84%E6%B5%8B%E6%96%B9%E6%B3%95%E5%A4%A7%E6%A8%AA%E8%AF%84/images/image-17.png" alt=""></p>
+<p>左侧框图展示了注意力机制中“attention bias”的概念：</p>
+<ul>
+<li>
+<p>Query–Key–Value 模块是模型的核心组件；</p>
+</li>
+<li>
+<p>模型可能在这里人为加入“偏向”，比如让蛋白与肽残基之间的注意力增强；</p>
+</li>
+<li>
+<p>如果我们把这种跨链注意力强行屏蔽，会发生什么？</p>
+</li>
+</ul>
+<p>右图是实验结果：</p>
+<ul>
+<li>
+<p>对 AF3 模型屏蔽跨链 attention 后，DockQ 明显下降（多数点低于对角线，p = 2.23e-4）；</p>
+</li>
+<li>
+<p>表明虽然 MSA 信号弱，<strong>模型确实存在注意力机制层面的跨链信息通路</strong>；</p>
+</li>
+<li>
+<p>换言之：<strong>模型的“内部推理机制”里，其实是把蛋白和肽残基联系起来的。</strong></p>
+</li>
+</ul>
+<h4 id="综合总结模型虽然没用好-msa但有能力理解结构引导信息"><strong>综合总结：模型虽然没用好 MSA，但有能力理解结构引导信息</strong></h4>
+<ul>
+<li>
+<p>肽的 MSA 信息有用，但多数模型没充分利用；</p>
+</li>
+<li>
+<p>去掉 MSA 会带来性能下降，尤其是对 MSA 丰富的肽；</p>
+</li>
+<li>
+<p>不过这种下降可以通过结构先验（口袋、距离约束）或注意力机制引导来恢复；</p>
+</li>
+<li>
+<p>模型本身是有能力处理跨链交互的，只是训练过程或输入限制了这一能力。</p>
+</li>
+</ul>
+<h3 id="9-总结蛋白-肽结构预测模型的成功是推理还是记忆">9. <strong>总结：蛋白-肽结构预测模型的成功，是“推理”还是“记忆”？</strong></h3>
+<p>这篇论文以系统、深入、量化的方式，全面剖析了当前主流深度学习蛋白-肽结构预测模型（如 AF2-Multimer、AF3、Boltz-1、Chai-1）背后的预测机制，核心结论可以归纳为：</p>
+<h4 id="-1-模型性能强烈依赖训练集中是否见过类似结构"><strong>🔍 1. 模型性能强烈依赖训练集中“是否见过类似结构”</strong></h4>
+<p>无论是蛋白-肽复合物是否在训练前就已发布（pre-/post-cutoff），还是其结合口袋是否在训练集结构中有代表，模型都展现出<strong>显著的记忆性偏好</strong>。准确预测往往来自“召回见过的模式”，而不是生成新模式。</p>
+<h4 id="-2-模型预测失败时也是在记错而非瞎猜"><strong>🧭 2. 模型预测失败时，也是在“记错”而非“瞎猜”</strong></h4>
+<p>错误预测往往不是无序的，而是模型倾向于把肽预测到训练集中更常见的结合位点。即使真实肽结合在次位点，模型仍可能“自信地”放到主口袋，这种现象说明模型在执行某种“结构模板匹配”。</p>
+<h4 id="-3-蛋白-肽协同进化信息paired-msa几乎未被使用"><strong>🧬 3. 蛋白-肽协同进化信息（paired MSA）几乎未被使用</strong></h4>
+<p>尽管配对 MSA 中确实存在跨链互信息信号，但模型结构预测几乎不受其影响，说明<strong>当前模型没有充分利用这些生物信息学信号</strong>，甚至可以在 MSA 打乱情况下仍作出相似预测。</p>
+<h4 id="-4-模型对肽序列本身的理解也较为薄弱"><strong>🔤 4. 模型对肽序列本身的“理解”也较为薄弱</strong></h4>
+<p>掩码、打乱、替换肽序列对大多数模型的预测结果影响不大。说明模型更多是基于蛋白口袋和结构偏好“选择一个肽构象”，而非从肽序列中推导结构。</p>
+<h4 id="-5-msa-确实能提升性能但更有效的是结构引导"><strong>🛠 5. MSA 确实能提升性能，但更有效的是结构引导</strong></h4>
+<p>移除肽 MSA 会使预测性能下降，尤其是 MSA 深度高的肽。但作者也发现，通过引入结构提示（结合口袋信息、空间约束、attention bias），可以有效恢复性能，表明模型拥有处理这类结构信息的潜力。</p>
+<p>🔗原文链接：https://www.biorxiv.org/content/10.1101/2025.06.18.660495v1</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/" class="link dim">
+                RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

@@ -15,5 +15,12 @@
       <guid>http://localhost:1313/zh/literature/boltzdesign1/</guid>
       <description>BoltzDesign1 利用 Boltz 全原子模型进行反向优化，在无需扩散模型的情况下实现高成功率与高多样性的结合物设计，并首次系统性展示其在小分子、金属、核酸及翻译后修饰靶标上的通用潜力。</description>
     </item>
+    <item>
+      <title>从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？</title>
+      <link>http://localhost:1313/zh/literature/pxdesign/</link>
+      <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pxdesign/</guid>
+      <description>字节跳动 Seed 团队提出 PXDesign 框架，将扩散生成与幻觉优化相结合，并配合 Protenix 与 AF2-IG 的多模型筛选策略，在多个真实靶标上实现 20–61% 的体外命中率（PD-L1、IL-7RA 等甚至超过 70%），显著高于现有方法，展示出高成功率蛋白设计的现实可行性。</description>
+    </item>
   </channel>
 </rss>

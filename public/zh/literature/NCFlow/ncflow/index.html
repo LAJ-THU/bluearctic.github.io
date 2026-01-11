@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="在现代生物分子设计中，一个根本性的问题是：我们是否能够突破天然氨基酸构成蛋白质的限制，设计出更强大、更具有功能性的分子？
+随着蛋白质工程和肽类药物的快速发展，越来越多的研究者意识到，仅依赖20种天然氨基酸所构建的“化学空间”存在天然瓶颈。相比之下，非天然氨基酸（non-canonical amino acids, ncAAs） 提供了前所未有的构象灵活性与化学多样性，使得我们可以在更高维度上进行功能探索：包括增强稳定性、优化靶点亲和力、引入非天然催化机制，甚至构建全新的蛋白结构拓扑。
+然而，真正将非天然氨基酸引入多肽或蛋白结构中并实现结构层面的功能设计，依旧是一个悬而未解的挑战。大多数主流蛋白结构预测与设计工具，如 AlphaFold、RosettaFold 或 Score-based generative models，均建立在“标准氨基酸”的封闭体系之上，对 ncAA 缺乏表达能力、训练样本与计算支持。
+
+在这一背景下，Lee 和 Kim 等人在其论文《Design of peptides with non-canonical amino acids using flow matching》中提出了一项具有代表性的工作。他们构建了一个以 flow matching 为核心的结构生成模型 NCFlow，结合分子建模、深度学习打分与物理能量验证，搭建了一个系统性的 ncAA 多肽设计平台。本文将对该工作进行逐步解读，阐明其方法框架、结构精度、应用流程与案例分析，帮助读者理解其在蛋白质工程与药物设计领域的重要意义。
+
+1.  为什么研究非天然氨基酸？扩展蛋白质设计的化学空间
+蛋白质由20种标准的天然氨基酸（canonical amino acids）组成，这一套“遗传编码字母表”在自然进化中已被充分利用，赋予了生命体极为多样的结构与功能。然而，在药物设计、酶工程及蛋白材料等方向，天然氨基酸所提供的结构与化学多样性已经逐渐显现出其局限性。
+
+非天然氨基酸（non-canonical amino acids, ncAAs）——即不编码于标准遗传密码表中的氨基酸——为这一困境提供了解决思路。ncAAs 可通过多种方式引入蛋白质中，包括合成生物学途径（例如遗传密码扩展、转译系统重编程）或化学修饰（如后翻译修饰、半合成策略）。它们具备以下潜力：
+
+
+引入非天然官能团以催化自然界未出现的反应；
+
+
+提高蛋白质的热稳定性、酶活性或溶解性；
+
+
+优化结合亲和力与选择性，尤其在多肽类药物开发中发挥关键作用；
+
+
+赋予蛋白质新的结构构象能力，如构建不规则主链、宏环结构等。
+
+
+当前，非天然氨基酸已在多个方向展现出极高应用价值，尤其是大环肽（macrocyclic peptides）作为介于小分子与抗体之间的药物形式，因其良好的稳定性与结合特异性而备受关注。ncAA 的引入为其提供了更高的结合自由度和药代优化空间。
+
+2. 现有计算设计方法的局限性
+尽管深度学习在蛋白质结构预测领域取得了突破（例如 AlphaFold2/3、RoseTTAFold、RFDiffusion 等），但在处理非天然氨基酸方面仍存在严重局限。现有主流模型对标准残基高度依赖，无法有效泛化至化学组成发生变化的结构。
+
+以下是当前主要的挑战：
+1️⃣ 表达能力限制：模型结构依赖于标准氨基酸嵌入
+如 AlphaFold 系列模型采用了基于序列的残基 token 化，其输入嵌入空间仅涵盖20种天然氨基酸（外加部分 mask token）。当输入中包含未经训练的 ncAA 或者具有不同原子数、键型的残基时，这些模型往往无法正常工作。此外，AlphaFold3 虽然引入了配体建模能力，但其构象输入要求包括RDKit conformers、结构 token等预定义信息，而这些在 ncAA 设计任务中往往是未知的设计目标本身。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/ncflow/ncflow/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/ncflow/ncflow/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="在现代生物分子设计中，一个根本性的问题是：我们是否能够突破天然氨基酸构成蛋白质的限制，设计出更强大、更具有功能性的分子？
+随着蛋白质工程和肽类药物的快速发展，越来越多的研究者意识到，仅依赖20种天然氨基酸所构建的“化学空间”存在天然瓶颈。相比之下，非天然氨基酸（non-canonical amino acids, ncAAs） 提供了前所未有的构象灵活性与化学多样性，使得我们可以在更高维度上进行功能探索：包括增强稳定性、优化靶点亲和力、引入非天然催化机制，甚至构建全新的蛋白结构拓扑。
+然而，真正将非天然氨基酸引入多肽或蛋白结构中并实现结构层面的功能设计，依旧是一个悬而未解的挑战。大多数主流蛋白结构预测与设计工具，如 AlphaFold、RosettaFold 或 Score-based generative models，均建立在“标准氨基酸”的封闭体系之上，对 ncAA 缺乏表达能力、训练样本与计算支持。
+在这一背景下，Lee 和 Kim 等人在其论文《Design of peptides with non-canonical amino acids using flow matching》中提出了一项具有代表性的工作。他们构建了一个以 flow matching 为核心的结构生成模型 NCFlow，结合分子建模、深度学习打分与物理能量验证，搭建了一个系统性的 ncAA 多肽设计平台。本文将对该工作进行逐步解读，阐明其方法框架、结构精度、应用流程与案例分析，帮助读者理解其在蛋白质工程与药物设计领域的重要意义。
+1. 为什么研究非天然氨基酸？扩展蛋白质设计的化学空间 蛋白质由20种标准的天然氨基酸（canonical amino acids）组成，这一套“遗传编码字母表”在自然进化中已被充分利用，赋予了生命体极为多样的结构与功能。然而，在药物设计、酶工程及蛋白材料等方向，天然氨基酸所提供的结构与化学多样性已经逐渐显现出其局限性。
+非天然氨基酸（non-canonical amino acids, ncAAs）——即不编码于标准遗传密码表中的氨基酸——为这一困境提供了解决思路。ncAAs 可通过多种方式引入蛋白质中，包括合成生物学途径（例如遗传密码扩展、转译系统重编程）或化学修饰（如后翻译修饰、半合成策略）。它们具备以下潜力：
+引入非天然官能团以催化自然界未出现的反应；
+提高蛋白质的热稳定性、酶活性或溶解性；
+优化结合亲和力与选择性，尤其在多肽类药物开发中发挥关键作用；
+赋予蛋白质新的结构构象能力，如构建不规则主链、宏环结构等。
+当前，非天然氨基酸已在多个方向展现出极高应用价值，尤其是大环肽（macrocyclic peptides）作为介于小分子与抗体之间的药物形式，因其良好的稳定性与结合特异性而备受关注。ncAA 的引入为其提供了更高的结合自由度和药代优化空间。
+2. 现有计算设计方法的局限性 尽管深度学习在蛋白质结构预测领域取得了突破（例如 AlphaFold2/3、RoseTTAFold、RFDiffusion 等），但在处理非天然氨基酸方面仍存在严重局限。现有主流模型对标准残基高度依赖，无法有效泛化至化学组成发生变化的结构。
+以下是当前主要的挑战：
+1️⃣ 表达能力限制：模型结构依赖于标准氨基酸嵌入 如 AlphaFold 系列模型采用了基于序列的残基 token 化，其输入嵌入空间仅涵盖20种天然氨基酸（外加部分 mask token）。当输入中包含未经训练的 ncAA 或者具有不同原子数、键型的残基时，这些模型往往无法正常工作。此外，AlphaFold3 虽然引入了配体建模能力，但其构象输入要求包括RDKit conformers、结构 token等预定义信息，而这些在 ncAA 设计任务中往往是未知的设计目标本身。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="在现代生物分子设计中，一个根本性的问题是：我们是否能够突破天然氨基酸构成蛋白质的限制，设计出更强大、更具有功能性的分子？
+随着蛋白质工程和肽类药物的快速发展，越来越多的研究者意识到，仅依赖20种天然氨基酸所构建的“化学空间”存在天然瓶颈。相比之下，非天然氨基酸（non-canonical amino acids, ncAAs） 提供了前所未有的构象灵活性与化学多样性，使得我们可以在更高维度上进行功能探索：包括增强稳定性、优化靶点亲和力、引入非天然催化机制，甚至构建全新的蛋白结构拓扑。
+然而，真正将非天然氨基酸引入多肽或蛋白结构中并实现结构层面的功能设计，依旧是一个悬而未解的挑战。大多数主流蛋白结构预测与设计工具，如 AlphaFold、RosettaFold 或 Score-based generative models，均建立在“标准氨基酸”的封闭体系之上，对 ncAA 缺乏表达能力、训练样本与计算支持。
+在这一背景下，Lee 和 Kim 等人在其论文《Design of peptides with non-canonical amino acids using flow matching》中提出了一项具有代表性的工作。他们构建了一个以 flow matching 为核心的结构生成模型 NCFlow，结合分子建模、深度学习打分与物理能量验证，搭建了一个系统性的 ncAA 多肽设计平台。本文将对该工作进行逐步解读，阐明其方法框架、结构精度、应用流程与案例分析，帮助读者理解其在蛋白质工程与药物设计领域的重要意义。
+1. 为什么研究非天然氨基酸？扩展蛋白质设计的化学空间 蛋白质由20种标准的天然氨基酸（canonical amino acids）组成，这一套“遗传编码字母表”在自然进化中已被充分利用，赋予了生命体极为多样的结构与功能。然而，在药物设计、酶工程及蛋白材料等方向，天然氨基酸所提供的结构与化学多样性已经逐渐显现出其局限性。
+非天然氨基酸（non-canonical amino acids, ncAAs）——即不编码于标准遗传密码表中的氨基酸——为这一困境提供了解决思路。ncAAs 可通过多种方式引入蛋白质中，包括合成生物学途径（例如遗传密码扩展、转译系统重编程）或化学修饰（如后翻译修饰、半合成策略）。它们具备以下潜力：
+引入非天然官能团以催化自然界未出现的反应；
+提高蛋白质的热稳定性、酶活性或溶解性；
+优化结合亲和力与选择性，尤其在多肽类药物开发中发挥关键作用；
+赋予蛋白质新的结构构象能力，如构建不规则主链、宏环结构等。
+当前，非天然氨基酸已在多个方向展现出极高应用价值，尤其是大环肽（macrocyclic peptides）作为介于小分子与抗体之间的药物形式，因其良好的稳定性与结合特异性而备受关注。ncAA 的引入为其提供了更高的结合自由度和药代优化空间。
+2. 现有计算设计方法的局限性 尽管深度学习在蛋白质结构预测领域取得了突破（例如 AlphaFold2/3、RoseTTAFold、RFDiffusion 等），但在处理非天然氨基酸方面仍存在严重局限。现有主流模型对标准残基高度依赖，无法有效泛化至化学组成发生变化的结构。
+以下是当前主要的挑战：
+1️⃣ 表达能力限制：模型结构依赖于标准氨基酸嵌入 如 AlphaFold 系列模型采用了基于序列的残基 token 化，其输入嵌入空间仅涵盖20种天然氨基酸（外加部分 mask token）。当输入中包含未经训练的 ncAA 或者具有不同原子数、键型的残基时，这些模型往往无法正常工作。此外，AlphaFold3 虽然引入了配体建模能力，但其构象输入要求包括RDKit conformers、结构 token等预定义信息，而这些在 ncAA 设计任务中往往是未知的设计目标本身。">
+  <meta itemprop="wordCount" content="655">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="在现代生物分子设计中，一个根本性的问题是：我们是否能够突破天然氨基酸构成蛋白质的限制，设计出更强大、更具有功能性的分子？
+随着蛋白质工程和肽类药物的快速发展，越来越多的研究者意识到，仅依赖20种天然氨基酸所构建的“化学空间”存在天然瓶颈。相比之下，非天然氨基酸（non-canonical amino acids, ncAAs） 提供了前所未有的构象灵活性与化学多样性，使得我们可以在更高维度上进行功能探索：包括增强稳定性、优化靶点亲和力、引入非天然催化机制，甚至构建全新的蛋白结构拓扑。
+然而，真正将非天然氨基酸引入多肽或蛋白结构中并实现结构层面的功能设计，依旧是一个悬而未解的挑战。大多数主流蛋白结构预测与设计工具，如 AlphaFold、RosettaFold 或 Score-based generative models，均建立在“标准氨基酸”的封闭体系之上，对 ncAA 缺乏表达能力、训练样本与计算支持。
+在这一背景下，Lee 和 Kim 等人在其论文《Design of peptides with non-canonical amino acids using flow matching》中提出了一项具有代表性的工作。他们构建了一个以 flow matching 为核心的结构生成模型 NCFlow，结合分子建模、深度学习打分与物理能量验证，搭建了一个系统性的 ncAA 多肽设计平台。本文将对该工作进行逐步解读，阐明其方法框架、结构精度、应用流程与案例分析，帮助读者理解其在蛋白质工程与药物设计领域的重要意义。
+1. 为什么研究非天然氨基酸？扩展蛋白质设计的化学空间 蛋白质由20种标准的天然氨基酸（canonical amino acids）组成，这一套“遗传编码字母表”在自然进化中已被充分利用，赋予了生命体极为多样的结构与功能。然而，在药物设计、酶工程及蛋白材料等方向，天然氨基酸所提供的结构与化学多样性已经逐渐显现出其局限性。
+非天然氨基酸（non-canonical amino acids, ncAAs）——即不编码于标准遗传密码表中的氨基酸——为这一困境提供了解决思路。ncAAs 可通过多种方式引入蛋白质中，包括合成生物学途径（例如遗传密码扩展、转译系统重编程）或化学修饰（如后翻译修饰、半合成策略）。它们具备以下潜力：
+引入非天然官能团以催化自然界未出现的反应；
+提高蛋白质的热稳定性、酶活性或溶解性；
+优化结合亲和力与选择性，尤其在多肽类药物开发中发挥关键作用；
+赋予蛋白质新的结构构象能力，如构建不规则主链、宏环结构等。
+当前，非天然氨基酸已在多个方向展现出极高应用价值，尤其是大环肽（macrocyclic peptides）作为介于小分子与抗体之间的药物形式，因其良好的稳定性与结合特异性而备受关注。ncAA 的引入为其提供了更高的结合自由度和药代优化空间。
+2. 现有计算设计方法的局限性 尽管深度学习在蛋白质结构预测领域取得了突破（例如 AlphaFold2/3、RoseTTAFold、RFDiffusion 等），但在处理非天然氨基酸方面仍存在严重局限。现有主流模型对标准残基高度依赖，无法有效泛化至化学组成发生变化的结构。
+以下是当前主要的挑战：
+1️⃣ 表达能力限制：模型结构依赖于标准氨基酸嵌入 如 AlphaFold 系列模型采用了基于序列的残基 token 化，其输入嵌入空间仅涵盖20种天然氨基酸（外加部分 mask token）。当输入中包含未经训练的 ncAA 或者具有不同原子数、键型的残基时，这些模型往往无法正常工作。此外，AlphaFold3 虽然引入了配体建模能力，但其构象输入要求包括RDKit conformers、结构 token等预定义信息，而这些在 ncAA 设计任务中往往是未知的设计目标本身。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p>在现代生物分子设计中，一个根本性的问题是：<strong>我们是否能够突破天然氨基酸构成蛋白质的限制，设计出更强大、更具有功能性的分子？</strong></p>
+<p>随着蛋白质工程和肽类药物的快速发展，越来越多的研究者意识到，仅依赖20种天然氨基酸所构建的“化学空间”存在天然瓶颈。相比之下，<strong>非天然氨基酸（non-canonical amino acids, ncAAs）</strong> 提供了前所未有的构象灵活性与化学多样性，使得我们可以在更高维度上进行功能探索：包括增强稳定性、优化靶点亲和力、引入非天然催化机制，甚至构建全新的蛋白结构拓扑。</p>
+<p>然而，真正将非天然氨基酸引入多肽或蛋白结构中并实现<strong>结构层面的功能设计</strong>，依旧是一个悬而未解的挑战。大多数主流蛋白结构预测与设计工具，如 AlphaFold、RosettaFold 或 Score-based generative models，均建立在“标准氨基酸”的封闭体系之上，对 ncAA 缺乏表达能力、训练样本与计算支持。</p>
+<p><img src="images/image-10.png" alt=""></p>
+<p>在这一背景下，Lee 和 Kim 等人在其论文《Design of peptides with non-canonical amino acids using flow matching》中提出了一项具有代表性的工作。他们构建了一个以 flow matching 为核心的结构生成模型 <strong>NCFlow</strong>，结合分子建模、深度学习打分与物理能量验证，搭建了一个系统性的 ncAA 多肽设计平台。本文将对该工作进行逐步解读，阐明其方法框架、结构精度、应用流程与案例分析，帮助读者理解其在蛋白质工程与药物设计领域的重要意义。</p>
+<hr>
+<h2 id="1x20x20为什么研究非天然氨基酸扩展蛋白质设计的化学空间">1. <strong> 为什么研究非天然氨基酸？扩展蛋白质设计的化学空间</strong></h2>
+<p>蛋白质由20种标准的天然氨基酸（canonical amino acids）组成，这一套“遗传编码字母表”在自然进化中已被充分利用，赋予了生命体极为多样的结构与功能。然而，在药物设计、酶工程及蛋白材料等方向，天然氨基酸所提供的结构与化学多样性已经逐渐显现出其局限性。</p>
+<p><img src="images/image-12.png" alt=""></p>
+<p><strong>非天然氨基酸（non-canonical amino acids, ncAAs）</strong>——即不编码于标准遗传密码表中的氨基酸——为这一困境提供了解决思路。ncAAs 可通过多种方式引入蛋白质中，包括合成生物学途径（例如遗传密码扩展、转译系统重编程）或化学修饰（如后翻译修饰、半合成策略）。它们具备以下潜力：</p>
+<ul>
+<li>
+<p>引入<strong>非天然官能团</strong>以催化自然界未出现的反应；</p>
+</li>
+<li>
+<p>提高蛋白质的<strong>热稳定性、酶活性或溶解性</strong>；</p>
+</li>
+<li>
+<p>优化<strong>结合亲和力与选择性</strong>，尤其在多肽类药物开发中发挥关键作用；</p>
+</li>
+<li>
+<p>赋予蛋白质<strong>新的结构构象能力</strong>，如构建不规则主链、宏环结构等。</p>
+</li>
+</ul>
+<p>当前，非天然氨基酸已在多个方向展现出极高应用价值，尤其是<strong>大环肽（macrocyclic peptides）</strong>作为介于小分子与抗体之间的药物形式，因其良好的稳定性与结合特异性而备受关注。ncAA 的引入为其提供了更高的结合自由度和药代优化空间。</p>
+<hr>
+<h2 id="2-现有计算设计方法的局限性">2. <strong>现有计算设计方法的局限性</strong></h2>
+<p>尽管深度学习在蛋白质结构预测领域取得了突破（例如 AlphaFold2/3、RoseTTAFold、RFDiffusion 等），但在处理非天然氨基酸方面仍存在严重局限。现有主流模型对标准残基高度依赖，无法有效泛化至化学组成发生变化的结构。</p>
+<p><img src="images/image-14.png" alt=""></p>
+<p>以下是当前主要的挑战：</p>
+<h3 id="1-表达能力限制模型结构依赖于标准氨基酸嵌入"><strong>1️⃣ 表达能力限制：模型结构依赖于标准氨基酸嵌入</strong></h3>
+<p>如 AlphaFold 系列模型采用了基于序列的残基 token 化，其输入嵌入空间仅涵盖20种天然氨基酸（外加部分 mask token）。当输入中包含未经训练的 ncAA 或者具有不同原子数、键型的残基时，这些模型往往无法正常工作。此外，AlphaFold3 虽然引入了配体建模能力，但其构象输入要求包括<strong>RDKit conformers、结构 token</strong>等预定义信息，而这些在 ncAA 设计任务中往往是未知的设计目标本身。</p>
+<h3 id="2-数据瓶颈pdb-中-ncaa-数据稀缺且偏倚"><strong>2️⃣ 数据瓶颈：PDB 中 ncAA 数据稀缺且偏倚</strong></h3>
+<p>目前 PDB 中非天然氨基酸残基占比仅约 <strong>0.02%</strong>，且多数为技术性引入（如硒代蛋氨酸用于晶体解析），缺乏代表性的自然构象或功能性上下文。如此严重的数据稀疏性直接限制了使用深度学习方法学习高质量的结构映射函数。</p>
+<h3 id="3-打分工具不支持-ncaa-残基"><strong>3️⃣ 打分工具不支持 ncAA 残基</strong></h3>
+<p>在蛋白设计中，结构预测仅是第一步，后续需要可靠的打分函数来评估突变体的稳定性或功能。例如，Rosetta 及 AlphaFold 衍生工具（如 ipTM 或 pLDDT）均默认输入为标准氨基酸，无法支持任意结构组分的多肽设计。</p>
+<p><img src="images/image-8.png" alt=""></p>
+<p>此外，当前几乎所有基于机器学习的结合亲和力预测器（如 ProteinMPNN、EquiBind、DiffDock）也都依赖预定义 residue embedding 或限定配体描述符，对于原子层级自定义的 ncAA 无法兼容。</p>
+<hr>
+<p>以上挑战表明，要在设计中系统性地引入非天然氨基酸，仅仅依赖现有工具是不够的。我们亟需一种：</p>
+<ul>
+<li>
+<p><strong>能直接处理原子图结构</strong>；</p>
+</li>
+<li>
+<p><strong>可泛化至任意分子结构的生成模型</strong>；</p>
+</li>
+<li>
+<p>并能<strong>结合蛋白结构上下文，预测嵌入后的合理构象</strong>。</p>
+</li>
+</ul>
+<p>这正是 NCFlow 所提出的技术路径的出发点。</p>
+<hr>
+<h2 id="3--ncflow-是什么一个通用的非天然氨基酸三维结构生成模型">3.  <strong>NCFlow 是什么？一个通用的非天然氨基酸三维结构生成模型</strong></h2>
+<p>在面对非天然氨基酸（ncAA）设计时，我们的目标不仅是“换一个侧链”，而是在空间中<strong>合理地嵌入一个新的化学实体</strong>，使其与蛋白质环境协调匹配，并有潜力增强功能（例如结合力）。这比普通蛋白突变复杂得多——你不能依赖“rotamer 库”或 canonical residue 模板，而必须<strong>从原子层面推断构象</strong>。</p>
+<p>这正是本文提出的 <strong>NCFlow</strong> 所要解决的问题：</p>
+<blockquote>
+<p><strong>给定一个蛋白 pocket 和一个任意的非天然氨基酸结构，预测它在该位点的三维构象。</strong></p>
+</blockquote>
+<hr>
+<h3 id="31-flow-matching一种轻量连续的生成方法">3.1 <strong>Flow matching：一种轻量、连续的生成方法</strong></h3>
+<p>NCFlow 的技术核心是使用了一种近年兴起的<strong>flow matching</strong>生成模型。这类方法与扩散模型类似，都是从一个随机初始状态出发，通过“模拟粒子轨迹”逐步逼近真实分布。</p>
+<p>但相比标准 diffusion models（如 score-based models），<strong>flow matching 模型不需要训练一个噪声预测器再逆推，而是直接学习一个连续向量场 </strong>$$u_t(x)$$<strong> 来定义轨迹微分方程</strong>：</p>
+<p>$$\frac{dX_t}{dt} = u_t(X_t)$$</p>
+<p>直觉上，这就像是在学习<strong>一个物理力场</strong>，告诉粒子在每一个时刻应该如何移动，从一个初始分布 p 变成目标分布 q。</p>
+<p>这种方式有几个优点非常适合 ncAA 构象生成：</p>
+<ul>
+<li>
+<p><strong>结构连续性强</strong>，非常适合处理 3D 原子坐标；</p>
+</li>
+<li>
+<p><strong>可处理任意输入结构</strong>（不依赖 token，直接用原子类型、键图、空间信息）；</p>
+</li>
+<li>
+<p><strong>模型轻量（≈8M 参数）</strong>，训练推理效率高。</p>
+</li>
+</ul>
+<hr>
+<h3 id="32-模型输入输出结合-figure-1">3.2 <strong>模型输入输出（结合 Figure 1）</strong></h3>
+<p><img src="images/image.png" alt=""></p>
+<p>我们来看 Figure 1B–C，解释 NCFlow 的输入输出形式与轨迹过程：</p>
+<ul>
+<li>
+<p><strong>输入：</strong></p>
+<ul>
+<li>
+<p><strong>蛋白 pocket 原子环境</strong>（距离目标位点一定 cutoff 范围内的原子，最多 256 个）；</p>
+</li>
+<li>
+<p><strong>目标 ncAA 的结构信息</strong>，以 SMILES 编码，再转为原子类型与键连接图；</p>
+</li>
+<li>
+<p><strong>时间步 t</strong>（用于 flow 轨迹计算）；</p>
+</li>
+<li>
+<p><strong>预测目标原子的掩码</strong>（指示哪些原子要预测）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>输出：</strong></p>
+<ul>
+<li>给定该 pocket 和 ncAA，在 residue 替换位点上的<strong>全原子三维构象</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>Figure 1C 中还展示了一个 sampling trajectory，从 t=0 到 t=1 的粒子轨迹——展示如何从初始噪声中逐步逼近最终目标构象。</p>
+<hr>
+<h3 id="33-模型结构简述">3.3 <strong>模型结构简述</strong></h3>
+<p>模型借鉴了 AlphaFold3 的架构，采用：</p>
+<ul>
+<li>
+<p><strong>Pairformer layers</strong>：处理原子对之间的关系；</p>
+</li>
+<li>
+<p><strong>Atom Transformer</strong>：处理原子级别的信息聚合；</p>
+</li>
+<li>
+<p>去除了 tokenization，直接使用<strong>原子图表示</strong>。</p>
+</li>
+</ul>
+<p>模型训练分为三个阶段（详见 Figure 1A）：</p>
+<ol>
+<li>
+<p><strong>小分子预训练（PubChem3D）</strong>：学习构象生成的化学规则；</p>
+</li>
+<li>
+<p><strong>蛋白-小分子微调（Plinder）</strong>：学习蛋白 pocket 与配体之间的相互作用；</p>
+</li>
+<li>
+<p><strong>ncAA 微调（PDB 中提取）</strong>：学习在真实蛋白环境中，ncAA 如何构象嵌入。</p>
+</li>
+</ol>
+<p><img src="images/image-1.png" alt=""></p>
+<p>训练目标是最小化流场预测误差，使生成轨迹最大限度接近真实构象。</p>
+<hr>
+<h3 id="34-实验结果支持figure-2">3.4 <strong>实验结果支持（Figure 2）</strong></h3>
+<p><img src="images/image-2.png" alt=""></p>
+<p><img src="images/image-3.png" alt=""></p>
+<p>NCFlow 相比其他方法有显著优势：</p>
+<ul>
+<li>
+<p>Figure 2B 显示预训练能显著降低构象 RMSD（平均降 0.2 Å）；</p>
+</li>
+<li>
+<p>Figure 2C 证实了模型预测的 <strong>pLDDT 与 RMSD 负相关</strong>，说明可以使用模型内置信度过滤低质量构象；</p>
+</li>
+<li>
+<p>Figure 2D 展示与 Boltz1/Boltz2 的对比，NCFlow 在单个 ncAA 构象预测上表现更精确（RMSD ≈1.4 Å vs. ≈3.3 Å）；</p>
+</li>
+<li>
+<p>Figure 2E 展示了多个实例：NCFlow 生成的 ncAA 构象（米色）与真实结构（灰色）高度重叠。</p>
+</li>
+</ul>
+<hr>
+<h2 id="4-ncflow-的设计流程系统性探索多肽ncaa-突变体空间">4. <strong>NCFlow 的设计流程：系统性探索多肽–ncAA 突变体空间</strong></h2>
+<p>NCFlow 的能力不仅限于预测单个非天然氨基酸（ncAA）的结构。它的最终目标是：<strong>系统地设计出具有更优结合性能的多肽变体</strong>。为此，作者建立了一整套自动化设计流程，结合生成模型、深度学习打分和分子动力学模拟，完成“生成 + 评估”的闭环。</p>
+<p>这套流程如下图所示：</p>
+<p><img src="images/image-4.png" alt=""></p>
+<p><strong>Figure 3A</strong> 就是这套 pipeline 的完整图解。</p>
+<hr>
+<h3 id="41-起点一个已知的蛋白多肽复合结构">4.1 <strong>起点：一个已知的蛋白–多肽复合结构</strong></h3>
+<p><img src="images/image-5.png" alt=""></p>
+<p>设计从一个已有的复合物结构开始，比如一个蛋白和其天然结合的线性或环形肽。目标是优化这个肽的结合能力，通过用 <strong>非天然氨基酸替换肽中某些残基</strong> 来达成。</p>
+<hr>
+<h3 id="42-候选生成深度突变扫描">4.2 <strong>候选生成：深度“突变扫描”</strong></h3>
+<p><img src="images/image-6.png" alt=""></p>
+<p>这一步类似于 <strong>in silico deep mutational scanning</strong>，作者对每一个多肽残基做如下操作：</p>
+<ul>
+<li>
+<p>按照该残基的“parent amino acid”查找一组合成可行的 ncAA 候选；</p>
+</li>
+<li>
+<p>这些 ncAA 来自 WuXi AppTec 的商业库，经过 Fmoc 保护、可解析、并有已知结构；</p>
+</li>
+<li>
+<p>每个位点的候选数量从数个到数百不等（详见 Table S1）；</p>
+</li>
+<li>
+<p>对于每个候选，用 NCFlow 生成其嵌入 pocket 中的构象（采样 8 次，选出最优一个）。</p>
+</li>
+</ul>
+<p>到此为止，系统会生成 <strong>上千个蛋白–多肽–ncAA 三元复合体变体</strong>，每一个都具备原子级精度的结构。</p>
+<hr>
+<h3 id="43-三阶段打分系统精准筛选高亲和力变体">4.3 <strong>三阶段打分系统：精准筛选高亲和力变体</strong></h3>
+<p>由于这些突变体过多、合成成本高，作者设计了一个<strong>三重打分系统</strong>，用于筛选真正值得关注的变体。</p>
+<p><img src="images/image-7.png" alt=""></p>
+<h4 id="a-结构置信度过滤plddt"><strong>A.</strong> <strong>结构置信度过滤（pLDDT）</strong></h4>
+<ul>
+<li>
+<p>使用内建 confidence model 对生成结构进行打分；</p>
+</li>
+<li>
+<p>保留 pLDDT &gt; 90 的高置信构象；</p>
+</li>
+<li>
+<p>有效过滤掉模型结构不确定的噪声样本。</p>
+</li>
+</ul>
+<h4 id="b-深度学习亲和力打分aev-plig"><strong>B.</strong> <strong>深度学习亲和力打分（AEV-PLIG）</strong></h4>
+<ul>
+<li>
+<p>使用 AEV-PLIG 模型（训练于 PDBBind，支持非标准配体）预测 binding affinity（pKd）；</p>
+</li>
+<li>
+<p>计算 ∆pKd = (variant – wild-type)，保留提升型（∆pKd &gt; 0）；</p>
+</li>
+<li>
+<p>每个蛋白-肽体系选出 <strong>前50个变体</strong>。</p>
+</li>
+</ul>
+<h4 id="c-物理力学验证打分atm"><strong>C.</strong> <strong>物理力学验证打分（ATM）</strong></h4>
+<ul>
+<li>
+<p>为进一步确认，使用 <strong>Alchemical Transfer Method (ATM)</strong> 计算 ∆∆G；</p>
+</li>
+<li>
+<p>这是分子动力学（MD）下的相对结合自由能计算，可靠但计算量大；</p>
+</li>
+<li>
+<p>只用于 AEV-PLIG 前50个变体，做最后确认。</p>
+</li>
+</ul>
+<p><img src="images/image-11.png" alt=""></p>
+<h3 id="44-适用范围广泛线性肽环肽桥联肽均可处理">4.4 <strong>适用范围广泛：线性肽、环肽、桥联肽均可处理</strong></h3>
+<p>Figure 3B 展示了四种蛋白–多肽 test cases：</p>
+<ul>
+<li>
+<p><strong>1J7Z、1SSC</strong>：标准线性肽；</p>
+</li>
+<li>
+<p><strong>3AV9</strong>：N-C 头尾环化肽；</p>
+</li>
+<li>
+<p><strong>1SFI</strong>：双环结构（N-C 环化 + S-S 二硫键）。</p>
+</li>
+</ul>
+<p><img src="images/image-13.png" alt=""></p>
+<p>这说明 NCFlow 可应用于多种多肽构型设计场景，不局限于简单结构。</p>
+<hr>
+<h3 id="45-小结从生成到筛选一套系统的可扩展设计方法">4.5 <strong>小结：从生成到筛选，一套系统的可扩展设计方法</strong></h3>
+<p>通过这个设计流程，NCFlow 实现了：</p>
+<ul>
+<li>
+<p>每个位点–每个候选–每个蛋白复合体的高通量构象生成；</p>
+</li>
+<li>
+<p>结合学习型和物理型打分的筛选标准；</p>
+</li>
+<li>
+<p>输出结构合理、亲和力提升的非天然肽类变体。</p>
+</li>
+</ul>
+<p>更关键的是，该方法具有高度通用性和可扩展性，可以与已有蛋白设计工具整合使用。</p>
+<hr>
+<h2 id="5-实例解析非天然氨基酸如何提升结合力结构视角下的案例研究">5. <strong>实例解析：非天然氨基酸如何提升结合力？——结构视角下的案例研究</strong></h2>
+<p>NCFlow 不只是做高通量突变和打分，它还能输出<strong>结构上可解释的设计结果</strong>，这对于后续的优化与实验验证极为关键。</p>
+<p>在 <strong>Figure 4</strong> 中，作者展示了四个蛋白–多肽复合物中，几个最终筛选出的高亲和力变体。这些变体都满足以下条件：</p>
+<p><img src="images/image-9.png" alt=""></p>
+<ul>
+<li>
+<p>pLDDT &gt; 90（结构置信度高）；</p>
+</li>
+<li>
+<p>AEV-PLIG 预测 ∆pKd &gt; 0（深度模型认为亲和力提升）；</p>
+</li>
+<li>
+<p>ATM ∆∆G &lt; -1 kcal/mol（MD 模拟验证有物理意义上的亲和力增强）；</p>
+</li>
+<li>
+<p>且具备良好的手性与可合成性。</p>
+</li>
+</ul>
+<p>让我们逐个拆解这些设计：</p>
+<hr>
+<h3 id="51-case-1pdb-1j7z--ala6-位点突变提升溶剂相互作用">5.1 <strong>Case 1：PDB 1J7Z – ALA6 位点突变，提升溶剂相互作用</strong></h3>
+<p><img src="images/image-16.png" alt=""></p>
+<ul>
+<li>
+<p><strong>原始残基</strong>：ALA（小、疏水、无侧链功能基团）；</p>
+</li>
+<li>
+<p><strong>设计变体</strong>：引入一个含<strong>2-羟基-4-甲氧基苯甲醛基团</strong>的 ncAA；</p>
+</li>
+<li>
+<p><strong>结构效果</strong>：新侧链从主链伸出，带有极性氧官能团，可与周围溶剂形成额外的氢键网络。</p>
+</li>
+</ul>
+<p>🧠 <strong>功能推测</strong>：这种“溶剂外展型”变体可能在目标 pocket 边缘形成稳定性提升，尤其在 binding site 暴露区域有效。</p>
+<hr>
+<h3 id="52-case-2pdb-1ssc--phe120-位点突变形成多点-polar-polar-接触">5.2 <strong>Case 2：PDB 1SSC – PHE120 位点突变，形成多点 polar-polar 接触</strong></h3>
+<p><img src="images/image-19.png" alt=""></p>
+<ul>
+<li>
+<p><strong>变体 1</strong>：带 <strong>碘原子</strong>的侧链，可与附近 <strong>H12</strong> 残基形成极性接触；</p>
+</li>
+<li>
+<p><strong>变体 2</strong>：带 <strong>氯原子 + amidine 基团</strong>，同时插入至 <strong>T45, D83, S123</strong> 所构成的极性 pocket 中；</p>
+</li>
+<li>
+<p><strong>原始残基</strong>：PHE 为疏水芳香侧链，原无极性互作。</p>
+</li>
+</ul>
+<p>🧠 <strong>结构启发</strong>：通过引入带有卤素与可极化基团的 ncAA，增加与 pocket 中极性残基的定向相互作用，尤其可能形成氢键或卤键，有助于稳定结合界面。</p>
+<hr>
+<h3 id="53-case-3pdb-3av9--asp5-变体实现-ππ-stacking-增强">5.3 <strong>Case 3：PDB 3AV9 – ASP5 变体，实现 π–π stacking 增强</strong></h3>
+<p><img src="images/image-18.png" alt=""></p>
+<ul>
+<li>
+<p><strong>原始残基</strong>：ASP（小、负电）；</p>
+</li>
+<li>
+<p><strong>变体</strong>：带有一个芳香环结构，靠近 <strong>Y99</strong>（酪氨酸）；</p>
+</li>
+<li>
+<p><strong>结构效果</strong>：可能形成 face-to-face π–π 相互作用，显著增强疏水堆积与方向性结合。</p>
+</li>
+</ul>
+<p>🧠 <strong>化学直觉</strong>：π–π stacking 在蛋白-小分子或蛋白-肽结合中是常见的能量贡献点，但 canonical ASP 无法实现，通过替换为芳香型 ncAA 即可打开这一路径。</p>
+<hr>
+<h3 id="54-case-4pdb-3av9--ala2-位点变体提升溶剂暴露端的极性匹配">5.4 <strong>Case 4：PDB 3AV9 – ALA2 位点变体，提升溶剂暴露端的极性匹配</strong></h3>
+<p><img src="images/image-17.png" alt=""></p>
+<p><img src="images/image-15.png" alt=""></p>
+<ul>
+<li>
+<p><strong>变体</strong>：在侧链末端引入两个<strong>氟原子</strong>；</p>
+</li>
+<li>
+<p><strong>位置</strong>：靠近结合面外部的溶剂暴露区域；</p>
+</li>
+<li>
+<p><strong>结构功能</strong>：增强整体水溶性，同时避免 pocket 内部的排斥效应。</p>
+</li>
+</ul>
+<p>🧠 <strong>设计启示</strong>：并非所有变体都必须深入 pocket，有时优化表面电性与极性环境也能改善 binding enthalpy 与 entropy 贡献。</p>
+<hr>
+<h3 id="55-总结结构合理性是筛选好变体的核心">5.5 <strong>总结：结构合理性是筛选“好变体”的核心</strong></h3>
+<p>这些示例说明，NCFlow 的设计并非盲目筛选，它结合 pocket 空间约束、化学可行性与分子互作模式，生成出：</p>
+<ul>
+<li>
+<p><strong>可合成性强</strong>（来源于实际 ncAA 商业库）；</p>
+</li>
+<li>
+<p><strong>结构可信度高</strong>（pLDDT&gt;90）；</p>
+</li>
+<li>
+<p><strong>多通道增强 binding</strong>（溶剂互作、极性接触、堆叠作用）；</p>
+</li>
+<li>
+<p><strong>物理层面合理</strong>（∆∆G 显著负值）；</p>
+</li>
+</ul>
+<p>Figure 4 将 wild-type、预测构象、受体 pocket 与关键接触残基清晰可视化，非常有助于理解这些突变在物理空间中如何“发挥作用”。</p>
+<hr>
+<h2 id="6x20x20总结与展望从单点预测到通用多肽设计平台">6. <strong> 总结与展望：从单点预测到通用多肽设计平台</strong></h2>
+<p>本文所提出的 <strong>NCFlow</strong> 模型与设计流程，展示了一条<strong>系统性地将非天然氨基酸引入多肽设计</strong>的路径。这项工作不仅弥补了现有结构预测模型在处理 ncAA 时的盲区，更提出了一个<strong>可扩展、可解释、可验证</strong>的端到端设计范式。</p>
+<p>我们来回顾一下它的主要贡献：</p>
+<hr>
+<h3 id="61-核心贡献">6.1 <strong>核心贡献</strong></h3>
+<h4 id="-通用的构象生成能力"><strong>✅ 通用的构象生成能力</strong></h4>
+<ul>
+<li>
+<p>不依赖固定的20种氨基酸；</p>
+</li>
+<li>
+<p>接收任意原子结构（SMILES）作为输入；</p>
+</li>
+<li>
+<p>能泛化到 PDB 中<strong>从未见过的 ncAA</strong>。</p>
+</li>
+</ul>
+<h4 id="-结构质量可靠"><strong>✅ 结构质量可靠</strong></h4>
+<ul>
+<li>
+<p>平均 RMSD 优于 Boltz1/2 约 1.8Å；</p>
+</li>
+<li>
+<p>内置 confidence model 可提供 <strong>pLDDT-based uncertainty</strong>，用于过滤不可信样本。</p>
+</li>
+</ul>
+<h4 id="-多肽设计流程成体系"><strong>✅ 多肽设计流程成体系</strong></h4>
+<ul>
+<li>
+<p>结合 deep mutational scanning、AEV-PLIG 深度打分、ATM MD 模拟；</p>
+</li>
+<li>
+<p>自动生成并筛选结构合理、结合力增强的 peptide-ncAA 变体；</p>
+</li>
+<li>
+<p>适配线性、多环等不同肽构型。</p>
+</li>
+</ul>
+<h4 id="-可解释的结构输出"><strong>✅ 可解释的结构输出</strong></h4>
+<ul>
+<li>
+<p>Figure 4 的案例展示了变体如何通过溶剂相互作用、π堆叠或极性接触实现 binding affinity 提升；</p>
+</li>
+<li>
+<p>具有高度物理合理性，有望指导实验合成。</p>
+</li>
+</ul>
+<hr>
+<h3 id="62-当前的局限性">6.2 <strong>当前的局限性</strong></h3>
+<p>尽管 NCFlow 系统表现出色，论文也诚实地指出了目前面临的一些挑战：</p>
+<h4 id="-scoring-方法仍具有系统依赖性"><strong>⚠️ Scoring 方法仍具有系统依赖性</strong></h4>
+<ul>
+<li>
+<p>AEV-PLIG 和 ATM 的相关性在不同蛋白–肽体系中表现不一；</p>
+</li>
+<li>
+<p>某些体系中模型不敏感（例如 Mdm2–p53）。</p>
+</li>
+</ul>
+<h4 id="-长肽与多位点突变支持有限"><strong>⚠️ 长肽与多位点突变支持有限</strong></h4>
+<ul>
+<li>
+<p>ATM 在长肽（如 35aa PUMA）中计算容易 fail，采样不稳定；</p>
+</li>
+<li>
+<p>当前仅处理单点突变，多点组合突变的 combinatorial explosion 尚未解决。</p>
+</li>
+</ul>
+<h4 id="-ncaa-池仍受限"><strong>⚠️ ncAA 池仍受限</strong></h4>
+<ul>
+<li>
+<p>使用的 ncAA 来源于商业合成库，某些化学基团带保护性侧链，未必适用于功能增强；</p>
+</li>
+<li>
+<p>未来可考虑结合先验知识筛选更“功能驱动”的 ncAA 子集。</p>
+</li>
+</ul>
+<hr>
+<h3 id="63-未来的可能方向">6.3 <strong>未来的可能方向</strong></h3>
+<h4 id="-实验验证"><strong>🧪 实验验证</strong></h4>
+<ul>
+<li>
+<p>下一步关键是将 top 设计变体进行化学合成与 binding assay；</p>
+</li>
+<li>
+<p>验证 predicted ΔΔG 与真实 KD 的一致性，为模型闭环提供支撑。</p>
+</li>
+</ul>
+<h4 id="-多位点突变策略"><strong>🔄 多位点突变策略</strong></h4>
+<ul>
+<li>
+<p>引入 reinforcement learning 或 beam search 策略，探索 combinatorial ncAA 变体；</p>
+</li>
+<li>
+<p>搭配全肽级别的结构预测模型（如 AlphaFold3）做精细验证。</p>
+</li>
+</ul>
+<h4 id="-结构功能联合优化"><strong>🧠 结构–功能联合优化</strong></h4>
+<ul>
+<li>
+<p>当前仅优化 binding affinity，未来可联合优化稳定性、免疫原性、溶解度等药物属性；</p>
+</li>
+<li>
+<p>多目标设计框架是下一步突破方向。</p>
+</li>
+</ul>
+<hr>
+<h2 id="7-结语ncflow-是走向智能肽药设计的关键一步">7. <strong>结语：NCFlow 是走向“智能肽药设计”的关键一步</strong></h2>
+<p>这篇文章不仅提供了一个强有力的结构生成模型，更重要的是构建了<strong>一整套整合 AI 与分子模拟的工作流</strong>，为非天然肽类药物设计打开了一条实用路径。</p>
+<p>在 peptide therapeutics 越来越重要、合成与筛选成本居高不下的今天，NCFlow 提供的工具集，<strong>正是将“构想中的肽”变为“结构可控、功能可预”的现实候选药物的关键一步。</strong></p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/icml2025unimomo%E5%A4%9A%E8%82%BD%E5%B0%8F%E5%88%86%E5%AD%90%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%9F%E4%B8%80%E6%A1%86%E6%9E%B6/" class="link dim">
+                ICML 2025｜UniMoMo：多肽、小分子与抗体设计的统一生成框架
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/" class="link dim">
+                BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

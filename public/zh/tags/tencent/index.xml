@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tencent on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/tencent/</link>
+    <description>Recent content in Tencent on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 19 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/tencent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>腾讯提出 IgGM：一站式解决抗体设计难题</title>
+      <link>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</link>
+      <pubDate>Fri, 19 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E8%85%BE%E8%AE%AF%E6%8F%90%E5%87%BAiggm%E4%B8%80%E7%AB%99%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%8A%97%E4%BD%93%E8%AE%BE%E8%AE%A1%E9%9A%BE%E9%A2%98/</guid>
+      <description>腾讯 AI for Life Sciences Lab 提出生成式抗体基础模型 IgGM，首次将结构预测、逆向设计、亲和力成熟、人源化、框架区优化与 de novo 设计统一进单一模型框架。在 PD-L1、新冠 RBD、IL-33 等多个真实体系中完成体外实验验证，并成功设计出具备 nM–pM 级亲和力的全新抗体分子。</description>
+    </item>
+  </channel>
+</rss>

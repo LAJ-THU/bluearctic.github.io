@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证 | 蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/pepmlm/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/pepmlm/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证">
+  <meta property="og:description" content="深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+    <meta property="article:published_time" content="2025-08-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-20T00:00:00+00:00">
+    <meta property="article:tag" content="AI4S">
+    <meta property="article:tag" content="Peptide">
+    <meta property="article:tag" content="Binder">
+    <meta property="article:tag" content="Peptide Drug">
+    <meta property="article:tag" content="Protein Design">
+    <meta property="article:tag" content="De Novo Design">
+    <meta property="og:image" content="http://localhost:1313/zh/literature/pepmlm/cover.png">
+
+  <meta itemprop="name" content="Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证">
+  <meta itemprop="description" content="深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。">
+  <meta itemprop="datePublished" content="2025-08-20T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-08-20T00:00:00+00:00">
+  <meta itemprop="wordCount" content="349">
+  <meta itemprop="image" content="http://localhost:1313/zh/literature/pepmlm/cover.png">
+  <meta itemprop="keywords" content="PepMLM,peptide language model,sequence-based peptide design,masked language modeling,blind binder design,protein–peptide interaction,experimental validation,AI4S">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/zh/literature/pepmlm/cover.png">
+  <meta name="twitter:title" content="Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证">
+  <meta name="twitter:description" content="深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。">
+
+	
+<meta name="keywords" content="PepMLM, peptide language model, sequence-based peptide design, masked language modeling, blind binder design, protein–peptide interaction, experimental validation, AI4S">
+
+
+
+<meta name="description" content="深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。">
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  
+  
+  
+  <header class="cover bg-center" style="background-image: url('/zh/literature/pepmlm/cover.png');">
+    <div class="bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/search/" title="搜索 页">
+              搜索
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <div class="f2 f1-l fw2 white-90 mb0 lh-title">Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证</div>
+          
+            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              深度解读 Nature Biotechnology 工作 PepMLM：利用 masked language modeling 学习蛋白–肽配对语义，通过 PPL 评分实现高质量生成，并在癌症靶点、神经退行性疾病蛋白与病毒蛋白上完成体外与细胞层面的功能验证，展示出“序列即药物”的现实可行性。
+            </div>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证
+      </h1>
+
+      
+
+      
+      <time class="f6 mv4 dib tracked"
+            datetime="2025-08-20T00:00:00Z">
+        八月 20, 2025
+      </time>
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <blockquote>
+<p>蓝极说：</p>
+<p>在蛋白质设计的世界里，有一个长期存在的难题：<strong>很多致病蛋白没有稳定的三维结构</strong>，让药物分子无处下手。</p>
+<p>这类靶点被称作“难成药”蛋白，它们往往正是癌症、神经退行性疾病甚至新发病毒中的关键驱动因子。</p>
+<p>今天我要和大家分享的，是刚刚（2025.08.13）发表在 <em>Nature Biotechnology</em> 的一篇文章：</p>
+<p><strong>《Target sequence-conditioned design of peptide binders using masked language modeling》</strong>（靶标序列驱动的肽结合物设计）。</p>
+<p>这篇文章的亮点在于：</p>
+<ul>
+<li>
+<p>它提出了一种全新的思路：完全不依赖蛋白质结构，<strong>仅凭目标序列</strong>，就能设计出能与其结合的肽。</p>
+</li>
+<li>
+<p>作者把这种方法命名为 <strong>PepMLM</strong>，通过语言模型，让模型“读懂”蛋白的语言，然后自己补全出能结合的肽。</p>
+</li>
+<li>
+<p>更重要的是，这不只是理论模型：作者还在癌症、亨廷顿舞蹈症、以及高致死率病毒上做了实验验证，效果非常亮眼。</p>
+</li>
+</ul>
+<p>也就是说，这篇文章展示了一种可能改变药物研发范式的新方法：</p>
+<p><strong>从“结构驱动”到“序列驱动”，让蛋白质语言模型直接生成药物候选肽。</strong></p>
+</blockquote>
+<p><img src="/zh/literature/pepmlm/images/image-5.png" alt=""></p>
+<p>🔗原文链接：https://www.nature.com/articles/s41587-025-02761-2</p>
+<p>💻Github链接：https://github.com/programmablebio/pepmlm</p>
+<hr>
+<h2 id="一引言为什么这项工作重要"><strong>一、引言：为什么这项工作重要？</strong></h2>
+<p>在药物研发里，一个最关键的任务就是找到“结合物”——能牢牢黏住目标蛋白的小分子或者肽段。</p>
+<p>小分子药物在过去几十年里成就斐然，但它们往往只能作用于有明确口袋或者沟槽的蛋白。很多“难成药”（undruggable）的靶点，比如转录因子、融合蛋白，根本没有现成的结合口袋，这让设计有效药物非常困难。</p>
+<p>近年来，<strong>结构预测工具（如 AlphaFold）</strong> 的出现，为蛋白设计带来了巨大推动。基于结构的方法，比如 <strong>RFdiffusion</strong>，可以帮助设计新的结合蛋白。但问题是：</p>
+<p>👉 这些方法仍然过度依赖目标蛋白的三维结构。</p>
+<p>👉 而实际上，很多致病蛋白是<strong>无序的（disordered）</strong>，没有稳定结构可参考。</p>
+<p>于是，这篇文章的作者提出了一个很新颖的想法：</p>
+<blockquote>
+<p>能不能像自然语言处理那样，不依赖三维结构，只基于“蛋白质的语言”（序列），直接让模型去“写”出合适的结合肽？</p>
+</blockquote>
+<p>这就是 <strong>PepMLM</strong> 的核心：</p>
+<blockquote>
+<p>一个基于 <strong>语言模型的肽设计框架</strong>，只需要输入目标蛋白的序列，就能设计出与之结合的全新肽分子。</p>
+</blockquote>
+<p><img src="/zh/literature/pepmlm/images/image-6.png" alt=""></p>
+<hr>
+<h2 id="二方法亮点pepmlm是如何工作的"><strong>二、方法亮点：PepMLM是如何工作的？</strong></h2>
+<p>我们知道，语言模型的基本思路是——给它一个句子，把中间挖掉一些词，然后让模型去预测这些缺失的词。</p>
+<p>PepMLM 就是把这个思路搬到蛋白质世界：</p>
+<blockquote>
+<p>👉 输入：目标蛋白的氨基酸序列 + 一个被 <strong>mask</strong> 掉的肽段位置。</p>
+<p>👉 输出：模型预测的 <strong>结合肽序列</strong>。</p>
+</blockquote>
+<p>这样，模型就像在“补全句子”一样，学会如何生成能贴合目标蛋白的肽段。</p>
+<p><strong>核心指标：Perplexity (PPL)</strong></p>
+<ul>
+<li>
+<p>文章引入了一个关键概念——<strong>困惑度（perplexity, PPL）</strong>。</p>
+</li>
+<li>
+<p>简单理解：PPL 越低，说明模型对这个肽越“自信”，认为它越可能是真正的结合物。</p>
+</li>
+<li>
+<p>作者把 PepMLM 的生成结果和真实已知的结合肽做比较，发现两者的 PPL 分布几乎重叠，说明模型能很好地模仿真实结合模式。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image-3.png" alt=""></p>
+<ul>
+<li>
+<p><strong>Fig.1b</strong> 展示了不同方法生成肽的困惑度分布，可以看到 PepMLM 生成的肽分布（红色）几乎贴合真实肽（蓝色）。</p>
+</li>
+<li>
+<p><strong>Fig.1c</strong> 则进一步证明 PepMLM 能明显区分“真”结合肽和“随机肽”，而原始ESM-2模型和随机序列就做不到。</p>
+</li>
+</ul>
+<blockquote>
+<p>换句话说，PepMLM 学会了“哪些肽是合理的结合物，哪些只是噪声”。</p>
+</blockquote>
+<hr>
+<h2 id="三性能对比pepmlm-vs-现有方法"><strong>三、性能对比：PepMLM vs. 现有方法</strong></h2>
+<p>设计结合肽的挑战，不仅仅是“能生成”，更重要的是：</p>
+<blockquote>
+<p>👉 它是否真的能和目标蛋白牢固结合？</p>
+<p>👉 在和现有最强的结构驱动方法（比如 RFdiffusion）相比时，谁更强？</p>
+</blockquote>
+<p>作者用了一系列对比实验来回答这个问题。</p>
+<ol>
+<li><strong>PepMLM 的命中率更高</strong></li>
+</ol>
+<p>他们用 <strong>AlphaFold-Multimer</strong> 来预测 PepMLM 设计的肽是否能和目标蛋白稳定结合，并用 ipTM 分数来衡量结合可信度。</p>
+<p>结果显示：</p>
+<ul>
+<li>
+<p>PepMLM 的命中率达到 <strong>38%</strong>，而 RFdiffusion 只有 <strong>29%</strong>。</p>
+</li>
+<li>
+<p>如果进一步要求结合结构的可靠性更高（pLDDT &gt; 0.8），PepMLM 依然保持优势（49% vs. 34%）。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image-7.png" alt=""></p>
+<p><strong>Fig.1d</strong> 左右两图直接对比了 RFdiffusion 和 PepMLM 的命中率差异，直观展现了 PepMLM 的性能优势。</p>
+<hr>
+<ul>
+<li><strong>结合特异性验证</strong></li>
+</ul>
+<p>为了确认 PepMLM 并不是“随便匹配”，作者做了一个 permutation test（打乱配对测试）：</p>
+<ul>
+<li>
+<p>如果把设计的肽随机分配到错误的蛋白上，PPL 分数明显升高。</p>
+</li>
+<li>
+<p>说明 PepMLM 确实能识别“对的配对”，而不是生成一些泛化的粘性序列。</p>
+</li>
+</ul>
+<p><strong>Fig.1e</strong> 蓝色曲线（正确配对）和红色曲线（错误配对）差异显著（P &lt; 0.001），说明 PepMLM 生成的肽具备 <strong>特异性</strong>。</p>
+<hr>
+<ul>
+<li><strong>结构层面的对比</strong></li>
+</ul>
+<p>作者还选取了两个具体例子：</p>
+<ul>
+<li>
+<p><strong>小鼠 MHC 蛋白（PDB: 2OI9）</strong>：PepMLM 生成的肽虽然序列不同，但结合方式和已知肽几乎一致。</p>
+</li>
+<li>
+<p><strong>人类酪氨酸激酶（PDB: 1LCK）</strong>：PepMLM 生成的肽结合得甚至比已知肽更牢固（ipTM: 0.82 vs. 0.68）。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image-4.png" alt=""></p>
+<p><strong>Fig.1f</strong> 直观展示了实验肽（蓝色）和 PepMLM 生成肽（红色）在蛋白上的结合结构，非常接近，说明 PepMLM 真的“学会”了结合模式。</p>
+<hr>
+<p><strong>总结来看：</strong></p>
+<blockquote>
+<p>PepMLM 不仅在 <strong>量化指标（命中率、PPL）</strong> 上优于 RFdiffusion，还在 <strong>结构层面</strong> 展现出高度合理性。换句话说，它是一个 <strong>既懂统计分布，又能落地到空间结构</strong> 的方法。</p>
+</blockquote>
+<hr>
+<h2 id="四实验验证从序列到真实结合"><strong>四、实验验证：从序列到真实结合</strong></h2>
+<p>前面我们看到，PepMLM 在计算机模拟里表现很强。但科学界一向谨慎：</p>
+<p>💡 <strong>模拟再好，也要拿实验说话。</strong></p>
+<p>于是，作者在三个层面做了验证：<strong>癌症/生殖疾病 → 神经退行性疾病 → 病毒感染</strong>。</p>
+<hr>
+<ol>
+<li><strong>癌症与生殖疾病靶点</strong></li>
+</ol>
+<p>作者首先测试了两个重要的受体：</p>
+<ul>
+<li>
+<p><strong>NCAM1</strong>：急性髓系白血病（AML）的标志物。</p>
+</li>
+<li>
+<p><strong>AMHR2</strong>：多囊卵巢综合征（PCOS）相关的关键受体。</p>
+</li>
+</ul>
+<p>实验方法：ELISA（检测肽与蛋白结合能力）。</p>
+<p>结果：</p>
+<ul>
+<li>
+<p>PepMLM 生成的肽在 <strong>纳摩尔级浓度</strong> 就能检测到结合信号。</p>
+</li>
+<li>
+<p>与 RFdiffusion 相比，PepMLM 的成功率和信号都明显更高。</p>
+</li>
+<li>
+<p>而且这些肽不和 BSA 等无关蛋白结合，说明特异性强。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image.png" alt=""></p>
+<p><strong>Fig.2a–b</strong> 展示了 ELISA 曲线，黑色对照线几乎无信号，而 PepMLM 生成的肽能在低浓度下就拉开差距。</p>
+<hr>
+<ul>
+<li><strong>亨廷顿舞蹈症（Huntington’s disease）</strong></li>
+</ul>
+<p>这是一种因 <strong>Huntingtin 蛋白突变</strong> 引起的神经退行性疾病。</p>
+<p>作者尝试把 PepMLM 生成的肽融合到 <strong>uAb（合成泛素连接酶）</strong> 上，让它们去标记病变蛋白进行降解。</p>
+<p>实验结果：</p>
+<ul>
+<li>
+<p>PepMLM 生成的肽能有效结合并引导降解 <strong>MSH3</strong>（与疾病进展相关的蛋白）。</p>
+</li>
+<li>
+<p>更惊喜的是，它们还成功降解了突变的 <strong>Huntingtin 蛋白</strong>，在细胞里显著降低其水平。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image-2.png" alt=""></p>
+<p><strong>Fig.3b–d</strong> 的免疫荧光和 Western blot 清楚展示了：在诱导表达后，Huntingtin 蛋白水平明显下降，PepMLM 肽确实起了作用。</p>
+<hr>
+<ul>
+<li><strong>病毒蛋白降解</strong></li>
+</ul>
+<p>最后，作者把 PepMLM 用到 <strong>新发病毒</strong> 的关键蛋白上。</p>
+<p>选择的靶点是 <strong>病毒磷蛋白（P protein）</strong>，它在病毒复制里非常重要。</p>
+<p>测试的病毒包括：</p>
+<ul>
+<li>
+<p><strong>尼帕病毒（NiV）</strong></p>
+</li>
+<li>
+<p><strong>亨德拉病毒（HeV）</strong></p>
+</li>
+<li>
+<p><strong>人偏肺病毒（HMPV）</strong></p>
+</li>
+</ul>
+<p>实验结果：</p>
+<ul>
+<li>
+<p>PepMLM 生成的肽引导的 uAbs 能在细胞中显著降低病毒磷蛋白水平。</p>
+</li>
+<li>
+<p>特别是在 HMPV 感染实验里，免疫荧光成像显示病毒蛋白几乎被“清空”。</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pepmlm/images/image-1.png" alt=""></p>
+<p><strong>Fig.4a–d</strong> 展示了 Western blot 的条带和免疫荧光图，绿色信号（病毒蛋白）在 PepMLM 处理组里明显减弱甚至消失。</p>
+<hr>
+<p><strong>小结</strong></p>
+<p>通过 <strong>体外结合实验</strong>、<strong>细胞蛋白降解实验</strong>，再到 <strong>病毒感染实验</strong>，作者证明了：</p>
+<blockquote>
+<p>👉 PepMLM 生成的肽不仅能“理论上结合”，而且能在真实的生物系统里 <strong>高效、特异性地结合并调控目标蛋白</strong>。</p>
+</blockquote>
+<p>这一步让 PepMLM 从“一个AI算法”真正跨入了“潜在药物研发工具”的行列。</p>
+<hr>
+<h2 id="五意义与展望"><strong>五、意义与展望</strong></h2>
+<p>通过前面的实验可以看到，<strong>PepMLM 的价值远不止“能生成肽”</strong>。它实际上开辟了一条全新的药物设计路径：</p>
+<ol>
+<li><strong>从“结构驱动”到“序列驱动”</strong></li>
+</ol>
+<p>过去的蛋白设计方法往往依赖 <strong>三维结构</strong>，比如用 AlphaFold 预测结构，再基于结构建模结合位点。</p>
+<p>但 PepMLM 证明了：</p>
+<blockquote>
+<p>👉 <strong>仅仅依赖目标序列</strong>，模型也能学会生成合理的结合肽。</p>
+</blockquote>
+<p>这让很多缺乏稳定结构的“难成药”靶点变得可攻击，比如转录因子、无序蛋白等。</p>
+<hr>
+<ul>
+<li><strong>应用范围的广阔性</strong></li>
+</ul>
+<p>文章已经展示了几个应用方向：</p>
+<ul>
+<li>
+<p><strong>肿瘤标志物与生殖疾病靶点</strong>（NCAM1、AMHR2）；</p>
+</li>
+<li>
+<p><strong>神经退行性疾病</strong>（亨廷顿舞蹈症相关蛋白 MSH3、突变 Huntingtin）；</p>
+</li>
+<li>
+<p><strong>新发病毒的关键蛋白</strong>（尼帕、亨德拉、人偏肺病毒的磷蛋白）。</p>
+</li>
+</ul>
+<p>未来，任何只要知道序列的蛋白，都可能成为 PepMLM 的设计对象。</p>
+<p>换句话说：它为 <strong>“通用的、序列驱动的结合肽生成器”</strong> 奠定了基础。</p>
+<hr>
+<ul>
+<li><strong>对药物研发的启发</strong></li>
+</ul>
+<p>PepMLM 不仅能生成肽，还能作为 <strong>降解剂（uAb 引导）</strong> 的模块，帮助特异性地清除致病蛋白。</p>
+<p>这意味着：</p>
+<ul>
+<li>
+<p>在癌症治疗中，它可以针对耐药蛋白或异常活化的通路蛋白。</p>
+</li>
+<li>
+<p>在神经疾病中，它能靶向难以用小分子抑制的聚集蛋白。</p>
+</li>
+<li>
+<p>在传染病中，它能快速响应新发病毒，直接从序列出发设计抗病毒肽。</p>
+</li>
+</ul>
+<p>未来，随着模型与实验闭环（比如高通量验证结合 AI 优化），PepMLM 有潜力成为一个 <strong>“CRISPR for proteins”</strong> ——像 CRISPR 对 DNA 那样，让研究者可以<strong>编程化地控制蛋白质的命运</strong>。</p>
+<hr>
+<ul>
+<li><strong>展望</strong></li>
+</ul>
+<p>作者也提到了一些后续改进方向：</p>
+<ul>
+<li>
+<p>加入 <strong>修饰信息</strong>（比如翻译后修饰、变体信息），让设计更贴近真实生物环境；</p>
+</li>
+<li>
+<p>结合 <strong>环化、stapling</strong> 等肽修饰策略，提高药物稳定性；</p>
+</li>
+<li>
+<p>与 <strong>高通量实验平台</strong> 联合，形成“AI-实验反馈”的闭环，加速优化。</p>
+</li>
+</ul>
+<p>这些方向意味着，PepMLM 不仅是一个科研工具，还可能成长为 <strong>药企和合成生物学公司实际可用的平台</strong>。</p>
+<hr>
+<p><strong>小结</strong></p>
+<p>PepMLM 的最大意义在于，它证明了：</p>
+<blockquote>
+<p>👉 <strong>理解蛋白质的“语言”就足以设计结合分子</strong>。</p>
+</blockquote>
+<p>这是一个从语言建模走向药物研发的新范式。</p>
+<p>它让我们看到，未来针对癌症、神经疾病乃至新发传染病，我们可能不再被“结构限制”，而是可以直接从序列出发，快速获得潜在药物候选。</p>
+<hr>
+<h2 id="六总结"><strong>六、总结</strong></h2>
+<p>在这篇文章中，作者提出了 <strong>PepMLM</strong> ——一个基于语言模型的靶标序列驱动肽设计方法。</p>
+<p>它的亮点在于：</p>
+<ul>
+<li>
+<p><strong>只需序列，无需结构</strong>，也能生成特异性的结合肽；</p>
+</li>
+<li>
+<p>在 <strong>体外实验和细胞实验</strong> 中都表现优异，能有效结合甚至降解疾病相关蛋白；</p>
+</li>
+<li>
+<p>应用范围跨越 <strong>癌症、神经退行性疾病到病毒感染</strong>，展示出通用性和前景。</p>
+</li>
+</ul>
+<p>如果说以往的药物设计像是在黑暗中摸索结构口袋，那么 PepMLM 更像是直接“读懂”了蛋白质的语言，从语言中生发出结合策略。</p>
+<blockquote>
+<p>它的意义不止在科研层面，更可能成为未来 <strong>药物研发的新范式</strong> ——一个真正的“序列即药物”平台。</p>
+</blockquote>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+          <a href="https://mp.weixin.qq.com/s/0xE6x3USQ8JbQ4GNrvykYw"
+             target="_blank"
+             rel="noopener"
+             class="ba b--dark-green bg-washed-green br2 dark-green dib f7 hover-bg-light-green link ph3 pv2">
+            去公众号阅读完整版 →
+          </a>
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/" class="link dim">
+                结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+   <li class="list di">
+     <a href="/zh/tags/ai4s/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">AI4S</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/peptide/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Peptide</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/binder/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Binder</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/peptide-drug/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Peptide Drug</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/protein-design/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Protein Design</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/de-novo-design/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">De Novo Design</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/language-model/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Language Model</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/nature-biotechnology/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Nature Biotechnology</a>
+   </li>
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

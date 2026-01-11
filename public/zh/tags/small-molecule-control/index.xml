@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Small Molecule Control on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/small-molecule-control/</link>
+    <description>Recent content in Small Molecule Control on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 02 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/small-molecule-control/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Science｜从头设计可被小分子“遥控”的动态蛋白</title>
+      <link>http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/</link>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/</guid>
+      <description>西湖大学曹龙兴团队在 Science 报道一种从头设计的“动态蛋白系统”，可在两种构象状态间稳定切换，并通过口服小分子实现对蛋白组装与解体的精准遥控。该系统不仅在体外成立，还在细胞与小鼠体内实现稳定、可逆、低漏启动的功能调控。</description>
+    </item>
+  </channel>
+</rss>

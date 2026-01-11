@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Open Source on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/open-source/</link>
+    <description>Recent content in Open Source on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 04 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型</title>
+      <link>http://localhost:1313/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/</link>
+      <pubDate>Thu, 04 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/</guid>
+      <description>RFdiffusion3（RFD3）正式开源，首次实现原子级扩散建模的通用分子生成框架，可统一支持蛋白–蛋白、蛋白–DNA、蛋白–小分子与酶设计等多类任务，在速度上较 RFD2 提升约 10 倍，并在多个真实设计任务中取得实验验证结果。</description>
+    </item>
+  </channel>
+</rss>

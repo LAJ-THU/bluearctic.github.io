@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+蓝极说：
+今天要分享的是百奥几何(Biogeometry)团队最近发布的技术报告《Rapid De Novo Antibody Design with GeoFlow-V3》。
+
+为什么要介绍这篇文章呢？
+
+
+在技术方面。百奥几何团队首次将多步推理引入蛋白质设计，让模型具备“自我评估、自主进化”的能力
+
+
+在效果方面。他们在多个靶点、指定表位的从头设计任务中做了测试，只需测试数十条序列即可找到 nM 级的 binder 分子，平均湿实验验证命中率达到 15.5%
+
+
+
+
+免费试用 GeoFlow V3：https://prot.design
+
+
+GeoFlow V3 技术报告：https://prot.design/report
+
+
+
+
+一、引言——从“生成结构”到“推理设计”
+在过去几年中，基于深度学习的蛋白质结构预测取得了显著突破，AlphaFold、RoseTTAFold 等模型几乎解决了“如何预测蛋白结构”的问题。然而，在蛋白质设计，尤其是抗体从头设计（de novo antibody design）领域，真正高效、可靠的计算框架仍然稀缺。
+抗体–抗原界面的复杂性、CDR 区域的高度柔性、以及传统方法对实验筛选的高度依赖，使得抗体设计长期停留在“低命中率、高实验负担”的阶段。传统 pipeline 往往需要从数百万序列中进行筛选，才能在数月后找到少量活性分子。
+GeoFlow-V3 的提出，改变了这一范式。
+GeoFlow-V3 构建于百奥几何团队半年前发布的全原子蛋白大模型 GeoFlow-V2 之上。V2 是首个在统一框架下同时实现蛋白质结构预测与从头设计（de novo design）的原子级模型，并已在多种蛋白设计与改造任务中展现出卓越的通用性。
+在此基础上，GeoFlow-V3 进一步引入了扩散模型（diffusion model）机制，发展为一个统一的原子级扩散生成框架（atomic diffusion model），能够在原子尺度上同时执行高精度结构预测与序列生成设计。
+更为关键的是，GeoFlow-V3 首次在蛋白设计中引入了多步推理（multi-step reasoning）与自我进化（in silico evolution）机制，使模型具备类似免疫系统“亲和力成熟”的能力：
+通过自我评估与迭代再设计，模型可在虚拟空间中持续优化候选分子，逐步收敛至更优的结合构象。
+
+配图（Figure 1）展示了这种新范式的闭环流程：从指定表位（epitope）出发，GeoFlow-V3 首先生成针对该表位的候选抗体，然后在虚拟环境中模拟结合与进化，最终仅需筛选几十个候选序列，即可在三周内获得经过湿实验验证的 nM 级结合分子。
+这一“从表位到验证”的闭环能力，是 GeoFlow-V3 相比所有前代模型最具颠覆性的特征。
+
+二、核心机制——让模型“思考”与“进化”
+GeoFlow-V3 的技术核心在于，它并非一次性生成抗体序列，而是引入了类似生物体“亲和力成熟（affinity maturation）”的多步推理框架，使模型具备了“自我优化”的能力。
+1. 从“生成–筛选”到“生成–评估–再设计”的跃迁
+此前几代设计模型（包括 GeoFlow-V2、RFdiffusion、Chai 系列等）多采用单轮的生成与过滤策略：模型生成一批候选序列，计算预测其与目标的结合能或结构置信度，再从中筛选得分最高者。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="蓝极">
+  <meta property="og:description" content="蓝极说：
+今天要分享的是百奥几何(Biogeometry)团队最近发布的技术报告《Rapid De Novo Antibody Design with GeoFlow-V3》。
+为什么要介绍这篇文章呢？
+在技术方面。百奥几何团队首次将多步推理引入蛋白质设计，让模型具备“自我评估、自主进化”的能力
+在效果方面。他们在多个靶点、指定表位的从头设计任务中做了测试，只需测试数十条序列即可找到 nM 级的 binder 分子，平均湿实验验证命中率达到 15.5%
+免费试用 GeoFlow V3：https://prot.design
+GeoFlow V3 技术报告：https://prot.design/report
+一、引言——从“生成结构”到“推理设计” 在过去几年中，基于深度学习的蛋白质结构预测取得了显著突破，AlphaFold、RoseTTAFold 等模型几乎解决了“如何预测蛋白结构”的问题。然而，在蛋白质设计，尤其是抗体从头设计（de novo antibody design）领域，真正高效、可靠的计算框架仍然稀缺。
+抗体–抗原界面的复杂性、CDR 区域的高度柔性、以及传统方法对实验筛选的高度依赖，使得抗体设计长期停留在“低命中率、高实验负担”的阶段。传统 pipeline 往往需要从数百万序列中进行筛选，才能在数月后找到少量活性分子。
+GeoFlow-V3 的提出，改变了这一范式。
+GeoFlow-V3 构建于百奥几何团队半年前发布的全原子蛋白大模型 GeoFlow-V2 之上。V2 是首个在统一框架下同时实现蛋白质结构预测与从头设计（de novo design）的原子级模型，并已在多种蛋白设计与改造任务中展现出卓越的通用性。
+在此基础上，GeoFlow-V3 进一步引入了扩散模型（diffusion model）机制，发展为一个统一的原子级扩散生成框架（atomic diffusion model），能够在原子尺度上同时执行高精度结构预测与序列生成设计。
+更为关键的是，GeoFlow-V3 首次在蛋白设计中引入了多步推理（multi-step reasoning）与自我进化（in silico evolution）机制，使模型具备类似免疫系统“亲和力成熟”的能力：
+通过自我评估与迭代再设计，模型可在虚拟空间中持续优化候选分子，逐步收敛至更优的结合构象。
+配图（Figure 1）展示了这种新范式的闭环流程：从指定表位（epitope）出发，GeoFlow-V3 首先生成针对该表位的候选抗体，然后在虚拟环境中模拟结合与进化，最终仅需筛选几十个候选序列，即可在三周内获得经过湿实验验证的 nM 级结合分子。
+这一“从表位到验证”的闭环能力，是 GeoFlow-V3 相比所有前代模型最具颠覆性的特征。
+二、核心机制——让模型“思考”与“进化” GeoFlow-V3 的技术核心在于，它并非一次性生成抗体序列，而是引入了类似生物体“亲和力成熟（affinity maturation）”的多步推理框架，使模型具备了“自我优化”的能力。
+1. 从“生成–筛选”到“生成–评估–再设计”的跃迁 此前几代设计模型（包括 GeoFlow-V2、RFdiffusion、Chai 系列等）多采用单轮的生成与过滤策略：模型生成一批候选序列，计算预测其与目标的结合能或结构置信度，再从中筛选得分最高者。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+
+  <meta itemprop="name" content="蓝极">
+  <meta itemprop="description" content="蓝极说：
+今天要分享的是百奥几何(Biogeometry)团队最近发布的技术报告《Rapid De Novo Antibody Design with GeoFlow-V3》。
+为什么要介绍这篇文章呢？
+在技术方面。百奥几何团队首次将多步推理引入蛋白质设计，让模型具备“自我评估、自主进化”的能力
+在效果方面。他们在多个靶点、指定表位的从头设计任务中做了测试，只需测试数十条序列即可找到 nM 级的 binder 分子，平均湿实验验证命中率达到 15.5%
+免费试用 GeoFlow V3：https://prot.design
+GeoFlow V3 技术报告：https://prot.design/report
+一、引言——从“生成结构”到“推理设计” 在过去几年中，基于深度学习的蛋白质结构预测取得了显著突破，AlphaFold、RoseTTAFold 等模型几乎解决了“如何预测蛋白结构”的问题。然而，在蛋白质设计，尤其是抗体从头设计（de novo antibody design）领域，真正高效、可靠的计算框架仍然稀缺。
+抗体–抗原界面的复杂性、CDR 区域的高度柔性、以及传统方法对实验筛选的高度依赖，使得抗体设计长期停留在“低命中率、高实验负担”的阶段。传统 pipeline 往往需要从数百万序列中进行筛选，才能在数月后找到少量活性分子。
+GeoFlow-V3 的提出，改变了这一范式。
+GeoFlow-V3 构建于百奥几何团队半年前发布的全原子蛋白大模型 GeoFlow-V2 之上。V2 是首个在统一框架下同时实现蛋白质结构预测与从头设计（de novo design）的原子级模型，并已在多种蛋白设计与改造任务中展现出卓越的通用性。
+在此基础上，GeoFlow-V3 进一步引入了扩散模型（diffusion model）机制，发展为一个统一的原子级扩散生成框架（atomic diffusion model），能够在原子尺度上同时执行高精度结构预测与序列生成设计。
+更为关键的是，GeoFlow-V3 首次在蛋白设计中引入了多步推理（multi-step reasoning）与自我进化（in silico evolution）机制，使模型具备类似免疫系统“亲和力成熟”的能力：
+通过自我评估与迭代再设计，模型可在虚拟空间中持续优化候选分子，逐步收敛至更优的结合构象。
+配图（Figure 1）展示了这种新范式的闭环流程：从指定表位（epitope）出发，GeoFlow-V3 首先生成针对该表位的候选抗体，然后在虚拟环境中模拟结合与进化，最终仅需筛选几十个候选序列，即可在三周内获得经过湿实验验证的 nM 级结合分子。
+这一“从表位到验证”的闭环能力，是 GeoFlow-V3 相比所有前代模型最具颠覆性的特征。
+二、核心机制——让模型“思考”与“进化” GeoFlow-V3 的技术核心在于，它并非一次性生成抗体序列，而是引入了类似生物体“亲和力成熟（affinity maturation）”的多步推理框架，使模型具备了“自我优化”的能力。
+1. 从“生成–筛选”到“生成–评估–再设计”的跃迁 此前几代设计模型（包括 GeoFlow-V2、RFdiffusion、Chai 系列等）多采用单轮的生成与过滤策略：模型生成一批候选序列，计算预测其与目标的结合能或结构置信度，再从中筛选得分最高者。">
+  <meta itemprop="wordCount" content="440">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="蓝极">
+  <meta name="twitter:description" content="蓝极说：
+今天要分享的是百奥几何(Biogeometry)团队最近发布的技术报告《Rapid De Novo Antibody Design with GeoFlow-V3》。
+为什么要介绍这篇文章呢？
+在技术方面。百奥几何团队首次将多步推理引入蛋白质设计，让模型具备“自我评估、自主进化”的能力
+在效果方面。他们在多个靶点、指定表位的从头设计任务中做了测试，只需测试数十条序列即可找到 nM 级的 binder 分子，平均湿实验验证命中率达到 15.5%
+免费试用 GeoFlow V3：https://prot.design
+GeoFlow V3 技术报告：https://prot.design/report
+一、引言——从“生成结构”到“推理设计” 在过去几年中，基于深度学习的蛋白质结构预测取得了显著突破，AlphaFold、RoseTTAFold 等模型几乎解决了“如何预测蛋白结构”的问题。然而，在蛋白质设计，尤其是抗体从头设计（de novo antibody design）领域，真正高效、可靠的计算框架仍然稀缺。
+抗体–抗原界面的复杂性、CDR 区域的高度柔性、以及传统方法对实验筛选的高度依赖，使得抗体设计长期停留在“低命中率、高实验负担”的阶段。传统 pipeline 往往需要从数百万序列中进行筛选，才能在数月后找到少量活性分子。
+GeoFlow-V3 的提出，改变了这一范式。
+GeoFlow-V3 构建于百奥几何团队半年前发布的全原子蛋白大模型 GeoFlow-V2 之上。V2 是首个在统一框架下同时实现蛋白质结构预测与从头设计（de novo design）的原子级模型，并已在多种蛋白设计与改造任务中展现出卓越的通用性。
+在此基础上，GeoFlow-V3 进一步引入了扩散模型（diffusion model）机制，发展为一个统一的原子级扩散生成框架（atomic diffusion model），能够在原子尺度上同时执行高精度结构预测与序列生成设计。
+更为关键的是，GeoFlow-V3 首次在蛋白设计中引入了多步推理（multi-step reasoning）与自我进化（in silico evolution）机制，使模型具备类似免疫系统“亲和力成熟”的能力：
+通过自我评估与迭代再设计，模型可在虚拟空间中持续优化候选分子，逐步收敛至更优的结合构象。
+配图（Figure 1）展示了这种新范式的闭环流程：从指定表位（epitope）出发，GeoFlow-V3 首先生成针对该表位的候选抗体，然后在虚拟环境中模拟结合与进化，最终仅需筛选几十个候选序列，即可在三周内获得经过湿实验验证的 nM 级结合分子。
+这一“从表位到验证”的闭环能力，是 GeoFlow-V3 相比所有前代模型最具颠覆性的特征。
+二、核心机制——让模型“思考”与“进化” GeoFlow-V3 的技术核心在于，它并非一次性生成抗体序列，而是引入了类似生物体“亲和力成熟（affinity maturation）”的多步推理框架，使模型具备了“自我优化”的能力。
+1. 从“生成–筛选”到“生成–评估–再设计”的跃迁 此前几代设计模型（包括 GeoFlow-V2、RFdiffusion、Chai 系列等）多采用单轮的生成与过滤策略：模型生成一批候选序列，计算预测其与目标的结合能或结构置信度，再从中筛选得分最高者。">
+
+	
+
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        
+      </h1>
+
+      
+
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <blockquote>
+<p>蓝极说：</p>
+<p>今天要分享的是百奥几何(Biogeometry)团队最近发布的技术报告<strong>《Rapid De Novo Antibody Design with GeoFlow-V3》</strong>。</p>
+<p><img src="images/image-5.png" alt=""></p>
+<p>为什么要介绍这篇文章呢？</p>
+<ol>
+<li>
+<p>在技术方面。百奥几何团队首次将多步推理引入蛋白质设计，让模型具备“自我评估、自主进化”的能力</p>
+</li>
+<li>
+<p>在效果方面。他们在多个靶点、指定表位的从头设计任务中做了测试，只需测试数十条序列即可找到 nM 级的 binder 分子，平均湿实验验证命中率达到 15.5%</p>
+</li>
+</ol>
+<ul>
+<li>
+<p><strong>免费试用 GeoFlow V3：</strong>https://prot.design</p>
+</li>
+<li>
+<p><strong>GeoFlow V3 技术报告：</strong>https://prot.design/report</p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="一引言从生成结构到推理设计"><strong>一、引言——从“生成结构”到“推理设计”</strong></h3>
+<p>在过去几年中，基于深度学习的蛋白质结构预测取得了显著突破，AlphaFold、RoseTTAFold 等模型几乎解决了“如何预测蛋白结构”的问题。然而，在蛋白质设计，尤其是<strong>抗体从头设计（de novo antibody design）</strong>领域，真正高效、可靠的计算框架仍然稀缺。</p>
+<p>抗体–抗原界面的复杂性、CDR 区域的高度柔性、以及传统方法对实验筛选的高度依赖，使得抗体设计长期停留在“低命中率、高实验负担”的阶段。传统 pipeline 往往需要从数百万序列中进行筛选，才能在数月后找到少量活性分子。</p>
+<p><strong>GeoFlow-V3 的提出，改变了这一范式。</strong></p>
+<p>GeoFlow-V3 构建于百奥几何团队半年前发布的全原子蛋白大模型 <strong>GeoFlow-V2</strong> 之上。V2 是首个在统一框架下同时实现<strong>蛋白质结构预测与从头设计（de novo design）的原子级模型，并已在多种蛋白设计与改造任务中展现出卓越的通用性。</strong></p>
+<p><strong>在此基础上，GeoFlow-V3 进一步引入了扩散模型（diffusion model）机制，发展为一个统一的原子级扩散生成框架（atomic diffusion model）</strong>，能够在原子尺度上同时执行高精度结构预测与序列生成设计。</p>
+<p>更为关键的是，GeoFlow-V3 首次在蛋白设计中引入了<strong>多步推理（multi-step reasoning）与自我进化（in silico evolution）</strong>机制，使模型具备类似免疫系统“亲和力成熟”的能力：</p>
+<p>通过自我评估与迭代再设计，模型可在虚拟空间中持续优化候选分子，逐步收敛至更优的结合构象。</p>
+<p><img src="images/image-7.png" alt=""></p>
+<p>配图（Figure 1）展示了这种新范式的闭环流程：从指定表位（epitope）出发，GeoFlow-V3 首先生成针对该表位的候选抗体，然后在虚拟环境中模拟结合与进化，最终仅需筛选几十个候选序列，即可在三周内获得经过湿实验验证的 nM 级结合分子。</p>
+<p>这一“从表位到验证”的闭环能力，是 GeoFlow-V3 相比所有前代模型最具颠覆性的特征。</p>
+<hr>
+<h3 id="二核心机制让模型思考与进化"><strong>二、核心机制——让模型“思考”与“进化”</strong></h3>
+<p>GeoFlow-V3 的技术核心在于，它并非一次性生成抗体序列，而是引入了类似生物体“亲和力成熟（affinity maturation）”的多步推理框架，使模型具备了“自我优化”的能力。</p>
+<h4 id="1-从生成筛选到生成评估再设计的跃迁">1. <strong>从“生成–筛选”到“生成–评估–再设计”的跃迁</strong></h4>
+<p>此前几代设计模型（包括 GeoFlow-V2、RFdiffusion、Chai 系列等）多采用单轮的生成与过滤策略：模型生成一批候选序列，计算预测其与目标的结合能或结构置信度，再从中筛选得分最高者。</p>
+<p>这一流程虽然高效，但有两个显著局限：</p>
+<ul>
+<li>
+<p><strong>一次性决策，缺乏反馈闭环</strong>：生成过程无法利用评估结果进行再优化；</p>
+</li>
+<li>
+<p><strong>易陷局部最优</strong>：模型往往在首轮采样中受限于初始表位定义或结构噪声。</p>
+</li>
+</ul>
+<p>GeoFlow-V3 的突破在于，它引入了<strong>多轮 in silico evolution</strong>策略——一种“虚拟的抗体进化”。如 Figure 2 所示，模型首先根据指定表位生成初始候选（Initial candidates），然后依据内部置信度（confidence score）进行自我评估，自动识别结构或序列中“低置信”区域，特别是 CDR 区域中潜在的亚最优残基。</p>
+<p><img src="images/image-3.png" alt=""></p>
+<p>在下一轮中，GeoFlow-V3 会部分重设计这些区域（Partial redesign），并重新运行扩散过程（reverse denoising steps）。这种过程可以看作是在结构空间中“反复试探”，逐步将抗体引导至更高置信度的结合状态。</p>
+<h4 id="2-模拟免疫进化的推理式生成">2. <strong>模拟“免疫进化”的推理式生成</strong></h4>
+<p>这一设计逻辑高度借鉴了自然免疫系统的机制：</p>
+<p>V(D)J 重组、体细胞高变与亲和力成熟共同塑造了抗体库的多样性与高特异性。</p>
+<p>GeoFlow-V3 在算法层面复现了这种迭代式进化，但以完全计算的方式完成。</p>
+<p>模型在每一轮推理中都进行两类更新：</p>
+<ul>
+<li>
+<p><strong>结构层面</strong>：通过部分反扩散（35–45% diffusion steps）微调局部构象，使其更符合抗原表面几何约束；</p>
+</li>
+<li>
+<p><strong>序列层面</strong>：基于 residue-level 的预测误差指标（CDR-ipAE）筛选低置信残基，执行局部重设计。</p>
+</li>
+</ul>
+<p>多轮推理之后，GeoFlow-V3 能在高维的序列–结构空间中持续逼近更优能量构象，实现真正意义上的“自我进化”。</p>
+<h4 id="3-技术意义">3. <strong>技术意义</strong></h4>
+<p>这一机制带来了两个深远影响：</p>
+<ul>
+<li>
+<p><strong>模型具备“推理”能力</strong>：它不再被动输出，而能根据内部不确定性主动调整策略；</p>
+</li>
+<li>
+<p><strong>大幅提升设计成功率</strong>：即使在噪声较大的表位输入下，模型仍能通过多轮演化得到高置信度候选。</p>
+</li>
+</ul>
+<p>简言之，GeoFlow-V3 使蛋白质设计模型从“生成器”升级为“推理系统”，这不仅是算法层的突破，更是 AI 蛋白设计范式的一次质变。</p>
+<hr>
+<h3 id="三性能验证从高精度结构到自我置信判断"><strong>三、性能验证——从高精度结构到自我置信判断</strong></h3>
+<p>GeoFlow-V3 的核心理念之一是：<strong>结构预测质量决定设计成功率。</strong></p>
+<p>因此，团队首先在低同源抗体–抗原复合物数据集上系统评估了模型的结构预测能力与置信度判别性能。结果显示，GeoFlow-V3 不仅在 DockQ 精度上达到当前最优，还首次证明了“模型自信度”可以可靠地映射至真实结合正确性。</p>
+<hr>
+<h4 id="1-结构预测精度更高的-dockq更可靠的结构">1. <strong>结构预测精度：更高的 DockQ，更可靠的结构</strong></h4>
+<p>在 104 个低同源抗体–抗原复合物上，GeoFlow-V3 相比前代版本 GeoFlow-V2 实现了显著性能跃升：</p>
+<ul>
+<li>
+<p><strong>高质量（High DockQ ≥ 0.8）预测成功率提升 45%（Top-1）</strong>，</p>
+</li>
+<li>
+<p><strong>中等精度预测成功率提升约 18%（Top-10）</strong>。</p>
+</li>
+</ul>
+<p><img src="images/image-4.png" alt=""></p>
+<p>这意味着 GeoFlow-V3 能更精确地重现抗体–抗原界面原子排列，达到亚埃级（sub-angstrom）对接精度。</p>
+<p>值得注意的是，GeoFlow-V3 的高 DockQ 命中率（Top-1 达 15.4%，Top-10 达 19.2%）在同类模型中居领先地位，<strong>成为 de novo 设计能力的重要前置指标</strong>。</p>
+<p>研究团队甚至提出一个经验规律：高 DockQ 成功率可作为蛋白设计模型实际设计能力的量化 proxy——因为能准确重建真实复合体结构的模型，更有可能生成真实结合的序列。</p>
+<hr>
+<h4 id="2-约束引导机制结合结构与表位信息的精细控制">2. <strong>约束引导机制：结合结构与表位信息的精细控制</strong></h4>
+<p><img src="images/image-6.png" alt=""></p>
+<p>Figure 3B 展示了 GeoFlow-V3 在不同推理约束条件下的结构预测表现。结果表明：</p>
+<ul>
+<li>
+<p>当提供<strong>多点表位约束（four-epitope constraints）</strong>时，DockQ 成功率显著提升，说明模型能准确遵循设计热点（hotspot）；</p>
+</li>
+<li>
+<p>当结合<strong>全构抗原约束（holo-antigen conditioning）</strong>时，高精度（High DockQ &gt; 0.8）预测率提升最明显；</p>
+</li>
+<li>
+<p>两者结合时表现最佳，Top-1 高质量成功率达到 <strong>44.2%</strong>，Top-10 达 <strong>57.7%</strong>，为当前所有抗体–抗原结构预测模型中最高水平。</p>
+</li>
+</ul>
+<p>这表明 GeoFlow-V3 不仅能“盲目生成”，还能在获得局部或整体实验信息时，实现真正意义上的<strong>可控生成（controllable generative design）</strong>。</p>
+<p>这一能力对于靶点导向型抗体优化、复杂抗原多位点结合等任务尤为关键。</p>
+<hr>
+<h4 id="3-置信度与真实性模型的自我判断能力">3. <strong>置信度与真实性：模型的“自我判断”能力</strong></h4>
+<p><img src="images/image.png" alt=""></p>
+<p>Figure 4 展示了模型预测置信度与真实 DockQ 分数的对应关系。</p>
+<p>GeoFlow-V3 的 confidence score（类似 AlphaFold 的 pLDDT，但强化了界面特征）能以 0.8 为阈值精准区分正确与错误结构。</p>
+<p>结果显示：</p>
+<ul>
+<li>
+<p>当置信度 &gt; 0.8 时，预测正确率（precision）超过 <strong>80%</strong>；</p>
+</li>
+<li>
+<p>低置信度结果几乎从未对应真实结构。</p>
+</li>
+</ul>
+<p>换言之，GeoFlow-V3 已具备类似人类科学家“结果可信度判断”的能力。</p>
+<p>这种自评机制不仅使其在<strong>虚拟筛选（in silico screening）</strong>中具备可靠排序依据，也为后续的进化性生成（Section 2）提供了量化反馈信号。</p>
+<hr>
+<h4 id="4-小结高精度--自我置信--更强泛化">4. <strong>小结：高精度 + 自我置信 = 更强泛化</strong></h4>
+<p>凭借这一结构层面的双重突破——</p>
+<p><strong>高 DockQ 精度（结构可靠）</strong> 与 <strong>高置信区分度（评估可靠）</strong>，</p>
+<p>GeoFlow-V3 不仅在预测层面超越现有模型，更为“从头设计”的有效性提供了坚实的理论与实践基础。</p>
+<p>它第一次让“AI 自己判断自己对不对”成为现实，这种自评能力是其“多步推理–自我进化”体系的核心支点。</p>
+<hr>
+<h3 id="四从模型到现实快速从头设计与湿实验验证"><strong>四、从模型到现实——快速从头设计与湿实验验证</strong></h3>
+<p>GeoFlow-V3 的价值不仅在于更高精度的结构预测，更在于它真正将<strong>计算设计落地为可验证的抗体分子</strong>。</p>
+<p>这一部分的实验验证展示了一个完整闭环：从指定表位出发，模型生成候选 nanobody（VHH）分子，经 in silico 筛选与一轮湿实验，即可在三周内得到 nM 级结合分子。</p>
+<p>这代表着<strong>抗体发现流程从数月压缩至数周，从数百万样本缩减至数十个样本</strong>，实现了药物发现领域期待已久的“低样本、高命中”范式。</p>
+<hr>
+<h4 id="1-实验设计与目标靶点">1. <strong>实验设计与目标靶点</strong></h4>
+<p>团队选择了五个具有治疗潜力的靶标蛋白：</p>
+<p><strong>TSLP、IL-33、IL-13、CCR8、PD-1</strong>。</p>
+<p>这些靶点涵盖细胞因子、GPCR 与免疫检查点受体，代表不同类型的药物发现挑战。</p>
+<p>在设计时，每个靶点最多提供 10 个结构意义明确的表位残基（epitope residues），模型在每次前向推理时随机选取其中四个作为约束输入，生成针对特定表位的抗体。</p>
+<p>每轮仅保留 50 条序列进行湿实验验证，采用标准的 <strong>Bio-Layer Interferometry（BLI）</strong> 测定结合曲线。</p>
+<p>无任何已知抗体模板或参考序列被用作先验输入，确保设计完全 <strong>de novo</strong>。</p>
+<hr>
+<h4 id="2-高命中率平均-155-的实验成功率figure-8a">2. <strong>高命中率：平均 15.5% 的实验成功率（Figure 8A）</strong></h4>
+<p>结果令人瞩目：</p>
+<ul>
+<li>
+<p>在所有 8 个设计任务（5 个靶点 × 多个表位）中，<strong>每个任务均成功找到至少一个活性 binder</strong>；</p>
+</li>
+<li>
+<p>平均命中率达 <strong>15.5%</strong>，比主流算法高出两个数量级；</p>
+</li>
+<li>
+<p>每个任务仅需测试约 50 条序列，即能获得 nM 级结合的分子。</p>
+</li>
+</ul>
+<p><img src="images/image-2.png" alt=""></p>
+<p>Figure 8A 直观展示了不同靶点的成功率分布：在多个表位上均出现双位数命中，充分体现 GeoFlow-V3 的稳健性与普适性。</p>
+<p>相比传统的噬菌体展示（phage display）或酵母展示（yeast display）实验，这一效率提升可谓革命性——从数百万序列筛选降至数十个样本，意味着实验成本降低超过百倍。</p>
+<hr>
+<h4 id="3-设计的创新性与多样性figure-8b">3. <strong>设计的创新性与多样性（Figure 8B）</strong></h4>
+<p>高命中率并非来自“已知模式”的重现。</p>
+<p>GeoFlow-V3 生成的 VHH 分子在序列层面与已知抗体数据库（SAbDab-nano）几乎无重叠：</p>
+<ul>
+<li>
+<p>所有设计的 CDR 序列与最相近的已知 nanobody 均保持至少 <strong>10 个氨基酸的编辑距离（CDR Edit Distance ≥ 10）</strong>；</p>
+</li>
+<li>
+<p>框架 RMSD 聚类分析显示，不同靶点的 binder 呈现多个独立构象簇，表明模型不仅能生成正确结合构象，还能探索多种可能的结合模式。</p>
+</li>
+</ul>
+<p>换言之，GeoFlow-V3 不仅“命中”，而且“创新”——它能在结构合理性的约束下，发明出前所未有的抗体序列。</p>
+<hr>
+<h4 id="4-高亲和力与湿实验验证figure-8c">4. <strong>高亲和力与湿实验验证（Figure 8C）</strong></h4>
+<p>BLI 实验进一步验证了这些 de novo 设计分子的实际亲和力：</p>
+<ul>
+<li>
+<p>多个靶点的结合常数（KD）达 <strong>nM 级别</strong>（如 224 nM、225 nM、346 nM 等），</p>
+</li>
+<li>
+<p>这些结果来自单轮实验，无需后续优化或突变筛选。</p>
+</li>
+</ul>
+<p><img src="images/image-1.png" alt=""></p>
+<p>在抗体药物开发流程中，这意味着 GeoFlow-V3 已能够<strong>直接生成具有生物活性的候选抗体</strong>，为 AI 驱动的抗体药物发现提供了实际可用的技术路径。</p>
+<p>此外，后续实验还显示这些 binder 具有良好的特异性和低多反应性（low polyreactivity），进一步证明其药用潜力。</p>
+<hr>
+<h4 id="5-小结计算驱动的实验可验证性">5. <strong>小结：计算驱动的实验可验证性</strong></h4>
+<p>GeoFlow-V3 的实验结果标志着计算设计进入新的阶段：</p>
+<ul>
+<li>
+<p><strong>不是生成“看起来合理”的结构，而是生成“在实验中有效”的分子。</strong></p>
+</li>
+<li>
+<p>它在抗体设计中实现了真正的闭环验证：</p>
+</li>
+<li>
+<p>从 <em>AI 生成 → 模型自评 → in silico 演化 → 实验确认</em>，</p>
+</li>
+<li>
+<p>全过程仅需三周。</p>
+</li>
+</ul>
+<p>这不仅是一项模型性能的突破，更是一种 <strong>AI 驱动分子发现范式（AI-native drug discovery paradigm）</strong> 的具体实现。</p>
+<hr>
+<h3 id="五总结与展望ai-驱动的抗体设计新范式"><strong>五、总结与展望——AI 驱动的抗体设计新范式</strong></h3>
+<p>GeoFlow-V3 的发布标志着抗体设计进入了一个新的阶段：<strong>从“生成模型”迈向“推理模型”</strong>。</p>
+<p>这一转变不仅是算法层面的性能提升，更是蛋白质设计思想的根本革新。</p>
+<hr>
+<h4 id="1-科学意义从结构生成到推理式设计">1. <strong>科学意义：从结构生成到推理式设计</strong></h4>
+<p>在技术上，GeoFlow-V3 是首个实现<strong>多步推理（multi-step reasoning）</strong>的原子级扩散模型。</p>
+<p>它通过模拟自然免疫系统中的进化与亲和力成熟过程，实现了模型层面的“自我评估—自我演化—自我修正”闭环。</p>
+<p>这一机制带来了两个重要突破：</p>
+<ul>
+<li>
+<p><strong>自主评估（self-assessment）</strong>：模型能以高置信度区分正确与错误的预测（&gt;80% 准确率），为去人工化的虚拟筛选提供了可靠依据；</p>
+</li>
+<li>
+<p><strong>自主进化（self-improvement）</strong>：通过多轮迭代优化序列与结构，模型可在无外部数据监督下持续提高候选质量。</p>
+</li>
+</ul>
+<p>这种“自驱动推理”特征使 GeoFlow-V3 成为迄今最接近生物系统思维方式的蛋白质设计模型。</p>
+<p>它不再仅仅预测自然界已有的分子，而能在计算层面<strong>“发明”新的生物功能体</strong>。</p>
+<hr>
+<h4 id="2-实践意义低样本高命中的抗体设计体系">2. <strong>实践意义：低样本、高命中的抗体设计体系</strong></h4>
+<p>GeoFlow-V3 让过去数月的抗体发现流程浓缩为三周：</p>
+<ul>
+<li>
+<p>仅需 50 条候选序列即可找到至少一条 <strong>nM 级 binder</strong>；</p>
+</li>
+<li>
+<p>平均湿实验命中率 <strong>15.5%</strong>，远高于传统 pipeline（&lt;0.1%）；</p>
+</li>
+<li>
+<p>可在多个靶点、多个表位任务上保持稳定性能。</p>
+</li>
+</ul>
+<p>这意味着：</p>
+<blockquote>
+<p>计算模型不再只是加速实验，而是在实验之前，就已能筛选出高置信的活性分子。</p>
+</blockquote>
+<p>这一结果对于制药产业具有直接影响——从抗体药物到多肽、酶及蛋白配体，GeoFlow-V3 的架构为“低样本药物设计”（low-N discovery）提供了通用基础。</p>
+<hr>
+<h4 id="3-未来方向从可设计到可开发">3. <strong>未来方向：从可设计到可开发</strong></h4>
+<p>尽管 GeoFlow-V3 已展示出前所未有的效率与成功率，但团队也明确指出其当前的局限：</p>
+<ul>
+<li>
+<p>模型尚未显式优化 <strong>developability</strong> 属性（如热稳定性、溶解性、聚集倾向等）；</p>
+</li>
+<li>
+<p>结合亲和力虽达 nM 级，但距离临床应用级别（pM 级别）仍有提升空间；</p>
+</li>
+<li>
+<p>多目标优化（affinity–specificity–stability）仍是下一阶段的核心挑战。</p>
+</li>
+</ul>
+<p>未来的 GeoFlow 版本预计将引入：</p>
+<ul>
+<li>
+<p><strong>多目标生成优化（multi-objective generative optimization）</strong>；</p>
+</li>
+<li>
+<p><strong>结合实验数据的反馈学习（experiment-informed retraining）</strong>；</p>
+</li>
+<li>
+<p><strong>多模态扩展（结合配体、糖基化、PTM 等修饰）</strong>。</p>
+</li>
+</ul>
+<p>这些改进将使模型逐步从“设计能力”走向“开发能力”，真正实现 <strong>AI 驱动的端到端抗体发现</strong>。</p>
+<hr>
+<h4 id="4-结语">4. <strong>结语</strong></h4>
+<p>GeoFlow-V3 展示了一个清晰的未来图景：</p>
+<blockquote>
+<p>蛋白质设计不再是随机探索的高代价实验，而是一场由 AI 主导、理性推理驱动的科学过程。</p>
+</blockquote>
+<p>它让“AI 能设计出真正可用的抗体”成为现实，为结构生物学、免疫学与药物化学的交叉研究打开了新的方向。</p>
+<p>在这一意义上，GeoFlow-V3 不仅是一个模型，更是一种 <strong>科学范式的转变</strong>——</p>
+<p>它让 AI 从“预测自然”走向“创造生命”。</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/rfdiffusion3%E6%AD%A3%E5%BC%8F%E5%BC%80%E6%BA%90%E4%BA%86%E7%8E%B0%E9%98%B6%E6%AE%B5%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E7%BB%88%E6%9E%81%E7%AD%94%E6%A1%88/" class="link dim">
+                RFdiffusion3 开源：更快、更强、更“万能”的通用分子生成模型
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

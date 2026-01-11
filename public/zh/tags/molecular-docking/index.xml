@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Molecular Docking on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/molecular-docking/</link>
+    <description>Recent content in Molecular Docking on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 04 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/molecular-docking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>原来水分子才是关键！新方法 WIIGA 显著提升蛋白–糖分子预测准确率</title>
+      <link>http://localhost:1313/zh/literature/%E5%8E%9F%E6%9D%A5%E6%B0%B4%E5%88%86%E5%AD%90%E6%89%8D%E6%98%AF%E5%85%B3%E9%94%AE%E6%96%B0%E6%96%B9%E6%B3%95%E6%98%BE%E8%91%97%E6%8F%90%E5%8D%87%E8%9B%8B%E7%99%BD%E7%B3%96%E5%88%86%E5%AD%90%E9%A2%84%E6%B5%8B%E5%87%86%E7%A1%AE%E7%8E%87/</link>
+      <pubDate>Thu, 04 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%8E%9F%E6%9D%A5%E6%B0%B4%E5%88%86%E5%AD%90%E6%89%8D%E6%98%AF%E5%85%B3%E9%94%AE%E6%96%B0%E6%96%B9%E6%B3%95%E6%98%BE%E8%91%97%E6%8F%90%E5%8D%87%E8%9B%8B%E7%99%BD%E7%B3%96%E5%88%86%E5%AD%90%E9%A2%84%E6%B5%8B%E5%87%86%E7%A1%AE%E7%8E%87/</guid>
+      <description>针对糖分子柔性高、结合位点浅表亲水导致传统对接方法失效的问题，作者提出 WIIGA（水分子引导对接）策略，利用 apo 结构中的结晶水分布作为“相互作用线索”，引导糖分子构象搜索，并结合 3D-score 重新排序候选构象，在 30 个蛋白–寡糖体系中将正确预测率提升至 53%，显著优于现有方法。</description>
+    </item>
+  </channel>
+</rss>

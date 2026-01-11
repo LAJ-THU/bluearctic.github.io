@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computational Chemistry on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/computational-chemistry/</link>
+    <description>Recent content in Computational Chemistry on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 09 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/computational-chemistry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计</title>
+      <link>http://localhost:1313/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/</guid>
+      <description>Baker 团队提出 RFdiffusion2 框架，从反应所需的关键原子几何出发，直接生成可折叠、可表达、且具备高催化活性的 de novo 金属水解酶。设计酶 ZETA 系列在无需定向进化的情况下即达到 10⁴–10⁵ M⁻¹ s⁻¹ 的催化效率，并通过晶体结构验证其与设计模型高度一致，标志着功能导向蛋白设计范式的成立。</description>
+    </item>
+    <item>
+      <title>入门必读｜当我们在聊分子动力学模拟时，我们在聊什么？</title>
+      <link>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E6%A8%A1%E6%8B%9F%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98%E5%9F%BA%E4%BA%8E%E7%BB%93%E6%9E%84%E7%9A%84%E8%8D%AF%E7%89%A9%E5%8F%91%E7%8E%B0/</link>
+      <pubDate>Wed, 17 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E6%A8%A1%E6%8B%9F%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98%E5%9F%BA%E4%BA%8E%E7%BB%93%E6%9E%84%E7%9A%84%E8%8D%AF%E7%89%A9%E5%8F%91%E7%8E%B0/</guid>
+      <description>分子动力学模拟（MD）提供了比对接更接近真实生物环境的“分子电影”，能够刻画蛋白与配体的动态行为、构象变化与热力学本质，是连接计算预测与湿实验之间最关键的桥梁之一。</description>
+    </item>
+    <item>
+      <title>原来水分子才是关键！新方法 WIIGA 显著提升蛋白–糖分子预测准确率</title>
+      <link>http://localhost:1313/zh/literature/%E5%8E%9F%E6%9D%A5%E6%B0%B4%E5%88%86%E5%AD%90%E6%89%8D%E6%98%AF%E5%85%B3%E9%94%AE%E6%96%B0%E6%96%B9%E6%B3%95%E6%98%BE%E8%91%97%E6%8F%90%E5%8D%87%E8%9B%8B%E7%99%BD%E7%B3%96%E5%88%86%E5%AD%90%E9%A2%84%E6%B5%8B%E5%87%86%E7%A1%AE%E7%8E%87/</link>
+      <pubDate>Thu, 04 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%8E%9F%E6%9D%A5%E6%B0%B4%E5%88%86%E5%AD%90%E6%89%8D%E6%98%AF%E5%85%B3%E9%94%AE%E6%96%B0%E6%96%B9%E6%B3%95%E6%98%BE%E8%91%97%E6%8F%90%E5%8D%87%E8%9B%8B%E7%99%BD%E7%B3%96%E5%88%86%E5%AD%90%E9%A2%84%E6%B5%8B%E5%87%86%E7%A1%AE%E7%8E%87/</guid>
+      <description>针对糖分子柔性高、结合位点浅表亲水导致传统对接方法失效的问题，作者提出 WIIGA（水分子引导对接）策略，利用 apo 结构中的结晶水分布作为“相互作用线索”，引导糖分子构象搜索，并结合 3D-score 重新排序候选构象，在 30 个蛋白–寡糖体系中将正确预测率提升至 53%，显著优于现有方法。</description>
+    </item>
+  </channel>
+</rss>

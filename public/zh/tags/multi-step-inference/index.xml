@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Multi-Step Inference on 蓝极</title>
+    <link>http://localhost:1313/zh/tags/multi-step-inference/</link>
+    <description>Recent content in Multi-Step Inference on 蓝极</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 27 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/multi-step-inference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>百奥几何发布 GeoFlow-V3：三周找到 nM 级抗体的 AI 蛋白设计系统</title>
+      <link>http://localhost:1313/zh/literature/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Mon, 27 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E7%99%BE%E5%A5%A5%E5%87%A0%E4%BD%95%E5%8F%91%E5%B8%83geoflow-v3%E4%B8%89%E5%91%A8%E6%89%BE%E5%88%B0nm%E7%BA%A7%E6%8A%97%E4%BD%93%E7%9A%84ai%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F/</guid>
+      <description>百奥几何发布 GeoFlow-V3，引入多步推理与 in silico 演化机制，使抗体设计模型具备“自我评估与自我优化”能力。在多个真实靶点（TSLP、IL-33、PD-1 等）任务中，仅测试约 50 条序列即可稳定获得 nM 级结合分子，平均湿实验命中率达 15.5%，将抗体发现流程压缩至三周。</description>
+    </item>
+  </channel>
+</rss>

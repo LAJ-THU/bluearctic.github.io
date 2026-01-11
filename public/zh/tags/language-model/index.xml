@@ -6,14 +6,14 @@
     <description>Recent content in Language Model on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 23 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 Aug 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh/tags/language-model/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证</title>
-      <link>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</link>
-      <pubDate>Thu, 23 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/zh/literature/nature-biotechnology--%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E5%AF%B9-ph-%E5%93%8D%E5%BA%94%E7%9A%84%E8%87%AA%E7%BB%84%E8%A3%85%E8%9E%BA%E6%97%8B%E8%9B%8B%E7%99%BD%E4%B8%9D/</guid>
-      <description>PepMLM 提出一种基于肽语言模型的纯序列驱动设计框架，在无结构与无位点信息的条件下，仍能生成对多种靶蛋白具有高亲和力的结合肽，并通过体外实验系统验证其真实结合能力，展示出语言模型在功能肽设计中的巨大潜力。</description>
+      <link>http://localhost:1313/zh/literature/pepmlm/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepmlm/</guid>
+      <description>PepMLM 提出一种完全基于序列的结合肽设计框架，仅输入靶蛋白序列即可生成高特异性肽分子。在多项任务中命中率超过结构驱动方法，并通过 ELISA、细胞降解与病毒感染实验验证其真实功能。</description>
     </item>
   </channel>
 </rss>

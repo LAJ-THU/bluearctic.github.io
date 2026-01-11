@@ -6,8 +6,15 @@
     <description>Recent content in Binder on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 28 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Nov 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh/tags/binder/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Protein Hunter 深度解读：利用结构预测模型“幻觉”构建通用蛋白设计引擎</title>
+      <link>http://localhost:1313/zh/literature/protein-hunter%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BB%E8%AE%A9%E5%B9%BB%E8%A7%89%E7%99%BB%E5%B3%B0%E9%80%A0%E6%9E%81%E7%9A%84%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Sat, 29 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/protein-hunter%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BB%E8%AE%A9%E5%B9%BB%E8%A7%89%E7%99%BB%E5%B3%B0%E9%80%A0%E6%9E%81%E7%9A%84%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1%E6%A1%86%E6%9E%B6/</guid>
+      <description>Protein Hunter 提出一种全新的蛋白设计范式：利用 AlphaFold3 / Boltz 等结构预测模型在信息不足输入下产生的“结构幻觉”，结合 ProteinMPNN 等序列设计器构建结构–序列闭环循环，在无需微调模型、无需梯度优化的前提下，实现稳定 backbone 生成，并在 binder、小分子、环肽、DNA/RNA 及 motif scaffold 等多任务中优于传统方法。</description>
+    </item>
     <item>
       <title>BoltzGen深度解读:Boltz生态的闭环，通用Binder设计的开端？</title>
       <link>http://localhost:1313/zh/literature/boltzgen%E6%B7%B1%E5%BA%A6%E8%A7%A3%E8%AF%BBboltz%E7%94%9F%E6%80%81%E7%9A%84%E9%97%AD%E7%8E%AF%E9%80%9A%E7%94%A8binder%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%BC%80%E7%AB%AF/</link>
@@ -21,6 +28,20 @@
       <pubDate>Mon, 22 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/alphaproteo/</guid>
       <description>DeepMind 推出 AlphaProteo，将能力从结构预测推进到高亲和力蛋白结合物设计，并在 SARS-CoV-2、VEGF-A 等真实体系中实现功能级验证，标志着蛋白设计迈入可直接应用阶段。</description>
+    </item>
+    <item>
+      <title>Nature 重磅综述｜合成生物学教父剖析 AI 如何重写蛋白质设计的逻辑</title>
+      <link>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</guid>
+      <description>一篇来自 Cell 旗下 Structure 杂志的高质量综述，系统梳理了蛋白质设计从理性设计、能量优化到 AI 生成模型的完整演化路径，深入解析 hallucination、RFdiffusion、BindCraft 等关键技术，并展示 de novo binder 在免疫、抗毒、诊断等真实应用场景中的突破。</description>
+    </item>
+    <item>
+      <title>PepCCD：用对比学习与扩散模型实现序列驱动的多肽设计</title>
+      <link>http://localhost:1313/zh/literature/pepccd/</link>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepccd/</guid>
+      <description>PepCCD 提出一种融合对比学习与条件扩散模型的端到端框架，仅凭蛋白序列即可生成靶点特异性多肽。该方法在结合能力、多样性、生物活性预测与推理效率上全面优于现有序列方法，并在多项任务中可与结构驱动模型媲美。</description>
     </item>
     <item>
       <title>蛋白质 Binder 设计的三代演进：从 Rosetta 到 RFdiffusion</title>
@@ -44,6 +65,20 @@
       <description>BoltzDesign1 利用 Boltz 全原子模型进行反向优化，在无需扩散模型的情况下实现高成功率与高多样性的结合物设计，并首次系统性展示其在小分子、金属、核酸及翻译后修饰靶标上的通用潜力。</description>
     </item>
     <item>
+      <title>Nature Biotechnology｜PepMLM 实现纯序列驱动的结合肽设计与实验验证</title>
+      <link>http://localhost:1313/zh/literature/pepmlm/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pepmlm/</guid>
+      <description>PepMLM 提出一种完全基于序列的结合肽设计框架，仅输入靶蛋白序列即可生成高特异性肽分子。在多项任务中命中率超过结构驱动方法，并通过 ELISA、细胞降解与病毒感染实验验证其真实功能。</description>
+    </item>
+    <item>
+      <title>从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？</title>
+      <link>http://localhost:1313/zh/literature/pxdesign/</link>
+      <pubDate>Sun, 17 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/pxdesign/</guid>
+      <description>字节跳动 Seed 团队提出 PXDesign 框架，将扩散生成与幻觉优化相结合，并配合 Protenix 与 AF2-IG 的多模型筛选策略，在多个真实靶标上实现 20–61% 的体外命中率（PD-L1、IL-7RA 等甚至超过 70%），显著高于现有方法，展示出高成功率蛋白设计的现实可行性。</description>
+    </item>
+    <item>
       <title>3,766 个实验数据揭示 Binder 成功率的关键指标</title>
       <link>http://localhost:1313/zh/literature/3766-%E4%B8%AA%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AE%E6%8F%AD%E7%A4%BA%E7%AD%9B%E9%80%89%E8%9B%8B%E7%99%BD%E8%B4%A8-binder-%E6%9C%80%E9%9D%A0%E8%B0%B1%E7%9A%84%E6%8C%87%E6%A0%87%E6%98%AF%E4%BB%80%E4%B9%88/</link>
       <pubDate>Sat, 16 Aug 2025 00:00:00 +0000</pubDate>
@@ -56,6 +91,13 @@
       <pubDate>Wed, 06 Aug 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/llm-antibody-design/</guid>
       <description>Nature 提出“虚拟实验室（Virtual Lab）”概念，由多角色大模型 Agent 组成科研团队，自主完成课题规划、工具选择、代码编写与抗体设计流程，并最终设计出对新冠变异株具有真实结合能力的纳米抗体，展示出 AI 作为“科研主体”的初步形态。</description>
+    </item>
+    <item>
+      <title>NCFlow：面向非天然氨基酸多肽设计的新策略</title>
+      <link>http://localhost:1313/zh/literature/ncflow/</link>
+      <pubDate>Tue, 05 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/ncflow/</guid>
+      <description>NCFlow 提出一个面向非天然氨基酸（ncAA）的原子级构象生成模型，能够在蛋白 pocket 环境中预测任意 ncAA 的合理三维构象，并结合深度打分与分子动力学模拟，构建出一套可系统性设计高亲和力 ncAA 多肽的端到端流程。</description>
     </item>
     <item>
       <title>从结构出发设计肽药，BindCraft 可行吗？</title>
@@ -91,6 +133,13 @@
       <pubDate>Tue, 08 Jul 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/zh/literature/bindcraft%E4%B8%80%E7%AB%99%E5%BC%8F%E8%AE%BE%E8%AE%A1%E5%8A%9F%E8%83%BD%E6%80%A7%E8%9B%8B%E7%99%BDbinder/</guid>
       <description>BindCraft 提出一个全自动蛋白 binder 设计平台，通过反向优化 AlphaFold2 并结合 MPNN 与 Rosetta，在无需高通量筛选的情况下实现接近 50% 成功率的功能性结合剂设计。</description>
+    </item>
+    <item>
+      <title>RareFold：20种氨基酸不够用？让蛋白质设计进入“外挂模式”</title>
+      <link>http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 29 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/rarefold20%E7%A7%8D%E6%B0%A8%E5%9F%BA%E9%85%B8%E4%B8%8D%E5%A4%9F%E7%94%A8%E8%BF%99%E4%B8%AA%E6%A8%A1%E5%9E%8B%E8%AE%A9%E8%9B%8B%E7%99%BD%E8%B4%A8%E8%AE%BE%E8%AE%A1%E8%BF%9B%E5%85%A5%E5%A4%96%E6%8C%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description>RareFold 在 AlphaFold2 架构上引入“氨基酸 token 扩展”策略，使模型能够直接建模 29 种非天然氨基酸的结构特征，并在多项预测任务中优于 AlphaFold3；同时结合 EvoBindRare 框架，实现了含非天然氨基酸线性与环状多肽的从头设计，并通过 SPR 实验获得 μM 级真实结合活性。</description>
     </item>
   </channel>
 </rss>

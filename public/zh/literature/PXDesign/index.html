@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？ | 蓝极</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。">
+    <meta name="generator" content="Hugo 0.154.3">
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+
+    
+
+
+    
+      
+
+    
+
+    
+
+    
+      <link rel="canonical" href="http://localhost:1313/zh/literature/pxdesign/">
+    
+
+    
+    
+    <meta property="og:url" content="http://localhost:1313/zh/literature/pxdesign/">
+  <meta property="og:site_name" content="蓝极">
+  <meta property="og:title" content="从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？">
+  <meta property="og:description" content="深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="literature">
+    <meta property="article:published_time" content="2025-08-17T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-17T00:00:00+00:00">
+    <meta property="article:tag" content="AI4S">
+    <meta property="article:tag" content="Protein Design">
+    <meta property="article:tag" content="Binder">
+    <meta property="article:tag" content="Generative Model">
+    <meta property="article:tag" content="Diffusion Model">
+    <meta property="article:tag" content="Hallucination">
+    <meta property="og:image" content="http://localhost:1313/zh/literature/pxdesign/cover.png">
+
+  <meta itemprop="name" content="从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？">
+  <meta itemprop="description" content="深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。">
+  <meta itemprop="datePublished" content="2025-08-17T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2025-08-17T00:00:00+00:00">
+  <meta itemprop="wordCount" content="499">
+  <meta itemprop="image" content="http://localhost:1313/zh/literature/pxdesign/cover.png">
+  <meta itemprop="keywords" content="PXDesign,Protenix,protein binder design,diffusion protein design,structure hallucination,filtering and ranking,BLI validation,general molecular design">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/zh/literature/pxdesign/cover.png">
+  <meta name="twitter:title" content="从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？">
+  <meta name="twitter:description" content="深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。">
+
+	
+<meta name="keywords" content="PXDesign, Protenix, protein binder design, diffusion protein design, structure hallucination, filtering and ranking, BLI validation, general molecular design">
+
+
+
+<meta name="description" content="深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。">
+
+  </head><body class="ma0 avenir bg-near-white development">
+
+    
+  
+
+  
+  
+  
+  <header class="cover bg-center" style="background-image: url('/zh/literature/pxdesign/cover.png');">
+    <div class="bg-black-60">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
+      
+        蓝极
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/search/" title="搜索 页">
+              搜索
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/about/" title="我是谁 页">
+              我是谁
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/projects/" title="我做过什么 页">
+              我做过什么
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/literature/" title="文献解读 页">
+              文献解读
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/tutorial/" title="AI4S 教程 页">
+              AI4S 教程
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white white-90 no-underline" href="/zh/whisper/" title="蓝极呢喃 页">
+              蓝极呢喃
+            </a>
+          </li>
+          
+        </ul>
+      
+      <div class="ananke-socials"></div>
+
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv6 ph3 ph4-ns">
+        
+          <div class="f2 f1-l fw2 white-90 mb0 lh-title">从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？</div>
+          
+            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+              深度解读 PXDesign 技术报告：通过 diffusion 负责结构空间探索、hallucination 负责精细优化，并引入 Protenix 与 AF2-IG 互补打分体系，在真实 BLI 实验中验证多类靶标结合能力。同时展示其在环肽、核酸、小分子等跨模态任务上的潜力，初步显露出“通用分子设计引擎”的雏形。
+            </div>
+          
+        
+      </div>
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+
+  <article class="flex-l mw7 center ph3 flex-wrap justify-between">
+
+    
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+        AI4S文献
+      </aside><div id="sharing" class="mt3 ananke-socials"></div>
+<h1 class="f1 athelas mt3 mb1">
+        从 Protenix 到 PXDesign：字节的蛋白质设计 AI 能否弯道超车？
+      </h1>
+
+      
+
+      
+      <time class="f6 mv4 dib tracked"
+            datetime="2025-08-17T00:00:00Z">
+        八月 17, 2025
+      </time>
+      
+
+      
+    </header>
+
+    
+    <div class="nested-copy-line-height lh-copy
+                serif
+                f4 nested-links
+                mid-gray
+                pr4-l
+                w-100-l">
+
+      
+      <p><strong>笔者按：</strong></p>
+<p>在这周五（2025.8.15),字节跳动的Seed团队发出了PXDesign的技术报告。这个团队之前是国内第一个成功复现Alphafold3的团队，他们将他们的复现模型命名为Proteinix（这个名字起的挺好：可以理解为Protein+x，符合AF3蛋白质+全原子的模型定位，也可以理解成Phenix，像凤凰一样腾飞）。他们在今年1月发出了Proteinix的技术报告，在8月就发开了对应的蛋白设计模型PXDesign，进度非常快（不愧是大公司）。不过，这应该也是他们很早就规划好的路，因为有了好的结构预测模型，大家都会很自然的想到基于这个好的结构预测模型去做一个好的设计模型。那今天就来读一读，他们新开发的PXDesign的技术报告，看看和传统方法比有哪些提升。</p>
+<hr>
+<p><img src="/zh/literature/pxdesign/images/image-9.png" alt=""></p>
+<p><img src="/zh/literature/pxdesign/images/image-2.png" alt=""></p>
+<hr>
+<h2 id="1-背景介绍">1. 背景介绍</h2>
+<p>在过去几年里，AI 在蛋白质结构预测上的突破（如 AlphaFold）震惊了整个生命科学界。但科学家们心中的“终极问题”还没有解决：</p>
+<p><strong>能不能让 AI 不止预测结构，而是直接设计出能牢牢结合靶标的蛋白？</strong></p>
+<p>这就是所谓的 <strong>蛋白结合物（protein binders）设计</strong> ——它是新型抗体、受体拮抗剂和信号通路调控工具的核心。</p>
+<p>然而，现实往往比想象更残酷：</p>
+<ul>
+<li>
+<p>现有方法（如 AlphaProteo、RFDiffusion）在一些靶标上确实能找到 binder；</p>
+</li>
+<li>
+<p>但<strong>命中率低</strong>，意味着实验室要测试大量候选，才能侥幸找到几个真正有效的。</p>
+</li>
+</ul>
+<p>那么问题来了：<strong>有没有可能把命中率提升几个档次，让实验变得更“划算”？</strong></p>
+<p>最近，字节跳动 Seed 团队给出了一个令人眼前一亮的答案：</p>
+<p>他们发布了一个全新的设计框架 —— <strong>PXDesign</strong>。</p>
+<p>在六个不同的蛋白靶标上，它把实验命中率提升到了 <strong>20–61%</strong>，而且在大多数情况下都比以往的方法高出 2–5 倍。</p>
+<p>更重要的是，研究团队还把这个系统做成了 <strong>开源工具和在线服务</strong>，任何人都能尝试。</p>
+<ul>
+<li>
+<p>Github仓库：https://github.com/bytedance/PXDesignBench</p>
+</li>
+<li>
+<p>在线服务器：https://protenix-server.com/</p>
+</li>
+</ul>
+<hr>
+<p>📌 在这篇推文里，我们将结合论文里的图，带你逐步理解：</p>
+<ol>
+<li>
+<p>PXDesign 是如何把命中率提上去的？</p>
+</li>
+<li>
+<p>它为什么能比之前的方法更稳？</p>
+</li>
+<li>
+<p>未来它是否会成为一个“万能分子设计 AI”？</p>
+</li>
+</ol>
+<hr>
+<h2 id="2-为什么需要新方法">2. <strong>为什么需要新方法？</strong></h2>
+<p>在蛋白结合物设计中，<strong>生成只是第一步</strong>。</p>
+<p>AI 可以轻松吐出成千上万条候选序列，但问题是：</p>
+<p>👉 <strong>哪些才是真正可能结合的？</strong></p>
+<p><img src="/zh/literature/pxdesign/images/image-7.png" alt=""></p>
+<p>这就需要 <strong>筛选与排序 (Filtering &amp; Ranking)</strong>。</p>
+<p>就像做药物筛选，关键在于从“海量噪音”里挑出真正的钻石。</p>
+<hr>
+<h3 id="21-传统筛选的问题">2.1 <strong>传统筛选的问题</strong></h3>
+<p>目前最常用的筛选方式，是基于 <strong>AlphaFold2 改进版 (AF2-IG)</strong> 提供的置信度指标（pLDDT、pTM、ipTM 等）。</p>
+<p>但问题是：</p>
+<ul>
+<li>
+<p>在某些靶标上，AF2-IG 的指标确实能 enrich 出真正的 binder；</p>
+</li>
+<li>
+<p>但在另一些靶标上，效果就会变差。</p>
+</li>
+<li>
+<p>换句话说，<strong>单一指标不够稳健</strong>。</p>
+</li>
+</ul>
+<p>论文团队在多个数据集上做了系统对比，结果非常有意思：</p>
+<p><img src="/zh/literature/pxdesign/images/image-6.png" alt=""></p>
+<ul>
+<li>
+<p><strong>Figure 1a</strong>：单个置信度指标的成功率对比。</p>
+<ul>
+<li>👉 Protenix 系列指标（pLDDT、pTM、ipTM、ipAE）几乎全面优于 AF2-IG。</li>
+</ul>
+</li>
+<li>
+<p><strong>Figure 1c</strong>：维恩图展示 Protenix 与 AF2-IG 筛选出的真阳性。</p>
+<ul>
+<li>👉 两者的重叠 surprisingly 小，说明它们关注的设计空间很不一样。</li>
+</ul>
+</li>
+<li>
+<p><strong>Figure 1d</strong>：拿 RFDiffusion 生成的设计，分别用 AF2-IG 和 Protenix 来重新排序。</p>
+<ul>
+<li>👉 用 Protenix 的 ipTM 排序后，命中率 <strong>显著提升</strong>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="22-结论">2.2 <strong>结论</strong></h3>
+<p>这给我们一个很关键的启示：</p>
+<ul>
+<li>
+<p><strong>筛选不是越单一越好，而是要多模型互补。</strong></p>
+</li>
+<li>
+<p>Protenix + AF2-IG 的联合使用，可以覆盖更广的设计空间，提高找到真 binder 的概率。</p>
+</li>
+</ul>
+<p>这也是 PXDesign 能大幅提升命中率的第一大秘诀：</p>
+<p>👉 <strong>不仅要会“生成”，更要会“挑选”。</strong></p>
+<hr>
+<h2 id="3-pxdesign-的核心生成--筛选">3. <strong>PXDesign 的核心——生成 + 筛选</strong></h2>
+<p>在筛选之前，我们得先有“候选池”。</p>
+<p>那么问题来了：<strong>这些候选是怎么来的？</strong></p>
+<hr>
+<h3 id="-两条路扩散-vs-幻觉"><strong>⚙️ 两条路：扩散 vs 幻觉</strong></h3>
+<p>在蛋白设计领域，目前主流的生成方式有两种：</p>
+<p><img src="/zh/literature/pxdesign/images/image-4.png" alt=""></p>
+<ol>
+<li>
+<p><strong>扩散模型 (Diffusion)</strong></p>
+<ul>
+<li>
+<p>类似图像生成中的 Stable Diffusion，但对象换成了蛋白结构。</p>
+</li>
+<li>
+<p>优点：生成速度快、样本多样性高。</p>
+</li>
+<li>
+<p>缺点：需要训练大模型，成本高。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>幻觉优化 (Hallucination)</strong></p>
+<ul>
+<li>
+<p>原理是“反向优化”：让序列在结构预测模型里得高分。</p>
+</li>
+<li>
+<p>优点：针对性强，能做精细优化。</p>
+</li>
+<li>
+<p>缺点：速度慢，不适合大规模。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>PXDesign 聪明地做了一个“组合拳”：</p>
+<p>👉 扩散模型（PXDesign-d）负责 <strong>大规模探索</strong>，</p>
+<p>👉 幻觉优化（PXDesign-h）负责 <strong>小范围精细打磨</strong>。</p>
+<hr>
+<h3 id="-figure-2谁更强"><strong>📊 Figure 2：谁更强？</strong></h3>
+<p><img src="/zh/literature/pxdesign/images/image-8.png" alt=""></p>
+<p>论文在 10 个蛋白靶标上做了大规模测试，结果很清晰：</p>
+<ul>
+<li>
+<p><strong>Figure 2c/d</strong>：成功率对比</p>
+<ul>
+<li>👉 PXDesign-d 的成功率全面超过 RFDiffusion，不论是用 AF2-IG 还是 Protenix 做筛选。</li>
+</ul>
+</li>
+<li>
+<p><strong>Figure 2e</strong>：结构多样性</p>
+<ul>
+<li>
+<p>👉 PXDesign-d 生成的结构簇数量更多，不再像 RFDiffusion 那样“α-螺旋偏好严重”。</p>
+</li>
+<li>
+<p>这意味着它探索的结构空间更广。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Figure 2f</strong>：二级结构组成</p>
+<ul>
+<li>👉 PXDesign-d 生成的 binder 在 α-螺旋和 β-折叠之间更平衡，说明它能设计出风格多样的候选。</li>
+</ul>
+</li>
+</ul>
+<h3 id="-结论"><strong>💡 结论</strong></h3>
+<p>这一系列对比告诉我们：</p>
+<ul>
+<li>
+<p>在“生成”阶段，PXDesign-d 能提供 <strong>更多、更快、更丰富</strong> 的候选；</p>
+</li>
+<li>
+<p>搭配前面讲的 <strong>多模型筛选 (Protenix + AF2-IG)</strong>，PXDesign 就能从“大海捞针”变成“定向捕鱼”。</p>
+</li>
+</ul>
+<p>这就是它为什么能在后续实验中有 <strong>显著命中率优势</strong> 的根本原因。</p>
+<hr>
+<h2 id="4-命中率的真正考验体外实验">4. <strong>命中率的真正考验——体外实验</strong></h2>
+<p>在计算机上成功，并不意味着在实验室也能成功。</p>
+<p><strong>真正的考验，是把设计好的蛋白拿到实验台上，看它能不能真的结合。</strong></p>
+<hr>
+<h3 id="41--实验设计">4.1 <strong>🧪 实验设计</strong></h3>
+<p>研究团队挑选了 6 个具有代表性的靶标：</p>
+<ul>
+<li>
+<p><strong>IL-7RA</strong>（免疫受体）</p>
+</li>
+<li>
+<p><strong>SC2RBD</strong>（新冠病毒受体结合域）</p>
+</li>
+<li>
+<p><strong>PD-L1</strong>（免疫检查点）</p>
+</li>
+<li>
+<p><strong>TrkA</strong>（神经生长因子受体）</p>
+</li>
+<li>
+<p><strong>VEGF-A</strong>（血管生成因子）</p>
+</li>
+<li>
+<p><strong>TNF-α</strong>（炎症因子）</p>
+</li>
+</ul>
+<p>流程很严格：</p>
+<ol>
+<li>
+<p>先用 <strong>PXDesign-d</strong> 生成候选；</p>
+</li>
+<li>
+<p>再用 <strong>Protenix + AF2-IG 双重筛选</strong>，保证质量；</p>
+</li>
+<li>
+<p>然后在大肠杆菌系统里表达；</p>
+</li>
+<li>
+<p>最后通过 <strong>BLI（生物层干涉）实验</strong>测定结合亲和力。</p>
+</li>
+</ol>
+<hr>
+<h3 id="42--figure-3数据一目了然">4.2 <strong>📊 Figure 3：数据一目了然</strong></h3>
+<p><img src="/zh/literature/pxdesign/images/image-3.png" alt=""></p>
+<p>Figure 3 给出了多个成功 binder 的结构预测和 BLI 曲线：</p>
+<ul>
+<li>
+<p><strong>IL-7RA</strong></p>
+<ul>
+<li>
+<p>命中率从旧版 PXDesign v0 的 40% → 新版的 72.7%。</p>
+</li>
+<li>
+<p>图中 BLI 曲线清晰显示出纳摩尔级别的结合亲和力（KD ~1.9 nM）。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>SC2RBD</strong></p>
+<ul>
+<li>
+<p>从 22.2% → 提升到 50%。</p>
+</li>
+<li>
+<p>这在新冠相关研究里意义重大。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>PD-L1</strong></p>
+<ul>
+<li>
+<p>命中率高达 <strong>72.7% (8/11)</strong>，远超 AlphaProteo（~11%）。</p>
+</li>
+<li>
+<p>图中曲线表明结合信号强且稳定。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>VEGF-A</strong></p>
+<ul>
+<li>同样达到 47% 以上命中率，BLI 曲线 KD ~13 nM。</li>
+</ul>
+</li>
+<li>
+<p><strong>TrkA</strong></p>
+<ul>
+<li>命中率 ~20%，表现稳定。</li>
+</ul>
+</li>
+<li>
+<p><strong>TNF-α</strong></p>
+<ul>
+<li>唯一的失败靶标（0 成功），也提示了 PXDesign 仍有局限性。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="43-结论">4.3 <strong>结论</strong></h3>
+<p>这些实验告诉我们：</p>
+<ul>
+<li>
+<p>PXDesign 不只是“计算机里看起来很强”，而是能在 <strong>真实实验</strong> 里交出漂亮成绩单。</p>
+</li>
+<li>
+<p>特别是像 <strong>PD-L1、IL-7RA</strong> 这样的免疫相关靶标，命中率远远高于以往方法。</p>
+</li>
+<li>
+<p>即便在最难啃的 <strong>SC2RBD</strong> 上，也实现了 2 倍以上提升。</p>
+</li>
+</ul>
+<p>一句话总结：</p>
+<p>👉 <strong>PXDesign 把蛋白设计从“可能成功”变成了“很大概率会成功”。</strong></p>
+<hr>
+<h2 id="5-从蛋白到统一分子设计平台">5. <strong>从蛋白到统一分子设计平台</strong></h2>
+<p>如果说前面的实验已经证明 PXDesign 在 <strong>蛋白–蛋白结合物</strong> 上表现出色，那么团队接下来的探索更有野心：</p>
+<p>👉 <strong>能不能让同一套框架，跨越到其他分子类型？</strong></p>
+<hr>
+<h3 id="51-figure-5跨模态设计的案例">5.1 <strong>Figure 5：跨模态设计的案例</strong></h3>
+<p>Figure 5 展示了一系列“零样本”的案例设计：</p>
+<ul>
+<li>
+<p>RNA、DNA 的结合物</p>
+</li>
+<li>
+<p>小分子配体的结合物</p>
+</li>
+<li>
+<p>甚至还包括对称寡聚体的生成</p>
+</li>
+</ul>
+<p><img src="/zh/literature/pxdesign/images/image.png" alt=""></p>
+<p>这些图的核心信息是：</p>
+<ul>
+<li>PXDesign 的架构并不是为某一种分子“硬编码”的，而是基于 Protenix 预测器的通用性，可以天然适配到多种分子体系。</li>
+</ul>
+<p>换句话说，<strong>PXDesign = 一个通用分子设计引擎的雏形。</strong></p>
+<hr>
+<h3 id="52-figure-6环肽cyclic-peptides的验证">5.2 <strong>Figure 6：环肽（Cyclic Peptides）的验证</strong></h3>
+<p><img src="/zh/literature/pxdesign/images/image-5.png" alt=""></p>
+<p>研究团队选择了环肽这一“跨模态”测试场景。为什么是环肽？</p>
+<ul>
+<li>
+<p>它们结构紧凑，常常作为小分子药物的替代。</p>
+</li>
+<li>
+<p>与蛋白 binder 设计类似，但长度更短（8–18 氨基酸）。</p>
+</li>
+</ul>
+<p><strong>结果：</strong></p>
+<ul>
+<li>
+<p>在 12 个目标上，PXDesign（无论是 diffusion 还是 hallucination）都超过了之前的 RFpeptides 方法。</p>
+</li>
+<li>
+<p>特别是在困难靶标 TNF-α 上，PXDesign-h 甚至可以直接生成功能性环肽序列。</p>
+</li>
+<li>
+<p>图 6c–d 的例子更有趣：</p>
+<ul>
+<li>针对 MDM2 的环肽设计，竟然复现了著名的 “F-W-L” 疏水三元组，这是天然结合界面中关键的识别信号。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="53-结论">5.3 <strong>结论</strong></h3>
+<p>从 Figure 5 和 6 可以看出：</p>
+<ul>
+<li>
+<p>PXDesign 已经从一个“蛋白设计工具”，走向了一个 <strong>统一分子设计平台</strong>。</p>
+</li>
+<li>
+<p>它不仅能设计蛋白结合物，还能跨越到 <strong>核酸、小分子、环肽</strong>，甚至未来可能扩展到更复杂的药物分子。</p>
+</li>
+</ul>
+<p>一句话总结：</p>
+<p>👉 <strong>PXDesign 的潜力，远不止蛋白设计，它可能成为“通用分子 AI”。</strong></p>
+<hr>
+<h2 id="6-局限性与挑战">6. <strong>局限性与挑战</strong></h2>
+<p>看到前面的结果，你可能会觉得 PXDesign 已经“无所不能”。</p>
+<p>但研究团队也很坦诚：它仍然有不少限制。</p>
+<hr>
+<h3 id="61x20x20figure-4靶标依赖性强">6.1 <strong> Figure 4：靶标依赖性强</strong></h3>
+<p>Figure 4 展示了不同靶标在 <strong>pTM 评分分布</strong>和<strong>成功率变化</strong>上的差异。</p>
+<p><img src="/zh/literature/pxdesign/images/image-1.png" alt=""></p>
+<ul>
+<li>
+<p>有的靶标（如 FGFR2），只要把阈值调高一点，成功率就能从 5% 突然飙升到 100%。</p>
+</li>
+<li>
+<p>但在另一些靶标（如 SC2RBD）上，同样的阈值调整却可能让成功率直接掉到 0。</p>
+</li>
+</ul>
+<p>👉 这说明：<strong>没有一个通用的筛选阈值能适配所有靶标</strong>。</p>
+<p>PXDesign 需要针对不同靶标做定制化的参数选择。</p>
+<hr>
+<h3 id="62-数据集不足">6.2 <strong>数据集不足</strong></h3>
+<ul>
+<li>
+<p>目前用来做评估的公共数据集（比如 Cao dataset）阳性样本很少。</p>
+</li>
+<li>
+<p>这导致模型的精度评估容易失真，有时候在 benchmark 上看似效果不好，但在真实实验里反而能成功（比如 SC2RBD 的情况）。</p>
+</li>
+<li>
+<p>👉 这提醒我们：<strong>社区迫切需要更大规模、更高质量的开放数据集。</strong></p>
+</li>
+</ul>
+<hr>
+<h3 id="63-流水线复杂--成本高">6.3 <strong>流水线复杂 &amp; 成本高</strong></h3>
+<p>PXDesign 的流程包括：</p>
+<ol>
+<li>
+<p>生成</p>
+</li>
+<li>
+<p>预测</p>
+</li>
+<li>
+<p>筛选</p>
+</li>
+<li>
+<p>聚类</p>
+</li>
+<li>
+<p>再筛选</p>
+</li>
+</ol>
+<p>这种多步流程虽然模块化、可解释，但也意味着计算资源消耗很大，在时间敏感的场景里会有瓶颈。</p>
+<hr>
+<h3 id="64-实验通量限制">6.4 <strong>实验通量限制</strong></h3>
+<p>目前团队的实验主要依赖 <strong>BLI 测试</strong>，每个靶标大约能测 10–20 个候选。</p>
+<p>这远远不够支撑大规模探索。</p>
+<p>如果未来能结合 <strong>展示技术（display-based screening）</strong>，就能把通量提升一个数量级。</p>
+<hr>
+<h3 id="65-小结">6.5 <strong>小结</strong></h3>
+<p>PXDesign 已经在多数靶标上实现了前所未有的命中率，但：</p>
+<ul>
+<li>
+<p><strong>靶标依赖性强</strong>（Figure 4 直观展示了这一点）；</p>
+</li>
+<li>
+<p><strong>公共 benchmark 数据不足</strong>；</p>
+</li>
+<li>
+<p><strong>实验验证通量受限</strong>。</p>
+</li>
+</ul>
+<p>换句话说，PXDesign 已经把 binder 设计推上了新台阶，但距离“万能设计 AI”还有不少路要走。</p>
+<hr>
+<h2 id="7-总结与展望">7. <strong>总结与展望</strong></h2>
+<p>回顾整篇论文，我们可以看到 PXDesign 的几个核心亮点：</p>
+<ol>
+<li>
+<p><strong>生成 + 筛选的组合拳</strong></p>
+<ul>
+<li>
+<p>扩散模型负责大规模探索，幻觉优化负责小范围精细调优。</p>
+</li>
+<li>
+<p>多模型筛选（Protenix + AF2-IG）让命中率大幅提高。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>实验验证有力</strong></p>
+<ul>
+<li>
+<p>在五个靶标上取得 20–61% 的命中率，远超现有方法。</p>
+</li>
+<li>
+<p>在 PD-L1、IL-7RA 等免疫相关靶标上表现尤其亮眼。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>跨模态潜力</strong></p>
+<ul>
+<li>
+<p>不仅能做蛋白–蛋白结合物，还能拓展到环肽、小分子、DNA/RNA。</p>
+</li>
+<li>
+<p>展示出成为 <strong>统一分子设计平台</strong> 的可能性。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="71-但挑战依然存在">7.1 <strong>但挑战依然存在</strong></h3>
+<ul>
+<li>
+<p><strong>靶标依赖性强</strong>：不同蛋白需要不同阈值（Figure 4）。</p>
+</li>
+<li>
+<p><strong>数据集不足</strong>：现有 benchmark 过于稀疏，难以全面评估方法。</p>
+</li>
+<li>
+<p><strong>实验瓶颈</strong>：BLI 测试通量有限，未来需要更高通量的验证手段。</p>
+</li>
+</ul>
+<hr>
+<h3 id="72-展望未来">7.2 <strong>展望未来</strong></h3>
+<p>PXDesign 告诉我们，AI 设计不再只是“瞎碰运气”，而是有机会变成 <strong>高命中率、可控的科学流程</strong>。</p>
+<p>它或许还不能称为真正的“万能分子设计 AI”，但已经在向这个方向迈出了一大步。</p>
+<p>未来，当更多高质量数据、更多跨模态验证和更高通量实验平台出现时，</p>
+<p>👉 <strong>我们离“通用分子设计引擎”的时代，可能就不远了。</strong></p>
+<h3 id="73-点评">7.3 <strong>点评：</strong></h3>
+<p>对于我们中国人来说，Proteinix和PXDesign的意义可能更重大，因为这是对现在世界上热门领域的一次国产化替代，如果效果好的话，可能能帮中国实现在蛋白质设计这个未来可能渗透进各行各业的核心技术领域，实现很好的弯道超车。</p>
+
+
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4 bg-near-white br2">
+        <h3 class="f4 fw6 mb3">延伸阅读</h3>
+
+        
+          <p class="f6 lh-copy mb3">
+            本文属于 <strong>AI4S文献</strong> 栏目。
+          </p>
+
+          <a href="/zh/literature/"
+             class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link ph3 pv2 mr2">
+            返回 AI4S文献 →
+          </a>
+        
+
+        
+          <a href="https://mp.weixin.qq.com/s/QCjqNzlT0VDxtSAwjCOD-w"
+             target="_blank"
+             rel="noopener"
+             class="ba b--dark-green bg-washed-green br2 dark-green dib f7 hover-bg-light-green link ph3 pv2">
+            去公众号阅读完整版 →
+          </a>
+        
+      </section>
+
+      
+      
+      
+      <hr class="mv5">
+
+      <section class="ph3 pv4">
+        <h3 class="f4 fw6 mb3">同栏目近期文章</h3>
+
+        <ul class="list pl0">
+          
+            <li class="mb2">
+              <a href="/zh/literature/sciencedrugclip%E8%B5%B0%E5%90%91%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BA%A7%E5%88%AB%E7%9A%84%E5%B0%8F%E5%88%86%E5%AD%90%E7%AD%9B%E9%80%89/" class="link dim">
+                Science｜DrugCLIP：走向基因组级别的小分子筛选
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/science--%E8%A5%BF%E6%B9%96%E5%A4%A7%E5%AD%A6%E6%9B%B9%E9%BE%99%E5%85%B4%E5%9B%A2%E9%98%9F%E4%BB%8E%E5%A4%B4%E8%AE%BE%E8%AE%A1%E5%8F%AF%E8%A2%AB%E5%B0%8F%E5%88%86%E5%AD%90%E9%81%A5%E6%8E%A7%E7%9A%84%E5%8A%A8%E6%80%81%E8%9B%8B%E7%99%BD/" class="link dim">
+                Science｜从头设计可被小分子“遥控”的动态蛋白
+              </a>
+            </li>
+          
+            <li class="mb2">
+              <a href="/zh/literature/%E7%BB%93%E6%9E%84%E4%B8%8D%E6%98%AF%E5%89%8D%E6%8F%90%E5%82%AC%E5%8C%96%E6%89%8D%E6%98%AFrfdiffusion2-%E6%94%B9%E5%8F%98%E9%87%91%E5%B1%9E%E9%85%B6%E8%AE%BE%E8%AE%A1/" class="link dim">
+                结构不是前提，催化才是：RFdiffusion2 重塑金属酶设计
+              </a>
+            </li>
+          
+        </ul>
+      </section>
+      
+
+      
+      <ul class="pa0">
+  
+   <li class="list di">
+     <a href="/zh/tags/ai4s/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">AI4S</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/protein-design/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Protein Design</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/binder/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Binder</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/generative-model/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Generative Model</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/diffusion-model/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Diffusion Model</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/hallucination/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Hallucination</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/protenix/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">Protenix</a>
+   </li>
+  
+   <li class="list di">
+     <a href="/zh/tags/pxdesign/" class="link f5 grow br-pill ba ph3 pv2 mb2 dib black sans-serif no-underline">PXDesign</a>
+   </li>
+  
+</ul>
+
+
+      <div class="mt6 instapaper_ignoref">
+        
+        
+      </div>
+    </div>
+
+    
+    
+
+  </article>
+
+    </main>
+    <footer class="bg-black white-80 pv4 ph3 ph5-l">
+
+  <div class="mw8 center">
+
+    <div class="flex flex-wrap">
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f5 fw6 mb2">BlueArctic · 蓝极</h4>
+        <p class="f6 lh-copy o-80 mb3">
+          结构生物学 × 人工智能 × AI4S 文献解读与方法总结
+        </p>
+
+        <div class="mb2">
+          <a href="/zh/literature/" class="link white-80 dim mr3 f6">AI4S 文献</a>
+          <a href="/zh/tutorial/" class="link white-80 dim mr3 f6">教程</a>
+          <a href="/zh/projects/" class="link white-80 dim mr3 f6">项目</a>
+          <a href="/zh/about/" class="link white-80 dim f6">关于我</a>
+        </div>
+      </div>
+
+      
+      <div class="w-100 w-third-l mb4 mb0-l">
+        <h4 class="f6 fw6 mb2">微信公众号</h4>
+
+        <img src="/images/wechat_qrcode_complex.jpeg"
+             alt="微信公众号二维码"
+             class="db mb2"
+             style="max-width:120px;">
+
+        <p class="f7 o-70">
+          扫码关注，获取完整解读与最新更新
+        </p>
+
+        <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkxMDYwMzIzMA=="
+           class="link white-80 dim f6">
+          公众号主页 →
+        </a>
+      </div>
+
+      
+      <div class="w-100 w-third-l">
+        <h4 class="f6 fw6 mb2">小红书</h4>
+
+        <img src="/images/xhs_qrcode.jpg"
+             alt="小红书二维码"
+             class="db mb2"
+             style="max-width:100px;">
+
+        <p class="f7 o-70">
+          AI4S / 科研工具 / 学术思考碎片化记录
+        </p>
+
+        <a href="https://www.xiaohongshu.com/user/profile/5f3dc4ef00000000010031b9"
+           target="_blank"
+           rel="noopener"
+           class="link white-80 dim f6">
+          访问小红书主页 →
+        </a>
+      </div>
+
+    </div>
+
+    
+    <div class="bt b--white-10 pt3 mt4 f7 o-60">
+      © 2026 蓝极 BlueArctic
+    </div>
+
+  </div>
+
+</footer>
+  </body>
+</html>

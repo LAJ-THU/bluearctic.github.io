@@ -6,8 +6,15 @@
     <description>Recent content in Review on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 31 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Sep 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/zh/tags/review/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nature 重磅综述｜合成生物学教父剖析 AI 如何重写蛋白质设计的逻辑</title>
+      <link>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Fri, 12 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/zh/literature/%E5%85%A5%E9%97%A8%E5%BF%85%E8%AF%BB%E7%BB%BC%E8%BF%B0%E4%BB%8E%E5%86%99%E4%BB%A3%E7%A0%81%E5%88%B0%E9%80%A0%E8%9B%8B%E7%99%BDai-%E8%B5%8B%E8%83%BD%E7%9A%84-de-novo-%E7%BB%93%E5%90%88%E8%9B%8B%E7%99%BD%E8%AE%BE%E8%AE%A1/</guid>
+      <description>一篇来自 Cell 旗下 Structure 杂志的高质量综述，系统梳理了蛋白质设计从理性设计、能量优化到 AI 生成模型的完整演化路径，深入解析 hallucination、RFdiffusion、BindCraft 等关键技术，并展示 de novo binder 在免疫、抗毒、诊断等真实应用场景中的突破。</description>
+    </item>
     <item>
       <title>从静态到动态：AI 在蛋白质动力学建模中的新进展</title>
       <link>http://localhost:1313/zh/literature/generation-of-protein-dynamics-by-machine-learning/</link>
