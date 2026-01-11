@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Alphafold on 蓝极</title>
+    <title>AlphaFold on 蓝极</title>
     <link>http://localhost:1313/zh/tags/alphafold/</link>
-    <description>Recent content in Alphafold on 蓝极</description>
+    <description>Recent content in AlphaFold on 蓝极</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Mon, 22 Sep 2025 00:00:00 +0000</lastBuildDate>

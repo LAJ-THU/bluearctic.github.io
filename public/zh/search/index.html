@@ -6,7 +6,7 @@
     
     <title>搜索 | 蓝极</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="搜索你感兴趣的文章、工具与话题">
     <meta name="generator" content="Hugo 0.154.3">
     
     
@@ -45,25 +45,31 @@
     <meta property="og:url" content="http://localhost:1313/zh/search/">
   <meta property="og:site_name" content="蓝极">
   <meta property="og:title" content="搜索">
-  <meta property="og:description" content="">
+  <meta property="og:description" content="搜索你感兴趣的文章、工具与话题">
   <meta property="og:locale" content="zh_cn">
   <meta property="og:type" content="website">
 
   <meta itemprop="name" content="搜索">
-  <meta itemprop="description" content="">
+  <meta itemprop="description" content="搜索你感兴趣的文章、工具与话题">
+  <meta itemprop="wordCount" content="1">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="搜索">
-  <meta name="twitter:description" content="">
+  <meta name="twitter:description" content="搜索你感兴趣的文章、工具与话题">
 
 	
 
+
+<meta name="description" content="搜索你感兴趣的文章、工具与话题">
 
   </head><body class="ma0 avenir bg-near-white development">
 
     
 
-  <header>
-    <div class="pb3-m pb6-l bg-black">
+  
+  
+  <header class="cover bg-top" style="background-image: url('http://localhost:1313/images/arctic_hr.JPG');">
+    
+    <div class="bg-black-60">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l center items-center justify-between">
     <a href="/zh/" class="f3 fw2 hover-white white-90 dib no-underline">
@@ -121,10 +127,14 @@
   </div>
 </nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+      <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
           搜索
         </h1>
+        
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+            搜索你感兴趣的文章、工具与话题
+          </h2>
         
       </div>
     </div>
@@ -133,27 +143,57 @@
 
     <main class="pb7" role="main">
       
-<div class="mw7 center pa4">
-  <h1 class="f2 mb4">搜索</h1>
+  <article class="pa3 pa4-ns nested-copy-line-height">
 
-  <input 
-    id="search-input"
-    class="input-reset ba b--moon-gray pa3 w-100 br2"
-    style="font-size:18px"
-    placeholder="搜索标题 / 摘要 / 标签..."
-  >
-
-  <div id="search-results" class="mt4"></div>
+    
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links mid-gray"><div style="max-width:760px;margin:0 auto;padding:2rem 1rem;">
+  <p style="color:#555;font-size:17px;">
+    只是站在了巨人的肩膀上
+  </p>
+  <div id="search-app" style="margin-top:1.5rem;">
+    <input
+      id="search-input"
+      type="text"
+      placeholder="搜索文章标题、摘要、标签…（按 / 快速聚焦）"
+      style="
+        width:100%;
+        padding:14px 16px;
+        font-size:16px;
+        border-radius:12px;
+        border:1px solid #ddd;
+        outline:none;
+        transition:all .2s ease;
+        box-sizing:border-box;
+      "
+      onfocus="this.style.borderColor='#999'"
+      onblur="this.style.borderColor='#ddd'"
+    >
+    <div id="search-meta" style="margin-top:1rem;font-size:14px;color:#888;"></div>
+    <div id="search-results" style="margin-top:1.5rem;"></div>
+  </div>
 </div>
+<script src="/js/search.js"></script></section>
 
-<style>
-  mark {
-    background: #ffe58a;
-    padding: 0 2px;
-  }
-</style>
 
-<script src="/js/search.js"></script>
+    
+    
+    
+
+    
+
+    <div class="tc gray f6 mb3">
+      共收录 0 篇文献解读 · 最近更新于 
+    </div>
+
+    
+    
+
+    
+    <section class="flex-ns mt4 flex-wrap justify-around">
+      
+    </section>
+
+    </article>
 
     </main>
     <footer class="bg-black white-80 pv4 ph3 ph5-l">
